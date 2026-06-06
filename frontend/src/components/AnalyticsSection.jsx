@@ -23,8 +23,8 @@ function AnalyticsSection() {
   const fetchData = async () => {
     try {
       const [bRes, cRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/brands"),
-        axios.get("http://localhost:5000/api/creator")
+        axios.get("http://influnexa-backend-7.onrender.com/api/brands"),
+        axios.get("http://influnexa-backend-7.onrender.com/api/creator")
       ]);
 
       setBrands(bRes.data?.brands || []);
@@ -38,7 +38,7 @@ function AnalyticsSection() {
   useEffect(() => {
     fetchData();
 
-    const socket = io("http://localhost:5000");
+    const socket = io("influnexa-backend-7.onrender.com:5000");
 
     socket.on("new-brand", fetchData);
     socket.on("update-brand", fetchData);

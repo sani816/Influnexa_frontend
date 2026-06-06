@@ -10,7 +10,7 @@ function NotificationSection() {
     // LOAD SAVED NOTIFICATIONS
     fetchNotifications();
 
-    const socket = io("http://localhost:5000");
+    const socket = io("http://influnexa-backend-7.onrender.com");
 
     // LIVE NOTIFICATIONS
     socket.on("notification", (data) => {
@@ -30,7 +30,7 @@ function NotificationSection() {
   const fetchNotifications = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/notifications"
+        "http://influnexa-backend-7.onrender.com/api/notifications"
       );
 
       setNotifications(res.data);
@@ -42,7 +42,7 @@ function NotificationSection() {
   const deleteNotification = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/notifications/${id}`
+        `http://influnexa-backend-7.onrender.com/api/notifications/${id}`
       );
 
       setNotifications((prev) =>

@@ -41,7 +41,7 @@ const handleBooking = async (e) => {
 
   try {
     await axios.post(
-      "http://localhost:5000/api/consultation/book-consultation",
+      "http://influnexa-backend-7.onrender.com/api/consultation/book-consultation",
       bookingData
     );
 
@@ -87,7 +87,7 @@ const handleMessage = async (e) => {
 
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/message/send-message",
+      "http://influnexa-backend-7.onrender.com/api/message/send-message",
       messageData
     );
 

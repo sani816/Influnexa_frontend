@@ -223,7 +223,7 @@ function CreatorSection() {
             <img
               src={
                 creator.image
-                  ? `http://localhost:5000/uploads/${creator.image}`
+                  ? `http://influnexa-backend-7.onrender.com/uploads/${creator.image}`
                   : "https://via.placeholder.com/400x200"
               }
               className="w-full h-44 object-cover"

@@ -28,7 +28,7 @@ function BrandTable({ brands, loadData }) {
   const updateBrand = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/api/admin/brand/${editBrand._id}`,
+        `http://influnexa-backend-7.onrender.com/api/admin/brand/${editBrand._id}`,
         formData
       );
 
