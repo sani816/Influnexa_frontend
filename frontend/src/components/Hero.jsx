@@ -279,7 +279,7 @@ try {
   creatorData.campaignTypes
 );
     const response = await axios.post(
-      "http://influnexa-backend-7.onrender.com/api/creator/register",
+      "https://influnexa-backend-7.onrender.com/api/creator/register",
       formDataToSend,
       {
         headers: {
@@ -430,7 +430,7 @@ try {
 
   try {
     const response = await axios.post(
-      "http://influnexa-backend-7.onrender.com/api/brands/register",
+      "https://influnexa-backend-7.onrender.com/api/brands/register",
       formData
     );
 

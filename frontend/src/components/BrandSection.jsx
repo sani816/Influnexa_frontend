@@ -18,7 +18,7 @@ function BrandSection() {
    const generateMatches = async (brandsList) => {
   try {
     const res = await axios.get(
-      "http://influnexa-backend-7.onrender.com/api/creator"
+      "https://influnexa-backend-7.onrender.com/api/creator"
     );
 
     const creators = res.data.creators || [];
@@ -127,7 +127,7 @@ function BrandSection() {
     setLoading(true);
 
     const res = await axios.get(
-      "http://influnexa-backend-7.onrender.com/api/brands"
+      "https://influnexa-backend-7.onrender.com/api/brands"
     );
 
     const data = res.data?.brands || [];
@@ -147,7 +147,7 @@ function BrandSection() {
   const updateBrand = async () => {
     try {
       const res = await axios.put(
-        `http://influnexa-backend-7.onrender.com/api/brands/${editBrand._id}`,
+        `https://influnexa-backend-7.onrender.com/api/brands/${editBrand._id}`,
         editBrand
       );
 

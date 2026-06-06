@@ -13,14 +13,14 @@ function CreatorSection() {
 
   // FETCH
   const fetchCreators = async () => {
-    const res = await axios.get("http://localhost:5000/api/creator");
+    const res = await axios.get("https://influnexa-backend-7.onrender.com/api/creator");
     setCreators(res.data.creators || []);
   };
 
   useEffect(() => {
     fetchCreators();
 
-    const socket = io("http://localhost:5000");
+    const socket = io("https://influnexa-backend-7.onrender.com");
 
     socket.on("new-creator", (data) => {
       setCreators((prev) => [data, ...prev]);
@@ -41,7 +41,7 @@ function CreatorSection() {
 
   // DELETE
   const deleteCreator = async (id) => {
-    await axios.delete(`http://localhost:5000/api/creator/${id}`);
+    await axios.delete(`https://influnexa-backend-7.onrender.com/api/creator/${id}`);
   };
 
   // UPDATE
@@ -57,7 +57,7 @@ function CreatorSection() {
       formData.append("instagramUsername", editData.instagramUsername);
 
       await axios.put(
-        `http://localhost:5000/api/creator/${editData._id}`,
+        `https://influnexa-backend-7.onrender.com/api/creator/${editData._id}`,
         formData
       );
 

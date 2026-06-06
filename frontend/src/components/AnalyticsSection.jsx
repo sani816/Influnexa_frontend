@@ -23,8 +23,8 @@ function AnalyticsSection() {
   const fetchData = async () => {
     try {
       const [bRes, cRes] = await Promise.all([
-        axios.get("http://influnexa-backend-7.onrender.com/api/brands"),
-        axios.get("http://influnexa-backend-7.onrender.com/api/creator")
+        axios.get("https://influnexa-backend-7.onrender.com/api/brands"),
+        axios.get("https://influnexa-backend-7.onrender.com/api/creator")
       ]);
 
       setBrands(bRes.data?.brands || []);

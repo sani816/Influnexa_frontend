@@ -10,7 +10,7 @@ function CreatorTable({creators,loadData}) {
     if(!confirmDelete) return;
 
     await axios.delete(
-      `http://influnexa-backend-7.onrender.com/api/admin/creator/${id}`
+      `https://influnexa-backend-7.onrender.com/api/admin/creator/${id}`
     );
 
     loadData();
@@ -49,7 +49,7 @@ function CreatorTable({creators,loadData}) {
               <td>
 
                 <img
-                  src={`http://influnexa-backend-7.onrender.com/uploads/${creator.image}`}
+                  src={`https://influnexa-backend-7.onrender.com/uploads/${creator.image}`}
                   className="w-16 h-16 rounded-full"
                 />
 

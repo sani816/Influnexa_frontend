@@ -25,7 +25,7 @@ function DashboardHome() {
 
     fetchStats();
 
-    const socket = io("http://influnexa-backend-7.onrender.com");
+    const socket = io("https://influnexa-backend-7.onrender.com");
 
     // BRAND CREATED
     socket.on("new-brand", (data) => {
@@ -77,7 +77,7 @@ function DashboardHome() {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get("http://influnexa-backend-7.onrender.com/api/admin/stats");
+      const res = await axios.get("https://influnexa-backend-7.onrender.com/api/admin/stats");
 
       setStats({
         totalBrands: res.data.totalBrands,
