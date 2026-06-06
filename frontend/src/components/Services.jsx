@@ -3,10 +3,10 @@ const services = [
     title: "Influencer Marketing",
     video: "/services/influencer.mp4",
   },
-  {
-    title: "Instagram Campaigns",
-    video: "/services/instagram.mp4",
-  },
+  // {
+  //   title: "Instagram Campaigns",
+  //   video: "/services/instagram.mp4",
+  // },
   {
     title: "YouTube Promotions",
     video: "/services/youtube.mp4",
@@ -28,10 +28,10 @@ const services = [
     video: "/services/creator.mp4",
   },
  
-  {
-    title: "Influencer Outreach",
-    video: "/services/outreach.mp4",
-  },
+  // {
+  //   title: "Influencer Outreach",
+  //   video: "/services/outreach.mp4",
+  // },
   {
     title: "UGC Content Creation",
     video: "/services/ugc.mp4",
