@@ -88,72 +88,42 @@ function Blog() {
 
       <div className="bg-gradient-to-b from-cyan-600 via-purple-900 to-pink-300 text-white">
 
-        {/* Hero */}
-        <section className="py-24 text-black relative z-10">
-          <div className="max-w-7xl mx-auto px-6 text-center">
+        {/* HERO */}
+        <section className="py-16 sm:py-24 text-black relative z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
 
-            <h1 className="text-6xl font-bold mb-6">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6">
               InfluNexa Blog
             </h1>
 
-            <p className="text-xl max-w-3xl mx-auto text-white">
-              Insights, strategies, trends, and growth stories from the
-              world of influencer marketing.
+            <p className="text-sm sm:text-lg md:text-xl max-w-3xl mx-auto text-white">
+              Insights, strategies, trends, and growth stories from the world of influencer marketing.
             </p>
 
           </div>
         </section>
 
-        {/* Featured Article */}
-        <section className="py-0 bg-transparent">
+        {/* FEATURED */}
+        <section className="py-6 sm:py-10 bg-transparent">
 
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-            <div
-              className="
-                bg-white/10
-                backdrop-blur-xl
-                border
-                border-white/20
-                rounded-3xl
-                overflow-hidden
-                shadow-xl
-                grid
-                md:grid-cols-2
-              "
-            >
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 md:grid-cols-2">
 
               <img
                 src="https://images.unsplash.com/photo-1460925895917-afdab827c52f"
-                alt="featured"
-                className="w-full h-full object-cover"
+                className="w-full h-60 sm:h-80 md:h-full object-cover"
               />
 
-              <div className="p-10 text-white">
+              <div className="p-6 sm:p-10 text-white">
 
-                <h2 className="text-4xl font-bold mt-6 text-black">
+                <h2 className="text-2xl sm:text-4xl font-bold mt-4 sm:mt-6 text-black">
                   Complete Guide to Influencer Marketing Success
                 </h2>
 
-                <p className="mt-6 text-white">
-                  Learn everything from influencer discovery to campaign
-                  management and ROI measurement.
+                <p className="mt-4 sm:mt-6 text-sm sm:text-base">
+                  Learn everything from influencer discovery to campaign management and ROI measurement.
                 </p>
-
-                {/* <button
-                  className="
-                    mt-8
-                    bg-cyan-500
-                    px-6
-                    py-3
-                    rounded-lg
-                    hover:bg-cyan-400
-                    hover:shadow-[0_0_25px_#06b6d4]
-                    transition
-                  "
-                >
-                  Read More
-                </button> */}
 
               </div>
 
@@ -163,63 +133,47 @@ function Blog() {
 
         </section>
 
-        {/* Latest Articles */}
-        <section className="py-20">
+        {/* BLOGS */}
+        <section className="py-12 sm:py-20">
 
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-            <h2 className="text-5xl font-bold text-center mb-12 text-black">
+            <h2 className="text-3xl sm:text-5xl font-bold text-center mb-8 sm:mb-12 text-black">
               Latest Articles
             </h2>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 
               {blogs.map((blog) => (
-                <div
-                  key={blog.id}
-                  className="flip-card h-[500px]"
-                >
-                  <div
-                    className={`flip-card-inner ${
-                      flippedCards[blog.id] ? "flipped" : ""
-                    }`}
-                  >
+                <div key={blog.id} className="flip-card h-[420px] sm:h-[480px] md:h-[500px]">
 
-                    {/* Front */}
+                  <div className={`flip-card-inner ${flippedCards[blog.id] ? "flipped" : ""}`}>
+
+                    {/* FRONT */}
                     <div className="flip-card-front">
 
                       <img
                         src={blog.image}
-                        alt={blog.title}
-                        className="w-full h-56 object-cover"
+                        className="w-full h-40 sm:h-48 md:h-56 object-cover"
                       />
 
-                      <div className="p-6 text-white">
+                      <div className="p-4 sm:p-6 text-white">
 
-                        <span className="text-cyan-400 font-semibold">
+                        <span className="text-cyan-400 font-semibold text-sm sm:text-base">
                           {blog.category}
                         </span>
 
-                        <h3 className="text-2xl font-bold mt-3 text-black">
+                        <h3 className="text-lg sm:text-2xl font-bold mt-2 sm:mt-3 text-black">
                           {blog.title}
                         </h3>
 
-                        <p className="text-white mt-4">
+                        <p className="text-white mt-3 sm:mt-4 text-sm sm:text-base">
                           {blog.description}
                         </p>
 
                         <button
                           onClick={() => toggleCard(blog.id)}
-                          className="
-                            mt-6
-                            text-black
-                            font-bold
-                            bg-cyan-600
-                            rounded-2xl
-                            py-2
-                            px-4
-                            hover:text-white
-                          "
+                          className="mt-4 sm:mt-6 bg-cyan-600 text-black font-bold rounded-2xl py-2 px-4 text-sm sm:text-base"
                         >
                           Read Article →
                         </button>
@@ -228,28 +182,20 @@ function Blog() {
 
                     </div>
 
-                    {/* Back */}
-                    <div className="flip-card-back">
+                    {/* BACK */}
+                    <div className="flip-card-back p-4 sm:p-6">
 
-                      <h3 className="text-3xl font-bold mb-6">
+                      <h3 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6">
                         {blog.title}
                       </h3>
 
-                      <p className="leading-8 text-lg">
+                      <p className="text-sm sm:text-lg leading-6 sm:leading-8">
                         {blog.article}
                       </p>
 
                       <button
                         onClick={() => toggleCard(blog.id)}
-                        className="
-                          mt-8
-                          bg-white
-                          text-black
-                          px-5
-                          py-2
-                          rounded-xl
-                          font-bold
-                        "
+                        className="mt-6 sm:mt-8 bg-white text-black px-4 sm:px-5 py-2 rounded-xl font-bold"
                       >
                         ← Back
                       </button>
@@ -257,6 +203,7 @@ function Blog() {
                     </div>
 
                   </div>
+
                 </div>
               ))}
 
@@ -267,59 +214,6 @@ function Blog() {
         </section>
 
         <WhyChooseUs />
-
-        {/* Newsletter */}
-        {/* <section className="py-20 text-white">
-
-          <div className="max-w-4xl mx-auto px-6 text-center">
-
-            <h2 className="text-4xl font-bold mb-6 text-black">
-              Stay Updated
-            </h2>
-
-            <p className="mb-8 text-gray-100">
-              Subscribe to receive the latest influencer marketing insights.
-            </p>
-
-            <div className="flex flex-col md:flex-row gap-4 justify-center">
-
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="
-                  px-4
-                  py-3
-                  rounded-lg
-                  bg-black/15
-                  backdrop-blur-xl
-                  border
-                  border-white/20
-                  text-black
-                  w-full
-                  md:w-96
-                "
-              />
-
-              <button
-                className="
-                  bg-cyan-500
-                  px-6
-                  py-3
-                  rounded-lg
-                  font-bold
-                  hover:bg-cyan-400
-                  hover:shadow-[0_0_25px_#06b6d4]
-                  transition
-                "
-              >
-                Subscribe
-              </button>
-
-            </div>
-
-          </div>
-
-        </section> */}
 
       </div>
 

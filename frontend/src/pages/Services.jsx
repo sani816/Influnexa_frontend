@@ -77,48 +77,53 @@ function Services() {
     <>
       <Navbar />
 
-      {/* Hero */}
-      <section className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white py-24">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+        {/* HERO */}
+      <section className="bg-gradient-to-r from-indigo-900 to-purple-800 text-white py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
 
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6">
             Our Services
           </h1>
 
-          <p className="text-xl max-w-3xl mx-auto">
-            Full-service influencer marketing solutions
-            designed to grow your brand.
+          <p className="text-sm sm:text-lg md:text-xl max-w-3xl mx-auto">
+            Full-service influencer marketing solutions designed to grow your brand.
           </p>
 
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
+  {/* SERVICES GRID */}
+      <section className="py-12 sm:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-          <h2 className="text-4xl font-bold text-center mb-12">
+          <h2 className="text-2xl sm:text-4xl font-bold text-center mb-8 sm:mb-12">
             What We Offer
           </h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 
             {services.map((service, index) => (
               <div
                 key={index}
-                className="bg-white shadow-lg rounded-xl p-8 hover:-translate-y-2 transition duration-300"
+                className="
+                  bg-white shadow-lg rounded-xl p-6 sm:p-8
+                  hover:-translate-y-2 transition duration-300
+                  border border-gray-100
+                "
               >
+
                 <div className="text-indigo-600 mb-4">
                   {service.icon}
                 </div>
 
-                <h3 className="text-2xl font-bold mb-4">
+                <h3 className="text-lg sm:text-2xl font-bold mb-3 sm:mb-4">
                   {service.title}
                 </h3>
 
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm sm:text-base">
                   {service.description}
                 </p>
+
               </div>
             ))}
 
@@ -127,73 +132,54 @@ function Services() {
         </div>
       </section>
 
-      {/* Process */}
-      <section className="bg-gray-100 py-20">
+       {/* PROCESS */}
+      <section className="bg-gray-100 py-12 sm:py-20">
 
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-          <h2 className="text-4xl font-bold text-center mb-12">
+          <h2 className="text-2xl sm:text-4xl font-bold text-center mb-8 sm:mb-12">
             Our Process
           </h2>
 
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
 
-            <div className="bg-white p-6 rounded-xl shadow">
-              <h3 className="font-bold text-xl mb-3">
-                1. Strategy
-              </h3>
-              <p>
-                Understand your brand goals and audience.
-              </p>
-            </div>
+            {[
+              { title: "Strategy", desc: "Understand your brand goals and audience." },
+              { title: "Creator Selection", desc: "Match with relevant influencers." },
+              { title: "Execution", desc: "Launch and monitor campaigns." },
+              { title: "Reporting", desc: "Analyze results and optimize performance." },
+            ].map((item, i) => (
+              <div key={i} className="bg-white p-5 sm:p-6 rounded-xl shadow">
 
-            <div className="bg-white p-6 rounded-xl shadow">
-              <h3 className="font-bold text-xl mb-3">
-                2. Creator Selection
-              </h3>
-              <p>
-                Match with relevant influencers.
-              </p>
-            </div>
+                <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3">
+                  {i + 1}. {item.title}
+                </h3>
 
-            <div className="bg-white p-6 rounded-xl shadow">
-              <h3 className="font-bold text-xl mb-3">
-                3. Execution
-              </h3>
-              <p>
-                Launch and monitor campaigns.
-              </p>
-            </div>
+                <p className="text-sm sm:text-base text-gray-600">
+                  {item.desc}
+                </p>
 
-            <div className="bg-white p-6 rounded-xl shadow">
-              <h3 className="font-bold text-xl mb-3">
-                4. Reporting
-              </h3>
-              <p>
-                Analyze results and optimize performance.
-              </p>
-            </div>
+              </div>
+            ))}
 
           </div>
 
         </div>
 
       </section>
+      <section className="bg-indigo-700 text-white py-12 sm:py-20">
 
-      {/* CTA */}
-      <section className="bg-indigo-700 text-white py-20">
+        <div className="max-w-5xl mx-auto text-center px-4 sm:px-6">
 
-        <div className="max-w-5xl mx-auto text-center px-6">
-
-          <h2 className="text-5xl font-bold mb-6">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
             Ready To Grow Your Brand?
           </h2>
 
-          <p className="text-xl mb-8">
+          <p className="text-sm sm:text-lg md:text-xl mb-6 sm:mb-8">
             Start your influencer marketing journey today.
           </p>
 
-          <button className="bg-white text-indigo-700 px-8 py-4 rounded-lg font-bold hover:scale-105 transition">
+          <button className="bg-white text-indigo-700 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold hover:scale-105 transition">
             Book Free Consultation
           </button>
 

@@ -16,7 +16,7 @@ import ReelsBackground from "../components/ReelsBackground";
 
 function Home() {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-x-hidden">
 
       {/* Video Background */}
       <ReelsBackground />

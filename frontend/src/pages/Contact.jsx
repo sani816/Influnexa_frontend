@@ -122,7 +122,7 @@ const handleMessage = async (e) => {
     <>
       <Navbar />
       {showSuccess && (
-  <div className="fixed top-5 right-5 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-bounce">
+  <div className="fixed top-5 left-4 right-4 sm:left-auto sm:right-5 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-bounce text-center">
     ✅ Consultation Booked Successfully!
   </div>
 )}
@@ -137,11 +137,11 @@ const handleMessage = async (e) => {
       <section className="bg-gradient-to-r from-indigo-900 to-purple-900 text-white py-2">
         <div className="max-w-7xl mx-auto px-6 text-center">
 
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-black">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-black">
             Contact Us
           </h1>
 
-          <p className="text-xl max-w-3xl mx-auto text-black">
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-black px-4">
             Let's discuss your next influencer marketing campaign.
           </p>
 
@@ -153,9 +153,9 @@ const handleMessage = async (e) => {
 
         <div className="max-w-7xl mx-auto px-6">
 
-          <div className="grid lg:grid-cols-4 gap-8 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
 
-            <div className=" p-8 rounded-xl shadow-lg text-center bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white">
+            <div className="p-5 sm:p-8 rounded-xl shadow-lg text-center bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white">
 
               <FaPhone
                 size={40}
@@ -170,7 +170,7 @@ const handleMessage = async (e) => {
 
             </div>
 
-            <div className="bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white p-8 rounded-xl shadow-lg text-center">
+            <div className="bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white p-5 sm:p-8 rounded-xl shadow-lg text-center">
 
               <FaEnvelope
                 size={40}
@@ -226,12 +226,12 @@ const handleMessage = async (e) => {
 
         <div className="max-w-7xl mx-auto px-6">
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
             {/* Contact Form */}
             <div className="bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white p-8 rounded-xl shadow-lg">
 
-              <h2 className="text-3xl font-bold mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6">
                 Send Us A Message
               </h2>
 
@@ -244,7 +244,7 @@ const handleMessage = async (e) => {
   onChange={(e) =>
     setMessageData({ ...messageData, name: e.target.value })
   }
-  className="w-full border p-4 rounded-lg"
+  className="w-full border p-3 sm:p-4 rounded-lg text-black"
 />
 
 <input
@@ -254,7 +254,7 @@ const handleMessage = async (e) => {
   onChange={(e) =>
     setMessageData({ ...messageData, email: e.target.value })
   }
-  className="w-full border p-4 rounded-lg"
+  className="w-full border p-3 sm:p-4 rounded-lg text-black"
 />
 
 <input
@@ -264,7 +264,7 @@ const handleMessage = async (e) => {
   onChange={(e) =>
     setMessageData({ ...messageData, company: e.target.value })
   }
-  className="w-full border p-4 rounded-lg"
+  className="w-full border p-3 sm:p-4 rounded-lg text-black"
 />
 
 <input
@@ -274,7 +274,7 @@ const handleMessage = async (e) => {
   onChange={(e) =>
     setMessageData({ ...messageData, budget: e.target.value })
   }
-  className="w-full border p-4 rounded-lg"
+  className="w-full border p-3 sm:p-4 rounded-lg text-black"
 />
 
 <textarea
@@ -284,7 +284,7 @@ const handleMessage = async (e) => {
   onChange={(e) =>
     setMessageData({ ...messageData, message: e.target.value })
   }
-  className="w-full border p-4 rounded-lg"
+  className="w-full border p-3 sm:p-4 rounded-lg text-black"
 />
                 <button
   type="submit"
@@ -324,7 +324,7 @@ const handleMessage = async (e) => {
         name: e.target.value,
       })
     }
-    className="w-full p-4 rounded-lg text-black bg-white"
+    className="w-full p-3 sm:p-4 rounded-lg text-black bg-white"
     required
   />
 
@@ -338,7 +338,7 @@ const handleMessage = async (e) => {
         email: e.target.value,
       })
     }
-    className="w-full p-4 rounded-lg text-black bg-white"
+    className="w-full p-3 sm:p-4 rounded-lg text-black bg-white"
     required
   />
 
@@ -351,7 +351,7 @@ const handleMessage = async (e) => {
         date: e.target.value,
       })
     }
-    className="w-full p-4 rounded-lg text-black bg-white"
+    className="w-full p-3 sm:p-4 rounded-lg text-black bg-white"
     required
   />
 
@@ -364,7 +364,7 @@ const handleMessage = async (e) => {
         time: e.target.value,
       })
     }
-    className="w-full p-4 rounded-lg text-black bg-white"
+    className="w-full p-3 sm:p-4 rounded-lg text-black bg-white"
     required
   />
 <button
@@ -400,20 +400,21 @@ const handleMessage = async (e) => {
 
         <div className="max-w-7xl mx-auto px-6">
 
-          <h2 className="text-4xl font-bold text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10">
             Our Location
           </h2>
 
           <div className="rounded-xl overflow-hidden shadow-lg">
 
-            <iframe
-              title="map"
-              src="https://www.google.com/maps/embed?pb="
-              width="100%"
-              height="450"
-              allowFullScreen=""
-              loading="lazy"
-            ></iframe>
+           <iframe
+  title="map"
+  src="https://www.google.com/maps/embed?pb="
+  width="100%"
+  height="300"
+  className="w-full md:h-[450px]"
+  allowFullScreen=""
+  loading="lazy"
+></iframe>
 
           </div>
 
@@ -426,11 +427,11 @@ const handleMessage = async (e) => {
 
         <div className="max-w-5xl mx-auto text-center px-6">
 
-          <h2 className="text-4xl font-bold mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8">
             Follow Us
           </h2>
 
-          <div className="flex justify-center gap-8 text-4xl">
+          <div className="flex flex-wrap justify-center gap-6 text-3xl sm:text-4xl">
 
             <a href="#">
               <FaInstagram className="hover:text-pink-500 transition" />

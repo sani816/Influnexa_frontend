@@ -90,48 +90,46 @@ function Influencer() {
     <>
       <Navbar />
 
-      {/* Hero */}
-      <section className="bg-gradient-to-r from-purple-900 to-indigo-900 text-white py-24">
+      {/* HERO */}
+      <section className="bg-gradient-to-r from-purple-900 to-indigo-900 text-white py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
 
-        <div className="max-w-7xl mx-auto px-6 text-center">
-
-          <h1 className="text-5xl md:text-6xl font-bold">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold">
             Influencer Network
           </h1>
 
-          <p className="mt-6 text-xl">
+          <p className="mt-4 sm:mt-6 text-sm sm:text-lg md:text-xl">
             Discover creators across multiple niches.
           </p>
 
         </div>
-
       </section>
 
-      {/* Search */}
-      <section className="py-10 bg-gray-100">
+      {/* SEARCH */}
+      <section className="py-8 sm:py-10 bg-gray-100">
 
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
           <input
             type="text"
             placeholder="Search influencers..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full border rounded-lg p-4 mb-6"
+            className="w-full border rounded-lg p-3 sm:p-4 mb-4 sm:mb-6 text-sm sm:text-base"
           />
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2 sm:gap-3">
 
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-5 py-2 rounded-full transition
-                ${
-                  selectedCategory === category
-                    ? "bg-indigo-600 text-white"
-                    : "bg-white border"
-                }`}
+                className={`px-3 sm:px-5 py-1 sm:py-2 text-sm sm:text-base rounded-full transition
+                  ${
+                    selectedCategory === category
+                      ? "bg-indigo-600 text-white"
+                      : "bg-white border"
+                  }`}
               >
                 {category}
               </button>
@@ -143,35 +141,35 @@ function Influencer() {
 
       </section>
 
-      {/* Influencers Grid */}
-      <section className="py-20">
+      {/* GRID */}
+      <section className="py-12 sm:py-20">
 
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 
             {filteredCreators.map((creator) => (
               <div
                 key={creator.id}
                 className="bg-white shadow-lg rounded-xl overflow-hidden hover:-translate-y-2 transition"
               >
+
                 <img
                   src={creator.image}
-                  alt={creator.name}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-52 sm:h-60 md:h-64 object-cover"
                 />
 
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
 
-                  <h3 className="text-2xl font-bold">
+                  <h3 className="text-xl sm:text-2xl font-bold">
                     {creator.name}
                   </h3>
 
-                  <p className="text-indigo-600 font-semibold">
+                  <p className="text-indigo-600 font-semibold text-sm sm:text-base">
                     {creator.category}
                   </p>
 
-                  <div className="mt-4 space-y-2">
+                  <div className="mt-3 sm:mt-4 space-y-1 sm:space-y-2 text-sm sm:text-base">
 
                     <p>👥 Followers: {creator.followers}</p>
                     <p>📈 Engagement: {creator.engagement}</p>
@@ -179,13 +177,13 @@ function Influencer() {
 
                   </div>
 
-                  <div className="flex gap-4 mt-6">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 sm:mt-6">
 
-                    <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                    <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 text-sm sm:text-base">
                       👍 Like
                     </button>
 
-                    <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                    <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 text-sm sm:text-base">
                       👎 Dislike
                     </button>
 
@@ -203,19 +201,19 @@ function Influencer() {
       </section>
 
       {/* CTA */}
-      <section className="bg-indigo-700 text-white py-20">
+      <section className="bg-indigo-700 text-white py-12 sm:py-20">
 
-        <div className="max-w-5xl mx-auto text-center px-6">
+        <div className="max-w-5xl mx-auto text-center px-4 sm:px-6">
 
-          <h2 className="text-4xl font-bold mb-6">
+          <h2 className="text-2xl sm:text-4xl font-bold mb-4 sm:mb-6">
             Want To Join Our Creator Network?
           </h2>
 
-          <p className="text-xl mb-8">
+          <p className="text-sm sm:text-lg mb-6 sm:mb-8">
             Register as an influencer and collaborate with top brands.
           </p>
 
-          <button className="bg-white text-indigo-700 px-8 py-4 rounded-lg font-bold hover:scale-105 transition">
+          <button className="bg-white text-indigo-700 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold hover:scale-105 transition">
             Register As Influencer
           </button>
 
