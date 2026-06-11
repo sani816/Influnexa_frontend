@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaBell, FaTrash } from "react-icons/fa";
 import { io } from "socket.io-client";
 import axios from "axios";
+import Config from "../config/Config";
 
 function NotificationSection() {
   const [notifications, setNotifications] = useState([]);
@@ -10,7 +11,7 @@ function NotificationSection() {
     // LOAD SAVED NOTIFICATIONS
     fetchNotifications();
 
-    const socket = io("https://influnexa-backend-7.onrender.com");
+    const socket = io(Config.API_URL);
 
     // LIVE NOTIFICATIONS
     socket.on("notification", (data) => {
@@ -30,7 +31,7 @@ function NotificationSection() {
   const fetchNotifications = async () => {
     try {
       const res = await axios.get(
-        "https://influnexa-backend-7.onrender.com/api/notifications"
+        `${Config.API_URL}/api/notifications`
       );
 
       setNotifications(res.data);
@@ -42,7 +43,7 @@ function NotificationSection() {
   const deleteNotification = async (id) => {
     try {
       await axios.delete(
-        `https://influnexa-backend-7.onrender.com/api/notifications/${id}`
+        `${Config.API_URL}/api/notifications/${id}`
       );
 
       setNotifications((prev) =>

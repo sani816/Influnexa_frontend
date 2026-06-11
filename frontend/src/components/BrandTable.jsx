@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { FaEdit } from "react-icons/fa";
+import Config from "../config/Config";
 
 function BrandTable({ brands, loadData }) {
 
@@ -28,8 +29,8 @@ function BrandTable({ brands, loadData }) {
   const updateBrand = async () => {
     try {
       await axios.put(
-        `https://influnexa-backend-7.onrender.com/api/admin/brand/${editBrand._id}`,
-        formData
+         `${Config.API_URL}/api/admin/brand/${editBrand._id}`,
+  formData
       );
 
       setEditBrand(null);

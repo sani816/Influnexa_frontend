@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaSyncAlt, FaTh, FaList } from "react-icons/fa";
 import { io } from "socket.io-client";
+import Config from "../config/Config";
 
 function BrandSection() {
   const [brands, setBrands] = useState([]);
@@ -18,7 +19,7 @@ function BrandSection() {
    const generateMatches = async (brandsList) => {
   try {
     const res = await axios.get(
-      "https://influnexa-backend-7.onrender.com/api/creator"
+      `${Config.API_URL}/api/creator`
     );
 
     const creators = res.data.creators || [];
@@ -127,7 +128,7 @@ function BrandSection() {
     setLoading(true);
 
     const res = await axios.get(
-      "https://influnexa-backend-7.onrender.com/api/brands"
+       `${Config.API_URL}/api/brands`
     );
 
     const data = res.data?.brands || [];
@@ -147,8 +148,8 @@ function BrandSection() {
   const updateBrand = async () => {
     try {
       const res = await axios.put(
-        `https://influnexa-backend-7.onrender.com/api/brands/${editBrand._id}`,
-        editBrand
+        `${Config.API_URL}/api/brands/${editBrand._id}`,
+  editBrand
       );
 
       const updated = res.data?.brand;
@@ -168,7 +169,7 @@ function BrandSection() {
  useEffect(() => {
   fetchBrands();
 
-  const socket = io("influnexa-backend-7.onrender.com");
+  const socket = io(Config.API_URL);
 
   // BRAND EVENTS
   socket.on("new-brand", (newBrand) => {

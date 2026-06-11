@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
+import Config from "../config/Config";
 
 function CreatorSection() {
   const [creators, setCreators] = useState([]);
@@ -13,14 +14,14 @@ function CreatorSection() {
 
   // FETCH
   const fetchCreators = async () => {
-    const res = await axios.get("https://influnexa-backend-7.onrender.com/api/creator");
+    const res = await axios.get(`${Config.API_URL}/api/creator`);
     setCreators(res.data.creators || []);
   };
 
   useEffect(() => {
     fetchCreators();
 
-    const socket = io("https://influnexa-backend-7.onrender.com");
+    const socket = io(Config.API_URL);
 
     socket.on("new-creator", (data) => {
       setCreators((prev) => [data, ...prev]);
@@ -41,7 +42,7 @@ function CreatorSection() {
 
   // DELETE
   const deleteCreator = async (id) => {
-    await axios.delete(`https://influnexa-backend-7.onrender.com/api/creator/${id}`);
+    await axios.delete(`${Config.API_URL}/api/creator/${id}`);
   };
 
   // UPDATE
@@ -57,8 +58,8 @@ function CreatorSection() {
       formData.append("instagramUsername", editData.instagramUsername);
 
       await axios.put(
-        `https://influnexa-backend-7.onrender.com/api/creator/${editData._id}`,
-        formData
+         `${Config.API_URL}/api/creator/${editData._id}`,
+  formData
       );
 
       setEditData(null);
@@ -223,7 +224,7 @@ function CreatorSection() {
             <img
               src={
                 creator.image
-                  ? `http://influnexa-backend-7.onrender.com/uploads/${creator.image}`
+                  ? `${Config.API_URL}/uploads/${creator.image}`
                   : "https://via.placeholder.com/400x200"
               }
               className="w-full h-44 object-cover"

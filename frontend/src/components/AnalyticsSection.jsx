@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
+import Config from "../config/Config";
 
 import {
   FaUsers,
@@ -23,8 +24,8 @@ function AnalyticsSection() {
   const fetchData = async () => {
     try {
       const [bRes, cRes] = await Promise.all([
-        axios.get("https://influnexa-backend-7.onrender.com/api/brands"),
-        axios.get("https://influnexa-backend-7.onrender.com/api/creator")
+        axios.get(`${Config.API_URL}/api/brands`),
+        axios.get(`${Config.API_URL}/api/creator`)
       ]);
 
       setBrands(bRes.data?.brands || []);
@@ -38,7 +39,7 @@ function AnalyticsSection() {
   useEffect(() => {
     fetchData();
 
-    const socket = io("influnexa-backend-7.onrender.com:5000");
+    const socket = io(Config.API_URL);
 
     socket.on("new-brand", fetchData);
     socket.on("update-brand", fetchData);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Config from "../config/Config";
 
 
 function Hero() {
@@ -279,8 +280,8 @@ try {
   creatorData.campaignTypes
 );
     const response = await axios.post(
-      "https://influnexa-backend-7.onrender.com/api/creator/register",
-      formDataToSend,
+     `${Config.API_URL}/api/creator/register`,
+  formDataToSend,
       {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -430,8 +431,8 @@ try {
 
   try {
     const response = await axios.post(
-      "https://influnexa-backend-7.onrender.com/api/brands/register",
-      formData
+      `${Config.API_URL}/api/brands/register`,
+  formData
     );
 
     if (response.data.success) {

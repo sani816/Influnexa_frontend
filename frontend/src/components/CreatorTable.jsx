@@ -1,4 +1,5 @@
 import axios from "axios";
+import Config from "../config/Config";
 
 function CreatorTable({creators,loadData}) {
 
@@ -10,7 +11,7 @@ function CreatorTable({creators,loadData}) {
     if(!confirmDelete) return;
 
     await axios.delete(
-      `https://influnexa-backend-7.onrender.com/api/admin/creator/${id}`
+      `${Config.API_URL}/api/admin/creator/${id}`
     );
 
     loadData();
@@ -49,7 +50,7 @@ function CreatorTable({creators,loadData}) {
               <td>
 
                 <img
-                  src={`https://influnexa-backend-7.onrender.com/uploads/${creator.image}`}
+                  src={`${Config.API_URL}/uploads/${creator.image}`}
                   className="w-16 h-16 rounded-full"
                 />
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import Footer from "../components/Footer";
+import Config from "../config/Config";
 import {
   FaWhatsapp,
   FaEnvelope,
@@ -41,8 +42,8 @@ const handleBooking = async (e) => {
 
   try {
     await axios.post(
-      "https://influnexa-backend-7.onrender.com/api/consultation/book-consultation",
-      bookingData
+       `${Config.API_URL}/api/consultation/book-consultation`,
+  bookingData
     );
 
     setShowSuccess(true);
@@ -87,8 +88,8 @@ const handleMessage = async (e) => {
 
   try {
     const res = await axios.post(
-      "https://influnexa-backend-7.onrender.com/api/message/send-message",
-      messageData
+      `${Config.API_URL}/api/message/send-message`,
+  messageData
     );
 
     console.log("MESSAGE SUCCESS:", res.data);
