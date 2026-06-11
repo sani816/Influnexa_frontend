@@ -67,8 +67,9 @@ const handleBooking = async (e) => {
     error.message ||
     "Booking Failed"
   );
-}
+}finally{
   setLoading(false);
+}
 };
 
 
