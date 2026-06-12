@@ -6,6 +6,7 @@ import {
   FaCog,
   FaBars,
   FaTimes,
+  FaCalendarAlt,
 } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
@@ -123,6 +124,12 @@ function Sidebar({ setSection }) {
           <button onClick={() => handleClick("analytics")} className={menuClass}>
             <FaChartLine /> Analytics
           </button>
+
+          <button onClick={() => handleClick("bookings")} className={menuClass}>
+            <FaCalendarAlt />Booking Status
+          </button>
+          
+
 
           <button onClick={() => handleClick("settings")} className={menuClass}>
             <FaCog /> Settings
