@@ -467,15 +467,14 @@ try {
 
   return (
     <div className="max-w-7xl mx-auto px-6">
+{/* HERO TEXT */}
+<h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-center leading-tight animate-marquee">
+  India's Trusted Influencer Marketing Company
+</h1>
 
-      {/* HERO TEXT */}
-      <h1 className="text-5xl md:text-7xl font-bold whitespace-nowrap animate-marquee">
-        India's Trusted Influencer Marketing Company
-      </h1>
-
-      <p className="mt-6 text-xl max-w-3xl">
-        We help brands connect with the right influencers and creators to drive awareness, engagement, and sales.
-      </p>
+<p className="mt-6 text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-center px-4">
+  We help brands connect with the right influencers and creators to drive awareness, engagement, and sales.
+</p>
 
       {/* BUTTONS */}
       <div className="mt-10 flex gap-5">
@@ -550,19 +549,19 @@ try {
                   Basic Information
                 </h3>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="ml-2 w-190">
-                  <label className="ml-1">Name:</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex flex-col">
+                  <label className="text-sm font-medium mb-1">Name:</label>
                   <input className={inputStyle}  value={formData.fullName} name="fullName" placeholder="Full Name*" onChange={handleInputChange}  />
-                  <label className="ml-1">work email:</label>
+                  <label className="text-sm font-medium mb-1">work email:</label>
                   <input className={inputStyle}   value={formData.workEmail}name="workEmail" placeholder="Work Email*" onChange={handleInputChange} />
-                  <label className="ml-1">Mobile No.:</label>
+                  <label className="text-sm font-medium mb-1">Mobile No.:</label>
                   <input className={inputStyle} name="mobileNumber" placeholder="Mobile Number*" onChange={handleInputChange}  value={formData.mobileNumber}/>
-                  <label className="ml-1">Brand Name:</label>
+                  <label className="text-sm font-medium mb-1">Brand Name:</label>
                   <input className={inputStyle}value={formData.brandName} name="brandName" placeholder="Brand Name*" onChange={handleInputChange} />
-                  <label className="ml-1">Website URL:</label>
+                  <label className="text-sm font-medium mb-1">Website URL:</label>
                   <input className={inputStyle} value={formData.websiteUrl}name="websiteUrl" placeholder="Website URL" onChange={handleInputChange} />
-                  <label className="ml-1">Instagram:</label>
+                  <label className="text-sm font-medium mb-1">Instagram:</label>
                   <input className={inputStyle}  value={formData.instagramHandle}name="instagramHandle" placeholder="Instagram Handle" onChange={handleInputChange} />
                   </div>
                 </div>
