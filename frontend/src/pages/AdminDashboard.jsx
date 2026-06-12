@@ -67,7 +67,7 @@ function AdminDashboard() {
 
             {section === "analytics" && <AnalyticsSection />}
 
-            {section === "bookings" && <BookingStatus/>}
+            {section === "bookings" && <BookingStatus />}
 
             {section === "settings" && (
               <SettingsSection setSection={setSection} />
