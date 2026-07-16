@@ -85,8 +85,9 @@ function Blog() {
   return (
     <>
       <Navbar />
-
+<section className="relative py-10 sm:py-20 bg-[#050816] text-white overflow-hidden"></section>
       {/* background glow (responsive) */}
+      
       <div>
   <div className="absolute inset-0 overflow-hidden">
     <div className="absolute top-10 left-1/2 sm:left-10 -translate-x-1/2 sm:translate-x-0 w-40 h-40 sm:w-72 sm:h-72 bg-fuchsia-600/40 blur-3xl rounded-full"></div>
