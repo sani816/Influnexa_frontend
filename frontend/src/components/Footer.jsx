@@ -7,10 +7,10 @@ export default function Footer() {
     <footer className="bg-gray-900 backdrop-blur-xl border-t border-white/10 text-white py-3">
       <div className="max-w-7xl mx-auto px-4 text-center">
 
-        <h3 className="text-sm font-medium mb-2  text-white">
+        {/* <h3 className="text-sm font-medium mb-2  text-white">
           Rate Our Website
-        </h3>
-
+        </h3> */}
+{/* 
         <div className="flex justify-center gap-1 mb-2">
           {[1, 2, 3, 4, 5].map((star) => (
             <button
@@ -23,7 +23,7 @@ export default function Footer() {
               ★
             </button>
           ))}
-        </div>
+        </div> */}
 
         <p className="text-[11px] text-gray-400">
           © 2026 InfluNexa
