@@ -34,7 +34,7 @@ function About() {
       <Navbar />
 
       {/* HERO + STORY */}
-      <div className="bg-gradient-to-b from-indigo-900 via-purple-900 to-black text-white">
+      <div className="bg-gradient-to-b from-indigo-900 via-purple-900 text-white">
 
         <section className="py-20 sm:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
