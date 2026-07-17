@@ -856,7 +856,73 @@ try {
 
       <form className="space-y-6" onSubmit={handleCreatorSubmit}>
 
-        {/* INSTAGRAM DETAILS */}
+       
+
+        {/* PERSONAL INFO */}
+    <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
+    Personal Information
+  </h3>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+    <input
+      className={inputStyle}
+      name="fullName"
+      value={creatorData.fullName}
+      onChange={handleCreatorChange}
+      placeholder="Full Name"
+    />
+
+    <input
+      className={inputStyle}
+      name="email"
+      value={creatorData.email}
+      onChange={handleCreatorChange}
+      placeholder="Email Address"
+    />
+
+    <input
+      className={inputStyle}
+      name="mobileNumber"
+      value={creatorData.mobileNumber}
+      onChange={handleCreatorChange}
+      placeholder="Mobile Number"
+    />
+
+    <input
+      className={inputStyle}
+      name="whatsappNumber"
+      value={creatorData.whatsappNumber}
+      onChange={handleCreatorChange}
+      placeholder="WhatsApp Number"
+    />
+
+    <select
+      className={inputStyle}
+      name="gender"
+      value={creatorData.gender}
+      onChange={handleCreatorChange}
+    >
+      <option value="">Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+
+    <input
+      type="date"
+      className={inputStyle}
+      name="dob"
+      value={creatorData.dob}
+      onChange={handleCreatorChange}
+    />
+
+  </div>
+</div>
+
+
+ {/* INSTAGRAM DETAILS */}
        <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
   <h3 className="text-xl font-semibold text-gray-800 mb-6">
     Instagram Details
@@ -925,69 +991,6 @@ try {
     </div>
     </div>
     </div>
-
-        {/* PERSONAL INFO */}
-    <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
-  <h3 className="text-xl font-semibold text-gray-800 mb-6">
-    Personal Information
-  </h3>
-
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-    <input
-      className={inputStyle}
-      name="fullName"
-      value={creatorData.fullName}
-      onChange={handleCreatorChange}
-      placeholder="Full Name"
-    />
-
-    <input
-      className={inputStyle}
-      name="email"
-      value={creatorData.email}
-      onChange={handleCreatorChange}
-      placeholder="Email Address"
-    />
-
-    <input
-      className={inputStyle}
-      name="mobileNumber"
-      value={creatorData.mobileNumber}
-      onChange={handleCreatorChange}
-      placeholder="Mobile Number"
-    />
-
-    <input
-      className={inputStyle}
-      name="whatsappNumber"
-      value={creatorData.whatsappNumber}
-      onChange={handleCreatorChange}
-      placeholder="WhatsApp Number"
-    />
-
-    <select
-      className={inputStyle}
-      name="gender"
-      value={creatorData.gender}
-      onChange={handleCreatorChange}
-    >
-      <option value="">Gender</option>
-      <option>Male</option>
-      <option>Female</option>
-      <option>Other</option>
-    </select>
-
-    <input
-      type="date"
-      className={inputStyle}
-      name="dob"
-      value={creatorData.dob}
-      onChange={handleCreatorChange}
-    />
-
-  </div>
-</div>
 {/* upload image */}
 <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
   <h3 className="text-xl font-semibold text-gray-800 mb-6">
@@ -1378,9 +1381,7 @@ try {
 
   <button
     type="submit"
-    className="w-full md:w-1/2 py-3 rounded-xl font-bold text-white
-    bg-gradient-to-r from-blue-600 to-purple-600
-    hover:scale-105 transition duration-300 shadow-lg"
+    className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-4 rounded-xl transition shadow-lg"
   >
     Register as Creator
   </button>
