@@ -867,7 +867,7 @@ try {
   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
     <input
-      className={inputStyle}
+       className={`${inputStyle} !text-black`}
       name="fullName"
       value={creatorData.fullName}
       onChange={handleCreatorChange}
@@ -875,7 +875,7 @@ try {
     />
 
     <input
-      className={inputStyle}
+       className={`${inputStyle} !text-black`}
       name="email"
       value={creatorData.email}
       onChange={handleCreatorChange}
@@ -883,7 +883,7 @@ try {
     />
 
     <input
-      className={inputStyle}
+       className={`${inputStyle} !text-black`}
       name="mobileNumber"
       value={creatorData.mobileNumber}
       onChange={handleCreatorChange}
@@ -891,7 +891,7 @@ try {
     />
 
     <input
-      className={inputStyle}
+      className={`${inputStyle} !text-black`}
       name="whatsappNumber"
       value={creatorData.whatsappNumber}
       onChange={handleCreatorChange}
@@ -899,20 +899,20 @@ try {
     />
 
     <select
-      className={inputStyle}
+      className={`${inputStyle} !text-black`}
       name="gender"
       value={creatorData.gender}
       onChange={handleCreatorChange}
     >
-      <option value="">Gender</option>
-      <option>Male</option>
-      <option>Female</option>
-      <option>Other</option>
+      <option value="" className="text-black">Gender</option>
+      <option className="text-black">Male</option>
+      <option className="text-black">Female</option>
+      <option className="text-black">Other</option>
     </select>
 
     <input
       type="date"
-      className={inputStyle}
+       className={`${inputStyle} !text-black`}
       name="dob"
       value={creatorData.dob}
       onChange={handleCreatorChange}
@@ -936,7 +936,7 @@ try {
       </label>
 
       <input
-        className={inputStyle}
+        className={`${inputStyle} !text-black`}
         name="instagramUsername"
         value={creatorData.instagramUsername}
         onChange={handleCreatorChange}
@@ -956,7 +956,7 @@ try {
       </label>
 
       <input
-        className={inputStyle}
+        className={`${inputStyle} !text-black`}
         name="instagramLink"
         value={creatorData.instagramLink}
         onChange={handleCreatorChange}
@@ -976,17 +976,17 @@ try {
       </label>
 
       <select
-        className={inputStyle}
+         className={`${inputStyle} !text-black`}
         name="followersRange"
         value={creatorData.followersRange}
         onChange={handleCreatorChange}
       >
-        <option value="">Select Range</option>
-        <option>Under 2K</option>
-        <option>2K - 10K</option>
-        <option>10K - 50K</option>
-        <option>50K - 100K</option>
-        <option>100K+</option>
+        <option value="" className="text-black">Select Range</option>
+        <option className="text-black">Under 2K</option>
+        <option className="text-black">2K - 10K</option>
+        <option className="text-black">10K - 50K</option>
+        <option className="text-black">50K - 100K</option>
+        <option className="text-black">100K+</option>
       </select>
     </div>
     </div>
@@ -1001,7 +1001,7 @@ try {
     type="file"
     accept="image/*"
     onChange={handleImageUpload}
-    className={inputStyle}
+    className={`${inputStyle} !text-black`}
   />
 
   {creatorImage && (
@@ -1029,7 +1029,7 @@ try {
   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
     <input
-      className={inputStyle}
+      className={`${inputStyle} !text-black`}
       name="hasYoutube"
       value={creatorData.hasYoutube}
       onChange={handleCreatorChange}
@@ -1037,7 +1037,7 @@ try {
     />
 
     <input
-      className={inputStyle}
+     className={`${inputStyle} !text-black`}
       name="youtubeName"
       value={creatorData.youtubeName}
       onChange={handleCreatorChange}
@@ -1045,7 +1045,7 @@ try {
     />
 
     <input
-      className={inputStyle}
+      className={`${inputStyle} !text-black`}
       name="youtubeLink"
       value={creatorData.youtubeLink}
       onChange={handleCreatorChange}
@@ -1053,17 +1053,17 @@ try {
     />
 
     <select
-      className={inputStyle}
+     className={`${inputStyle} !text-black`}
       name="youtubeSubs"
       value={creatorData.youtubeSubs}
       onChange={handleCreatorChange}
     >
-      <option value="">Subscriber Range</option>
-      <option>Under 1K</option>
-      <option>1K - 10K</option>
-      <option>10K - 50K</option>
-      <option>50K - 100K</option>
-      <option>100K+</option>
+      <option value="" className="text-black">Subscriber Range</option>
+      <option className="text-black">Under 1K</option>
+      <option className="text-black">1K - 10K</option>
+      <option className="text-black">10K - 50K</option>
+      <option className="text-black">50K - 100K</option>
+      <option className="text-black">100K+</option>
     </select>
 
   </div>
@@ -1130,7 +1130,7 @@ try {
   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
     <input
-      className={inputStyle}
+      className={`${inputStyle} !text-black`}
       name="reelRate"
       value={creatorData.reelRate}
       onChange={handleCreatorChange}
@@ -1138,7 +1138,7 @@ try {
     />
 
     <input
-      className={inputStyle}
+      className={`${inputStyle} !text-black`}
       name="storyRate"
       value={creatorData.storyRate}
       onChange={handleCreatorChange}
@@ -1146,7 +1146,7 @@ try {
     />
 
     <input
-      className={inputStyle}
+      className={`${inputStyle} !text-black`}
       name="ytVideoRate"
       value={creatorData.ytVideoRate}
       onChange={handleCreatorChange}
@@ -1200,7 +1200,7 @@ try {
   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
     <input
-      className={inputStyle}
+      className={`${inputStyle} !text-black`}
       name="address1"
       value={creatorData.address1}
       onChange={handleCreatorChange}
@@ -1208,7 +1208,7 @@ try {
     />
 
     <input
-      className={inputStyle}
+     className={`${inputStyle} !text-black`}
       name="address2"
       value={creatorData.address2}
       onChange={handleCreatorChange}
@@ -1217,7 +1217,7 @@ try {
 
     <div>
       <input
-        className={inputStyle}
+        className={`${inputStyle} !text-black`}
         name="city"
         value={creatorData.city}
         onChange={handleCreatorChange}
@@ -1232,7 +1232,7 @@ try {
     </div>
 
     <input
-      className={inputStyle}
+      className={`${inputStyle} !text-black`}
       name="state"
       value={creatorData.state}
       onChange={handleCreatorChange}
@@ -1240,7 +1240,7 @@ try {
     />
 
     <input
-      className={inputStyle}
+     className={`${inputStyle} !text-black`}
       name="pincode"
       value={creatorData.pincode}
       onChange={handleCreatorChange}
@@ -1249,14 +1249,14 @@ try {
 
     <div>
       <select
-        className={inputStyle}
+       className={`${inputStyle} !text-black`}
         name="canReceiveProducts"
         value={creatorData.canReceiveProducts}
         onChange={handleCreatorChange}
       >
-        <option value="">Can receive products?</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
+        <option value="" className="text-black">Can receive products?</option>
+        <option value="Yes" className="text-black">Yes</option>
+        <option value="No" className="text-black">No</option>
       </select>
 
       {errors.canReceiveProducts && (
@@ -1268,16 +1268,16 @@ try {
 
     <div>
       <select
-        className={inputStyle}
+       className={`${inputStyle} !text-black`}
         name="addressType"
         value={creatorData.addressType}
         onChange={handleCreatorChange}
       >
-        <option value="">Address Type</option>
-        <option value="Home">Home</option>
-        <option value="Office">Office</option>
-        <option value="Studio">Studio</option>
-        <option value="Other">Other</option>
+        <option value="" className="text-black">Address Type</option>
+        <option value="Home" className="text-black">Home</option>
+        <option value="Office" className="text-black">Office</option>
+        <option value="Studio" className="text-black">Studio</option>
+        <option value="Other" className="text-black">Other</option>
       </select>
 
       {errors.addressType && (
@@ -1303,7 +1303,7 @@ try {
       </label>
 
       <textarea
-        className={`${inputStyle} min-h-[120px] resize-none`}
+        className={`${inputStyle} min-h-[120px] resize-none text-black`}
         name="brandNames"
         value={creatorData.brandNames}
         onChange={handleCreatorChange}
@@ -1317,7 +1317,7 @@ try {
       </label>
 
       <textarea
-        className={`${inputStyle} min-h-[120px] resize-none`}
+        className={`${inputStyle} min-h-[120px] resize-none text-black`}
         name="message"
         value={creatorData.message}
         onChange={handleCreatorChange}
