@@ -500,7 +500,7 @@ try {
 
       {/* MODAL */}
       {isFormOpen && (
-  <div className="fixed inset-0 z-50 bg-gray-100 overflow-y-auto">
+  <div className="fixed inset-0 z-50 bg-amber-100 overflow-y-auto">
     <div className="min-h-screen flex items-start justify-center py-8 px-4">
       <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
 
@@ -539,7 +539,7 @@ try {
           className="p-6 md:p-10 space-y-8"
         >
           {/* Basic Information */}
-          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+          <div className="bg-gray-50 border border-gray-400 rounded-2xl p-6 text-black">
             <h3 className="text-xl font-semibold text-gray-800 mb-6">
               Basic Information
             </h3>
