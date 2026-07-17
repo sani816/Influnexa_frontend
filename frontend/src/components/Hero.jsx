@@ -829,11 +829,9 @@ try {
 )}
 {/* CREATOR FORM MODAL */}
 {isCreatorFormOpen && (
-  <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-50 p-4">
+  <div className="fixed inset-0 bg-black/80  flex justify-center items-center z-50 p-4">
 
-    <div className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto 
-      bg-gradient-to-br from-purple-900/40 to-cyan-900/40 
-      border border-white/20 rounded-2xl shadow-2xl text-white p-8">
+    <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden text-black">
 
       {/* CLOSE BUTTON */}
       <button
