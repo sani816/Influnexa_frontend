@@ -780,7 +780,7 @@ try {
                 </label>
                 <textarea
                   rows="4"
-                  className={inputStyle}
+                   className={`${inputStyle} !text-black`}
                   name="campaignDescription"
                   value={formData.campaignDescription}
                   onChange={handleInputChange}
@@ -793,7 +793,7 @@ try {
                 </label>
                 <textarea
                   rows="4"
-                  className={inputStyle}
+                   className={`${inputStyle} !text-black`}
                   name="additionalNotes"
                   value={formData.additionalNotes}
                   onChange={handleInputChange}
