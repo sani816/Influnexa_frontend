@@ -1290,12 +1290,12 @@ try {
   </div>
 </div>
 {/* ================= ADDITIONAL ================= */}
-   <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
-  <h3 className="text-xl font-semibold text-gray-800 mb-6">
+   <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6 text-black">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6 text-black">
     Additional Information
   </h3>
 
-  <div className="grid grid-cols-1 gap-5">
+  <div className="grid grid-cols-1 gap-5 text-black">
 
     <div className="text-black">
       <label className="block text-sm font-medium text-gray-700 mb-2">
