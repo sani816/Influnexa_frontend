@@ -9,8 +9,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardHome from "./components/DashboardHome";
-
-import CreatorProfile from "./pages/CreatorProfile";
+ import CreatorProfile from "./pages/creatorProfile";
 
 function App() {
 
