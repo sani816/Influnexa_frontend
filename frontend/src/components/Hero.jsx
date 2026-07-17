@@ -1303,7 +1303,7 @@ try {
       </label>
 
       <textarea
-        className={`${inputStyle} min-h-[120px] resize-none text-black`}
+        className={`${inputStyle} min-h-[120px] resize-none !text-black`}
         name="brandNames"
         value={creatorData.brandNames}
         onChange={handleCreatorChange}
@@ -1317,7 +1317,7 @@ try {
       </label>
 
       <textarea
-        className={`${inputStyle} min-h-[120px] resize-none text-black`}
+        className={`${inputStyle} min-h-[120px] resize-none !text-black`}
         name="message"
         value={creatorData.message}
         onChange={handleCreatorChange}
