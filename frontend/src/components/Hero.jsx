@@ -829,6 +829,7 @@ try {
 )}
 {/* CREATOR FORM MODAL */}
 {isCreatorFormOpen && (
+  <div className="fixed inset-0 z-50 bg-gray-300 overflow-y-auto text-black">
   <div className="fixed inset-0 bg-black/60  flex justify-center items-center z-50 p-4">
 
     <div
@@ -1386,6 +1387,7 @@ try {
 </div>
 
 </form>
+</div>
 </div>
 </div>
 )}      
