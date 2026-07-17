@@ -829,9 +829,12 @@ try {
 )}
 {/* CREATOR FORM MODAL */}
 {isCreatorFormOpen && (
-  <div className="fixed inset-0 bg-black/80  flex justify-center items-center z-50 p-4">
+  <div className="fixed inset-0 bg-black/60  flex justify-center items-center z-50 p-4">
 
-    <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden text-black">
+    <div
+  className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto
+  bg-white border border-gray-300 rounded-3xl shadow-2xl p-8"
+>
 
       {/* CLOSE BUTTON */}
       <button
@@ -842,11 +845,11 @@ try {
       </button>
 
       {/* TITLE */}
-      <h2 className="text-3xl font-bold text-pink-300">
+      <h2 className="text-3xl font-bold text-gray-800">
         InfluNexa Creator Registration
       </h2>
 
-      <p className="text-cyan-200 mt-2 mb-6">
+      <p className="text-gray-600 mt-2 mb-6">
         Join India's fastest-growing creator community
       </p>
 
