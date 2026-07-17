@@ -541,7 +541,7 @@ try {
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-black">
-              <div>
+              <div className="text-black">
                 <label className="text-sm font-medium text-gray-700">
                   Full Name
                 </label>
@@ -551,10 +551,11 @@ try {
                   value={formData.fullName}
                   onChange={handleInputChange}
                   placeholder="Enter full name"
+                  
                 />
               </div>
 
-              <div>
+              <div className="text-black">
                 <label className="text-sm font-medium text-gray-700">
                   Work Email
                 </label>
@@ -567,7 +568,7 @@ try {
                 />
               </div>
 
-              <div>
+              <div className="text-black">
                 <label className="text-sm font-medium text-gray-700">
                   Mobile Number
                 </label>
@@ -580,7 +581,7 @@ try {
                 />
               </div>
 
-              <div>
+              <div className="text-black">
                 <label className="text-sm font-medium text-gray-700">
                   Brand Name
                 </label>
@@ -593,7 +594,7 @@ try {
                 />
               </div>
 
-              <div>
+              <div className="text-black">
                 <label className="text-sm font-medium text-gray-700">
                   Website URL
                 </label>
@@ -606,7 +607,7 @@ try {
                 />
               </div>
 
-              <div>
+              <div className="text-black">
                 <label className="text-sm font-medium text-gray-700">
                   Instagram
                 </label>
@@ -622,7 +623,7 @@ try {
           </div>
 
           {/* Influencer Categories */}
-          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 text-black">
             <h3 className="text-xl font-semibold text-gray-800 mb-6">
               Influencer Categories
             </h3>
@@ -656,12 +657,12 @@ try {
           </div>
 
           {/* Looking For */}
-          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 text-black">
             <h3 className="text-xl font-semibold text-gray-800 mb-6">
               What are you looking for?
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-black">
               {[
                 "Campaign",
                 "Product Promotion",
@@ -696,7 +697,7 @@ try {
               Budget Range
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-black">
               {[
                 "Under ₹50K",
                 "₹50K-₹2L",
@@ -727,7 +728,7 @@ try {
               Additional Details
             </h3>
 
-            <div className="space-y-5">
+            <div className="space-y-5 text-black">
               <div>
                 <label className="text-sm font-medium text-gray-700">
                   Preferred Influencer Location
@@ -746,7 +747,7 @@ try {
                   Followers Range
                 </label>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-3 text-black">
                   {[
                     "10K–50K",
                     "50K–100K",
@@ -773,7 +774,7 @@ try {
                 </div>
               </div>
 
-              <div>
+              <div className="text-black">
                 <label className="text-sm font-medium text-gray-700">
                   Campaign Description
                 </label>
@@ -786,7 +787,7 @@ try {
                 />
               </div>
 
-              <div>
+              <div className="text-black">
                 <label className="text-sm font-medium text-gray-700">
                   Additional Notes
                 </label>
