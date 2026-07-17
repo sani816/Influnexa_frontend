@@ -545,7 +545,7 @@ try {
                   Full Name
                 </label>
                 <input 
-                  className={inputStyle}
+                   className={`${inputStyle} !text-black`}
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleInputChange}
@@ -560,7 +560,7 @@ try {
                   Work Email
                 </label>
                 <input
-                  className={inputStyle}
+                  className={`${inputStyle} !text-black`}
                   name="workEmail"
                   value={formData.workEmail}
                   onChange={handleInputChange}
@@ -573,7 +573,7 @@ try {
                   Mobile Number
                 </label>
                 <input
-                  className={inputStyle}
+                   className={`${inputStyle} !text-black`}
                   name="mobileNumber"
                   value={formData.mobileNumber}
                   onChange={handleInputChange}
@@ -586,7 +586,7 @@ try {
                   Brand Name
                 </label>
                 <input
-                  className={inputStyle}
+                  className={`${inputStyle} !text-black`}
                   name="brandName"
                   value={formData.brandName}
                   onChange={handleInputChange}
@@ -599,7 +599,7 @@ try {
                   Website URL
                 </label>
                 <input
-                  className={inputStyle}
+                   className={`${inputStyle} !text-black`}
                   name="websiteUrl"
                   value={formData.websiteUrl}
                   onChange={handleInputChange}
@@ -612,7 +612,7 @@ try {
                   Instagram
                 </label>
                 <input
-                  className={inputStyle}
+                   className={`${inputStyle} !text-black`}
                   name="instagramHandle"
                   value={formData.instagramHandle}
                   onChange={handleInputChange}
