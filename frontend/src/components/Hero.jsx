@@ -496,12 +496,11 @@ try {
 
       {/* MODAL */}
       {isFormOpen && (
-  <div className="fixed inset-0 z-50 bg-gray-300 overflow-y-auto">
-    <div className="min-h-screen flex items-start justify-center py-8 px-4">
-      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
-const inputStyle ="w-full mt-2 px-4 py-3 rounded-lg border border-gray-300 bg-gray-200 text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500";
+  <div className="fixed inset-0 z-50 bg-gray-300 overflow-y-auto text-black">
+    <div className="min-h-screen flex items-start justify-center py-8 px-4 text-black">
+      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden text-black">
         {/* Header */}
-        <div className="border-b border-gray-200 px-6 md:px-10 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="border-b border-gray-200 px-6 md:px-10 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-black">
           <div>
             <h2 className="text-3xl font-bold text-gray-800">
               Brand Registration
