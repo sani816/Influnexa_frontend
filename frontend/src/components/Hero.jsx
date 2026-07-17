@@ -784,6 +784,7 @@ try {
                   name="campaignDescription"
                   value={formData.campaignDescription}
                   onChange={handleInputChange}
+                  placeholder="Enter your details"
                 />
               </div>
 
@@ -797,6 +798,7 @@ try {
                   name="additionalNotes"
                   value={formData.additionalNotes}
                   onChange={handleInputChange}
+                  placeholder="Add notes"
                 />
               </div>
             </div>
