@@ -500,183 +500,334 @@ try {
 
       {/* MODAL */}
       {isFormOpen && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex justify-center items-center z-50 p-4">
+  <div className="fixed inset-0 z-50 bg-gray-100 overflow-y-auto">
+    <div className="min-h-screen flex items-start justify-center py-8 px-4">
+      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
 
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto 
-            bg-white/10 backdrop-blur-xl border border-white/20 
-            rounded-2xl shadow-[0_0_40px_rgba(0,255,255,0.15)] 
-            text-white p-8">
-
-            <div className="absolute top-4 right-5 flex gap-3 items-center">
-
-
-
-
-
-  {/* RESET BUTTON */}
-<button
-  type="button"
-  onClick={resetForm}
-  className="text-sm px-3 py-1 rounded-lg border border-red-400 text-red-300 hover:bg-red-500 hover:text-white transition"
-  title="Reset Form"
->
-  Reset
-</button>
-
-  {/* CLOSE BUTTON */}
-  <button
-    className="text-3xl hover:text-cyan-400 hover:rotate-90 transition"
-    onClick={() => setIsFormOpen(false)}
-  >
-    ×
-  </button>
-
-</div>
-            {/* TITLE */}
-            <h2 className="text-3xl font-extrabold">
-              Recommended Brand Registration
+        {/* Header */}
+        <div className="border-b border-gray-200 px-6 md:px-10 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h2 className="text-3xl font-bold text-gray-800">
+              Brand Registration
             </h2>
-
-            <p className="text-cyan-300 text-sm mt-2 uppercase tracking-widest">
-              Get Free Consultation Within 24 Hours
+            <p className="text-gray-500 mt-2">
+              Complete the form below and our team will contact you within
+              24 hours.
             </p>
+          </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6 mt-6">
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={resetForm}
+              className="px-4 py-2 rounded-lg border border-red-400 text-red-500 hover:bg-red-500 hover:text-white transition"
+            >
+              Reset
+            </button>
 
-              {/* BASIC INFO */}
-              <div className="p-5 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-400/40 transition">
-                <h3 className="text-cyan-300 font-semibold mb-4 ">
-                  Basic Information
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex flex-col">
-                  <label className="text-sm font-medium mb-1">Name:</label>
-                  <input className={inputStyle}  value={formData.fullName} name="fullName" placeholder="Full Name*" onChange={handleInputChange}  />
-                  <label className="text-sm font-medium mb-1">work email:</label>
-                  <input className={inputStyle}   value={formData.workEmail}name="workEmail" placeholder="Work Email*" onChange={handleInputChange} />
-                  <label className="text-sm font-medium mb-1">Mobile No.:</label>
-                  <input className={inputStyle} name="mobileNumber" placeholder="Mobile Number*" onChange={handleInputChange}  value={formData.mobileNumber}/>
-                  <label className="text-sm font-medium mb-1">Brand Name:</label>
-                  <input className={inputStyle}value={formData.brandName} name="brandName" placeholder="Brand Name*" onChange={handleInputChange} />
-                  <label className="text-sm font-medium mb-1">Website URL:</label>
-                  <input className={inputStyle} value={formData.websiteUrl}name="websiteUrl" placeholder="Website URL" onChange={handleInputChange} />
-                  <label className="text-sm font-medium mb-1">Instagram:</label>
-                  <input className={inputStyle}  value={formData.instagramHandle}name="instagramHandle" placeholder="Instagram Handle" onChange={handleInputChange} />
-                  </div>
-                </div>
-              </div>
-
-              {/* INDUSTRY */}
-              <div className="p-5 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-400/40 transition">
-                <h3 className="text-cyan-300 font-semibold mb-4">
-                  Influencer Categories:
-                </h3>
-
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  {["Fashion", "Beauty", "Food & Beverage", "Electronics", "Healthcare", "Education", "Real Estate", "Other"].map((item) => (
-                    <label key={item} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-cyan-500/10 border border-white/10 cursor-pointer">
-                      <input type="radio" value={formData.preferredCategory}name="preferredCategory" value={item} onChange={handleInputChange} />
-                      {item}
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* LOOKING FOR */}
-              <div className="p-5 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-400/40 transition">
-                <h3 className="text-cyan-300 font-semibold mb-4">
-                  What are you looking for?
-                </h3>
-
-                <div className="grid md:grid-cols-2 gap-2 text-sm">
-                  {["Campaign", "Product Promotion", "Brand Awareness", "UGC Content", "Celebrity Endorsement", "Other"].map((item) => (
-                    <label key={item} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-cyan-500/10 border border-white/10 cursor-pointer">
-                      <input type="checkbox" onChange={() => handleCheckboxGroupChange("lookingFor", item)} />
-                      {item}
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* BUDGET */}
-              <div className="p-5 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-400/40 transition">
-                <h3 className="text-cyan-300 font-semibold mb-4">
-                  Budget Range
-                </h3>
-
-                <div className="grid md:grid-cols-2 gap-2 text-sm">
-                  {["Under ₹50K", "₹50K-₹2L", "₹2L-₹5L", "₹5L-₹10L", "₹10L+"].map((b) => (
-                    <label key={b} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-cyan-500/10 border border-white/10 cursor-pointer">
-                      <input type="radio" name="budgetRange" value={b} onChange={handleInputChange} />
-                      {b}
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* EXTRA */}
-              <div className="p-5 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-400/40 transition space-y-3">
-
-                <label>Loacation:</label>
-                <input className={inputStyle} value={formData.influencerLocation}name="influencerLocation" placeholder="Preferred Influencer Location" onChange={handleInputChange} />
-                 <div>
-  <label className="text-cyan-300 font-semibold">
-    Followers Range:
-  </label>
-
-  <div className="grid md:grid-cols-2 gap-2 text-sm mt-2">
-    {[
-      "10K–50K",
-      "50K–100K",
-      "100K–500K",
-      "500K–1M",
-      "1M+",
-    ].map((f) => (
-      <label
-        key={f}
-        className="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-cyan-500/10 border border-white/10 cursor-pointer"
-      >
-        <input
-          type="radio"
-          name="followersRange"
-          value={f}
-          // value={formData.followersRange}
-          onChange={handleInputChange}
-        />
-        {f}
-      </label>
-    ))}
-  </div>
-</div>
-                 <label>Compaign Description:</label>
-                <textarea className={inputStyle} value={formData.campaignDescription}name="campaignDescription" placeholder="Campaign Description" onChange={handleInputChange} />
-                <label>Additional Notes:</label>
-
-                <textarea className={inputStyle} value={formData.additionalNotes} name="additionalNotes" placeholder="Additional Notes" onChange={handleInputChange} />
-              </div>
-
-              {/* CONSENT */}
-              <label className="flex items-center gap-2 text-sm">
-                <input type="checkbox" value={formData.consent}name="consent" onChange={handleInputChange} />
-                I confirm I am authorized and information is correct
-              </label>
-
-              {/* SUBMIT */}
-              <button
-                type="submit"
-                className="w-full py-3 rounded-xl font-bold
-                bg-gradient-to-r from-cyan-500 to-fuchsia-600
-                hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(0,255,255,0.4)]
-                transition-all"
-              >
-                Get Free Consultation
-              </button>
-
-            </form>
+            <button
+              onClick={() => setIsFormOpen(false)}
+              className="w-10 h-10 flex items-center justify-center rounded-full text-2xl text-gray-500 hover:bg-gray-100 hover:text-red-500 transition"
+            >
+              ×
+            </button>
           </div>
         </div>
-      )}
+
+        <form
+          onSubmit={handleSubmit}
+          className="p-6 md:p-10 space-y-8"
+        >
+          {/* Basic Information */}
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-6">
+              Basic Information
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Full Name
+                </label>
+                <input
+                  className={inputStyle}
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  placeholder="Enter full name"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Work Email
+                </label>
+                <input
+                  className={inputStyle}
+                  name="workEmail"
+                  value={formData.workEmail}
+                  onChange={handleInputChange}
+                  placeholder="Enter email"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Mobile Number
+                </label>
+                <input
+                  className={inputStyle}
+                  name="mobileNumber"
+                  value={formData.mobileNumber}
+                  onChange={handleInputChange}
+                  placeholder="Enter mobile number"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Brand Name
+                </label>
+                <input
+                  className={inputStyle}
+                  name="brandName"
+                  value={formData.brandName}
+                  onChange={handleInputChange}
+                  placeholder="Enter brand name"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Website URL
+                </label>
+                <input
+                  className={inputStyle}
+                  name="websiteUrl"
+                  value={formData.websiteUrl}
+                  onChange={handleInputChange}
+                  placeholder="https://example.com"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Instagram
+                </label>
+                <input
+                  className={inputStyle}
+                  name="instagramHandle"
+                  value={formData.instagramHandle}
+                  onChange={handleInputChange}
+                  placeholder="@username"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Influencer Categories */}
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-6">
+              Influencer Categories
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                "Fashion",
+                "Beauty",
+                "Food & Beverage",
+                "Electronics",
+                "Healthcare",
+                "Education",
+                "Real Estate",
+                "Other",
+              ].map((item) => (
+                <label
+                  key={item}
+                  className="flex items-center gap-3 p-4 border rounded-xl cursor-pointer hover:border-cyan-500 hover:bg-cyan-50 transition"
+                >
+                  <input
+                    type="radio"
+                    name="preferredCategory"
+                    value={item}
+                    checked={formData.preferredCategory === item}
+                    onChange={handleInputChange}
+                  />
+                  {item}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Looking For */}
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-6">
+              What are you looking for?
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                "Campaign",
+                "Product Promotion",
+                "Brand Awareness",
+                "UGC Content",
+                "Celebrity Endorsement",
+                "Other",
+              ].map((item) => (
+                <label
+                  key={item}
+                  className="flex items-center gap-3 p-4 border rounded-xl cursor-pointer hover:border-cyan-500 hover:bg-cyan-50 transition"
+                >
+                  <input
+                    type="checkbox"
+                    checked={formData.lookingFor?.includes(item)}
+                    onChange={() =>
+                      handleCheckboxGroupChange(
+                        "lookingFor",
+                        item
+                      )
+                    }
+                  />
+                  {item}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Budget */}
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-6">
+              Budget Range
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                "Under ₹50K",
+                "₹50K-₹2L",
+                "₹2L-₹5L",
+                "₹5L-₹10L",
+                "₹10L+",
+              ].map((item) => (
+                <label
+                  key={item}
+                  className="flex items-center gap-3 p-4 border rounded-xl cursor-pointer hover:border-cyan-500 hover:bg-cyan-50 transition"
+                >
+                  <input
+                    type="radio"
+                    name="budgetRange"
+                    value={item}
+                    checked={formData.budgetRange === item}
+                    onChange={handleInputChange}
+                  />
+                  {item}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Additional Details */}
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-6">
+              Additional Details
+            </h3>
+
+            <div className="space-y-5">
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Preferred Influencer Location
+                </label>
+                <input
+                  className={inputStyle}
+                  name="influencerLocation"
+                  value={formData.influencerLocation}
+                  onChange={handleInputChange}
+                  placeholder="Kolkata, Mumbai, Delhi..."
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Followers Range
+                </label>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
+                  {[
+                    "10K–50K",
+                    "50K–100K",
+                    "100K–500K",
+                    "500K–1M",
+                    "1M+",
+                  ].map((item) => (
+                    <label
+                      key={item}
+                      className="flex items-center gap-3 p-4 border rounded-xl cursor-pointer hover:border-cyan-500 hover:bg-cyan-50 transition"
+                    >
+                      <input
+                        type="radio"
+                        name="followersRange"
+                        value={item}
+                        checked={
+                          formData.followersRange === item
+                        }
+                        onChange={handleInputChange}
+                      />
+                      {item}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Campaign Description
+                </label>
+                <textarea
+                  rows="4"
+                  className={inputStyle}
+                  name="campaignDescription"
+                  value={formData.campaignDescription}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700">
+                  Additional Notes
+                </label>
+                <textarea
+                  rows="4"
+                  className={inputStyle}
+                  name="additionalNotes"
+                  value={formData.additionalNotes}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Consent */}
+          <label className="flex items-center gap-3 text-gray-700">
+            <input
+              type="checkbox"
+              name="consent"
+              checked={formData.consent}
+              onChange={handleInputChange}
+            />
+            I confirm that the information provided is correct.
+          </label>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-4 rounded-xl transition shadow-lg"
+          >
+            Submit Registration
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+)}
 {/* CREATOR FORM MODAL */}
 {isCreatorFormOpen && (
   <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-50 p-4">
