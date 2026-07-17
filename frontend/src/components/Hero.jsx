@@ -499,7 +499,7 @@ try {
   <div className="fixed inset-0 z-50 bg-gray-300 overflow-y-auto">
     <div className="min-h-screen flex items-start justify-center py-8 px-4">
       <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
-
+const inputStyle ="w-full mt-2 px-4 py-3 rounded-lg border border-gray-300 bg-gray-200 text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500";
         {/* Header */}
         <div className="border-b border-gray-200 px-6 md:px-10 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
@@ -545,12 +545,13 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Full Name
                 </label>
-                <input className="text-black"
+                <input 
                   className={inputStyle}
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleInputChange}
                   placeholder="Enter full name"
+
                   
                 />
               </div>
@@ -559,7 +560,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Work Email
                 </label>
-                <input className="text-black"
+                <input
                   className={inputStyle}
                   name="workEmail"
                   value={formData.workEmail}
@@ -572,7 +573,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Mobile Number
                 </label>
-                <input className="text-black"
+                <input
                   className={inputStyle}
                   name="mobileNumber"
                   value={formData.mobileNumber}
@@ -585,7 +586,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Brand Name
                 </label>
-                <input className="text-black"
+                <input
                   className={inputStyle}
                   name="brandName"
                   value={formData.brandName}
@@ -598,7 +599,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Website URL
                 </label>
-                <input className="text-black"
+                <input
                   className={inputStyle}
                   name="websiteUrl"
                   value={formData.websiteUrl}
@@ -611,7 +612,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Instagram
                 </label>
-                <input className="text-black"
+                <input
                   className={inputStyle}
                   name="instagramHandle"
                   value={formData.instagramHandle}
