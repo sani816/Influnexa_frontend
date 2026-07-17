@@ -545,7 +545,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Full Name
                 </label>
-                <input
+                <input className="text-black"
                   className={inputStyle}
                   name="fullName"
                   value={formData.fullName}
@@ -559,7 +559,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Work Email
                 </label>
-                <input
+                <input className="text-black"
                   className={inputStyle}
                   name="workEmail"
                   value={formData.workEmail}
@@ -572,7 +572,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Mobile Number
                 </label>
-                <input
+                <input className="text-black"
                   className={inputStyle}
                   name="mobileNumber"
                   value={formData.mobileNumber}
@@ -585,7 +585,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Brand Name
                 </label>
-                <input
+                <input className="text-black"
                   className={inputStyle}
                   name="brandName"
                   value={formData.brandName}
@@ -598,7 +598,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Website URL
                 </label>
-                <input
+                <input className="text-black"
                   className={inputStyle}
                   name="websiteUrl"
                   value={formData.websiteUrl}
@@ -611,7 +611,7 @@ try {
                 <label className="text-sm font-medium text-gray-700">
                   Instagram
                 </label>
-                <input
+                <input className="text-black"
                   className={inputStyle}
                   name="instagramHandle"
                   value={formData.instagramHandle}
