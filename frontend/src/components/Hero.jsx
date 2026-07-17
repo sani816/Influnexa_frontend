@@ -1297,7 +1297,7 @@ try {
 
   <div className="grid grid-cols-1 gap-5">
 
-    <div>
+    <div className="text-black">
       <label className="block text-sm font-medium text-gray-700 mb-2">
         Previously Worked Brands
       </label>
@@ -1311,7 +1311,7 @@ try {
       />
     </div>
 
-    <div>
+    <div className="text-black">
       <label className="block text-sm font-medium text-gray-700 mb-2">
         Message for InfluNexa
       </label>
