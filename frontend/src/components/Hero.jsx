@@ -830,8 +830,12 @@ try {
 {/* CREATOR FORM MODAL */}
 {isCreatorFormOpen && (
   <div className="fixed inset-0 z-50  bg-gray-300 overflow-y-auto text-black">
-  <div className="min-h-screen flex items-start justify-center py-8 px-4 text-black">
-      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden text-black">
+  <div className="fixed inset-0  flex justify-center items-center z-50 p-4">
+
+    <div
+  className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto
+  bg-white border border-gray-300 rounded-3xl shadow-2xl p-8"
+>
 
       {/* CLOSE BUTTON */}
       <button
