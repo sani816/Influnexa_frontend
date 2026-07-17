@@ -34,7 +34,7 @@ export default function TrustedPartners() {
     <section className="py-20 relative z-10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
 
-        <h2 className="text-5xl font-bold text-center mb-16 animated-heading ">
+        <h2 className="text-5xl font-bold text-center mb-16 text-white">
           Trusted Partner For Growing Brands
         </h2>
 
