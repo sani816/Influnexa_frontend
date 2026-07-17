@@ -32,7 +32,7 @@ function Testimonials() {
   return (
     <section className="relative py-1 overflow-hidden">
 
-      <h2 className="text-5xl font-bold text-center mb-16 animated-heading ">
+      <h2 className="text-5xl font-bold text-center mb-16  text-white ">
         Testimonials
       </h2>
 

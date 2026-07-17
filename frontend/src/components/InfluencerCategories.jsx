@@ -25,7 +25,7 @@ function Categories() {
   return (
     <section className="py-24 relative z-10">
 
-      <h2 className="text-5xl font-bold text-center mb-16 animated-heading ">
+      <h2 className="text-5xl font-bold text-center mb-16 text-white ">
         Influencer Categories
       </h2>
 

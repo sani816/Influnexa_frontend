@@ -43,7 +43,7 @@ export default function ServicesSection() {
     <section className="py-20 relative z-10">
       <div className="max-w-7xl mx-auto px-6">
 
-        <h2 className="text-5xl font-bold text-center mb-16 animated-heading ">
+        <h2 className="text-5xl font-bold text-center mb-16 text-white ">
           Our Services
         </h2>
 

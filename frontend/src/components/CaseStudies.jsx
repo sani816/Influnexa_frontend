@@ -35,7 +35,7 @@ function CaseStudies() {
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Heading */}
-        <h2 className="text-5xl font-bold text-center mb-16 animated-heading ">
+        <h2 className="text-5xl font-bold text-center mb-16 text-white ">
           Case Studies
         </h2>
 
