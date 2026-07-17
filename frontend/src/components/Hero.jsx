@@ -158,7 +158,7 @@ if(!creatorData.youtubeLink)
 if(!creatorData.youtubeSubs)
   err.youtubeSubs="required"
 
-if(!creatorData.preferredCategory.length===0)
+if(creatorData.preferredCategory.length===0)
   err.preferredCategory="required"
 
 if(!creatorData.reelRate)
@@ -170,7 +170,7 @@ if(!creatorData.storyRate)
 if(!creatorData.ytVideoRate)
   err.ytVideoRate="required"
 
-if (creatorData.campaignTypes.length === 0)
+if (!creatorData.campaignTypes.length === 0)
   err.campaignTypes = "Select at least one campaign type";
 
   if (!creatorData.addressType)
@@ -854,7 +854,7 @@ try {
         Join India's fastest-growing creator community
       </p>
 
-      <form className="space-y-6" onSubmit={handleCreatorSubmit}>
+    <form className="space-y-6" onSubmit={handleCreatorSubmit}>
 
        
 
