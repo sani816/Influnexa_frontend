@@ -21,10 +21,10 @@ function FeaturedCreators() {
   const fetchCreators = async () => {
     try {
       const res = await axios.get(
-        `${API_URL}/api/creator`
+        `${API_URL}/api/creator/featured`
       );
 
-      console.log("Creators:", res.data);
+      console.log(" Featured Creators:", res.data);
 
       if (res.data.success) {
         setCreators(res.data.creators);
