@@ -1372,13 +1372,7 @@ try {
 </div>
         {/* SUBMIT */}
       <div className="flex flex-col md:flex-row gap-4 pt-6">
-  <button
-    type="button"
-    onClick={() => setIsCreatorFormOpen(false)}
-    className="w-full md:w-1/2 py-3 rounded-xl font-semibold border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-200 transition"
-  >
-    Cancel
-  </button>
+  
 
   <button
     type="submit"
