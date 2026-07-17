@@ -855,119 +855,144 @@ try {
       <form className="space-y-6" onSubmit={handleCreatorSubmit}>
 
         {/* INSTAGRAM DETAILS */}
-        <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-          <h3 className="text-cyan-300 font-semibold mb-3">Instagram Details</h3>
+       <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
+    Instagram Details
+  </h3>
 
-          <input
-  className={inputStyle}
-  name="instagramUsername"
-  value={creatorData.instagramUsername}
-  onChange={handleCreatorChange}
-  placeholder="Instagram Username*"
-/>
-{errors.instagramUsername && <p className="text-red-400">{errors.instagramUsername}</p>}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-<input
-  className={inputStyle + " mt-2"}
-  name="instagramLink"
-  value={creatorData.instagramLink}
-  onChange={handleCreatorChange}
-  placeholder="Instagram Profile Link*"
-/>
-{errors.instagramLink && <p className="text-red-400">{errors.instagramLink}</p>}
+    <div>
+      <label className="text-sm font-medium text-gray-700">
+        Instagram Username
+      </label>
 
-<select
-  className={inputStyle + " mt-2"}
-  name="followersRange"
-  value={creatorData.followersRange}
-  onChange={handleCreatorChange}
->
-  <option value="" className="bg-blue-950">Followers Ranges:</option>
-  <option className="bg-blue-950">Under 2K</option>
-  <option className="bg-blue-950">2K - 10K</option>
-  <option className="bg-blue-950">10K - 50K</option>
-  <option className="bg-blue-950">50K - 100K</option>
-  <option className="bg-blue-950">100K+</option>
-</select>
-        </div>
+      <input
+        className={inputStyle}
+        name="instagramUsername"
+        value={creatorData.instagramUsername}
+        onChange={handleCreatorChange}
+        placeholder="Instagram Username"
+      />
+
+      {errors.instagramUsername && (
+        <p className="text-red-500 mt-1">
+          {errors.instagramUsername}
+        </p>
+      )}
+    </div>
+
+    <div>
+      <label className="text-sm font-medium text-gray-700">
+        Instagram Profile Link
+      </label>
+
+      <input
+        className={inputStyle}
+        name="instagramLink"
+        value={creatorData.instagramLink}
+        onChange={handleCreatorChange}
+        placeholder="https://instagram.com/username"
+      />
+
+      {errors.instagramLink && (
+        <p className="text-red-500 mt-1">
+          {errors.instagramLink}
+        </p>
+      )}
+    </div>
+
+    <div>
+      <label className="text-sm font-medium text-gray-700">
+        Followers Range
+      </label>
+
+      <select
+        className={inputStyle}
+        name="followersRange"
+        value={creatorData.followersRange}
+        onChange={handleCreatorChange}
+      >
+        <option value="">Select Range</option>
+        <option>Under 2K</option>
+        <option>2K - 10K</option>
+        <option>10K - 50K</option>
+        <option>50K - 100K</option>
+        <option>100K+</option>
+      </select>
+    </div>
+    </div>
+    </div>
 
         {/* PERSONAL INFO */}
-        <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-          <h3 className="text-cyan-300 font-semibold mb-3">Personal Info</h3>
+    <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
+    Personal Information
+  </h3>
 
-          <input
-  className={inputStyle}
-  name="fullName"
-  value={creatorData.fullName}
-  onChange={handleCreatorChange}
-  placeholder="Full Name*"
-/>
-{errors.fullName && <p className="text-red-400">{errors.fullName}</p>}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-<input
-  className={inputStyle + " mt-2"}
-  name="email"
-  value={creatorData.email}
-  onChange={handleCreatorChange}
-  placeholder="Email Address*"
-/>
-{errors.email && <p className="text-red-400">{errors.email}</p>}
+    <input
+      className={inputStyle}
+      name="fullName"
+      value={creatorData.fullName}
+      onChange={handleCreatorChange}
+      placeholder="Full Name"
+    />
 
-<input
-  className={inputStyle + " mt-2"}
-  name="mobileNumber"
-  value={creatorData.mobileNumber}
-  onChange={handleCreatorChange}
-  placeholder="Mobile Number*"
-/>
-{errors.mobileNumber && <p className="text-red-400">{errors.mobileNumber}</p>}
+    <input
+      className={inputStyle}
+      name="email"
+      value={creatorData.email}
+      onChange={handleCreatorChange}
+      placeholder="Email Address"
+    />
 
-<input
-  className={inputStyle + " mt-2"}
-  name="whatsappNumber"
-  value={creatorData.whatsappNumber}
-  onChange={handleCreatorChange}
-  placeholder="WhatsApp Number*"
-/>
+    <input
+      className={inputStyle}
+      name="mobileNumber"
+      value={creatorData.mobileNumber}
+      onChange={handleCreatorChange}
+      placeholder="Mobile Number"
+    />
 
-<select
-  className={inputStyle + " mt-2"}
-  name="gender"
-  value={creatorData.gender}
-  onChange={handleCreatorChange}
->
-  <option value="" className="bg-blue-950">Gender</option>
-  <option className="bg-blue-950">Male</option>
-  <option className="bg-blue-950">Female</option>
-  <option className="bg-blue-950">Other</option>
-</select>
+    <input
+      className={inputStyle}
+      name="whatsappNumber"
+      value={creatorData.whatsappNumber}
+      onChange={handleCreatorChange}
+      placeholder="WhatsApp Number"
+    />
 
-<input
-  type="date"
-  className={inputStyle + " mt-2"}
-  name="dob"
-  value={creatorData.dob}
-  onChange={handleCreatorChange}
-/>
-{errors.gender && (
-  <p className="text-red-400">{errors.gender}</p>
-)}
+    <select
+      className={inputStyle}
+      name="gender"
+      value={creatorData.gender}
+      onChange={handleCreatorChange}
+    >
+      <option value="">Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
 
-{errors.dob && (
-  <p className="text-red-400">{errors.dob}</p>
-)}
+    <input
+      type="date"
+      className={inputStyle}
+      name="dob"
+      value={creatorData.dob}
+      onChange={handleCreatorChange}
+    />
 
-
-        </div>
-
+  </div>
+</div>
 {/* upload image */}
-<div className="bg-white/5 p-4 rounded-xl border border-white/10">
-  <h3 className="text-cyan-300 font-semibold mb-3">
+<div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
     Upload Your Photo
   </h3>
 
   <input
-    id="creator-image"
     type="file"
     accept="image/*"
     onChange={handleImageUpload}
@@ -975,75 +1000,76 @@ try {
   />
 
   {creatorImage && (
-    <div className="mt-3 flex items-center gap-3">
-      <p className="text-green-400 text-sm">
-        Selected: {creatorImage.name}
-      </p>
-       
+    <div className="mt-3 flex gap-3 items-center">
+      <span className="text-green-600">
+        {creatorImage.name}
+      </span>
+
       <button
         type="button"
         onClick={removeImage}
-        className="px-3 py-1 bg-red-500 hover:bg-red-600 rounded-lg text-white text-sm"
+        className="px-3 py-1 bg-red-500 text-white rounded-lg"
       >
         Delete
       </button>
     </div>
   )}
-
-  {errors.image && (
-    <p className="text-red-400">{errors.image}</p>
-  )}
 </div>
 {/* ================= YOUTUBE ================= */}
-<div>
-  <h3 className="text-xl text-cyan-300 font-semibold">YouTube Information</h3>
+<div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
+    YouTube Information
+  </h3>
 
- <input
-  className={inputStyle}
-  name="hasYoutube"
-  value={creatorData.hasYoutube}
-  onChange={handleCreatorChange}
-  placeholder="Do you have YouTube? (Yes/No)"
-/>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-<input
-  className={inputStyle + " mt-2"}
-  name="youtubeName"
-  value={creatorData.youtubeName}
-  onChange={handleCreatorChange}
-  placeholder="YouTube Channel Name"
-/>
+    <input
+      className={inputStyle}
+      name="hasYoutube"
+      value={creatorData.hasYoutube}
+      onChange={handleCreatorChange}
+      placeholder="Do you have YouTube?"
+    />
 
-<input
-  className={inputStyle + " mt-2"}
-  name="youtubeLink"
-  value={creatorData.youtubeLink}
-  onChange={handleCreatorChange}
-  placeholder="YouTube Channel Link"
-/>
+    <input
+      className={inputStyle}
+      name="youtubeName"
+      value={creatorData.youtubeName}
+      onChange={handleCreatorChange}
+      placeholder="Channel Name"
+    />
 
-<select
-  className={inputStyle + " mt-2"}
-  name="youtubeSubs"
-  value={creatorData.youtubeSubs}
-  onChange={handleCreatorChange}
->
-  <option value="" className="bg-blue-950">Subscriber Range</option>
-  <option className="bg-blue-950">Under 1K</option>
-  <option className="bg-blue-950">1K - 10K</option>
-  <option className="bg-blue-950">10K - 50K</option>
-  <option className="bg-blue-950">50K - 100K</option>
-  <option className="bg-blue-950">100K+</option>
-</select>
+    <input
+      className={inputStyle}
+      name="youtubeLink"
+      value={creatorData.youtubeLink}
+      onChange={handleCreatorChange}
+      placeholder="Channel Link"
+    />
+
+    <select
+      className={inputStyle}
+      name="youtubeSubs"
+      value={creatorData.youtubeSubs}
+      onChange={handleCreatorChange}
+    >
+      <option value="">Subscriber Range</option>
+      <option>Under 1K</option>
+      <option>1K - 10K</option>
+      <option>10K - 50K</option>
+      <option>50K - 100K</option>
+      <option>100K+</option>
+    </select>
+
+  </div>
 </div>
         {/* CONTENT CATEGORY */}
-        <div className="mt-4">
-  <label className="block text-white mb-2 font-semibold">
+        <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
     Preferred Category
-  </label>
+  </h3>
 
-  <div className="flex flex-wrap gap-3">
-
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
     {[
       "Fashion",
       "Beauty",
@@ -1056,10 +1082,11 @@ try {
     ].map((cat) => (
       <label
         key={cat}
-        className="flex items-center gap-2 text-white"
+        className="flex items-center gap-3 p-3 bg-white border border-gray-300 rounded-xl cursor-pointer hover:border-purple-500 transition"
       >
         <input
           type="checkbox"
+          className="w-4 h-4 accent-purple-600"
           checked={creatorData.preferredCategory?.includes(cat)}
           onChange={(e) => {
             if (e.target.checked) {
@@ -1082,213 +1109,290 @@ try {
           }}
         />
 
-        {cat}
+        <span className="text-gray-800 font-medium">
+          {cat}
+        </span>
       </label>
     ))}
-
   </div>
 </div>
-       
        {/* RATE SECTION */}
-<div className="bg-white/5 p-4 rounded-xl border border-white/10">
-  <h3 className="text-cyan-300 font-semibold mb-3">
+<div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
     Commercial Rates
   </h3>
 
-  <input
-    className={inputStyle}
-    name="reelRate"
-    placeholder="Instagram Reel Rate (₹)"
-    value={creatorData.reelRate}
-    onChange={handleCreatorChange}
-  />
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-  <input
-    className={inputStyle + " mt-2"}
-    name="storyRate"
-    placeholder="Instagram Story Rate (₹)"
-    value={creatorData.storyRate}
-    onChange={handleCreatorChange}
-  />
-
-  <input
-    className={inputStyle + " mt-2"}
-    name="ytVideoRate"
-    placeholder="YouTube Video Rate (₹)"
-    value={creatorData.ytVideoRate}
-    onChange={handleCreatorChange}
-  />
-</div>
-
-        {/* ================= CAMPAIGN PREFERENCES ================= */}
-<div>
-  <h3 className="text-xl text-cyan-300 font-semibold">Campaign Preferences</h3>
-
- {[
-  "Paid Campaigns",
-  "Barter Campaigns",
-  "Product Review",
-  "UGC",
-  "Affiliate",
-  "Long Term",
-  "All"
-].map((item) => (
-  <label key={item} className="block">
     <input
-      type="checkbox"
-      onChange={() => handleCreatorMulti("campaignTypes", item)}
+      className={inputStyle}
+      name="reelRate"
+      value={creatorData.reelRate}
+      onChange={handleCreatorChange}
+      placeholder="Instagram Reel Rate"
     />
-    {item}
-  </label>
-))}
+
+    <input
+      className={inputStyle}
+      name="storyRate"
+      value={creatorData.storyRate}
+      onChange={handleCreatorChange}
+      placeholder="Instagram Story Rate"
+    />
+
+    <input
+      className={inputStyle}
+      name="ytVideoRate"
+      value={creatorData.ytVideoRate}
+      onChange={handleCreatorChange}
+      placeholder="YouTube Video Rate"
+    />
+
+  </div>
 </div>
+        {/* ================= CAMPAIGN PREFERENCES ================= */}
+<div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
+    Campaign Preferences
+  </h3>
 
+  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+    {[
+      "Paid Campaigns",
+      "Barter Campaigns",
+      "Product Review",
+      "UGC",
+      "Affiliate",
+      "Long Term",
+      "All",
+    ].map((item) => (
+      <label
+        key={item}
+        className="flex items-center gap-3 p-3 bg-white border border-gray-300 rounded-xl cursor-pointer hover:border-purple-500 transition"
+      >
+        <input
+          type="checkbox"
+          className="w-4 h-4 accent-purple-600"
+          checked={creatorData.campaignTypes?.includes(item)}
+          onChange={() =>
+            handleCreatorMulti("campaignTypes", item)
+          }
+        />
+
+        <span className="text-gray-800 font-medium">
+          {item}
+        </span>
+      </label>
+    ))}
+  </div>
+</div>
         {/* ADDRESS */}
-        <div className="bg-white/5 p-4 rounded-xl border border-white/10">
-          <h3 className="text-cyan-300 font-semibold mb-3">Address</h3>
-<input
-  className={inputStyle}
-  name="address1"
-  value={creatorData.address1}
-  onChange={handleCreatorChange}
-  placeholder="Address Line 1"
-/>
+       <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
+    Address Information
+  </h3>
 
-<input
-  className={inputStyle + " mt-2"}
-  name="address2"
-  value={creatorData.address2}
-  onChange={handleCreatorChange}
-  placeholder="Address Line 2"
-/>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-<input
-  className={inputStyle + " mt-2"}
-  name="city"
-  value={creatorData.city}
-  onChange={handleCreatorChange}
-  placeholder="City"
-/>
-{errors.city && <p className="text-red-400">{errors.city}</p>}
+    <input
+      className={inputStyle}
+      name="address1"
+      value={creatorData.address1}
+      onChange={handleCreatorChange}
+      placeholder="Address Line 1"
+    />
 
-<input
-  className={inputStyle + " mt-2"}
-  name="state"
-  value={creatorData.state}
-  onChange={handleCreatorChange}
-  placeholder="State"
-/>
+    <input
+      className={inputStyle}
+      name="address2"
+      value={creatorData.address2}
+      onChange={handleCreatorChange}
+      placeholder="Address Line 2"
+    />
 
-<input
-  className={inputStyle + " mt-2"}
-  name="pincode"
-  value={creatorData.pincode}
-  onChange={handleCreatorChange}
-  placeholder="Pincode"
-/>
+    <div>
+      <input
+        className={inputStyle}
+        name="city"
+        value={creatorData.city}
+        onChange={handleCreatorChange}
+        placeholder="City"
+      />
 
-<select
-  className={inputStyle + " mt-2"}
-  name="canReceiveProducts"
-  value={creatorData.canReceiveProducts}
-  onChange={handleCreatorChange}
->
-  <option value="">Can receive products?</option>
-  <option value="Yes" className="bg-blue-950">Yes</option>
-  <option value="No" className="bg-blue-950">No</option>
-</select>
+      {errors.city && (
+        <p className="text-red-500 mt-1">
+          {errors.city}
+        </p>
+      )}
+    </div>
 
-{errors.canReceiveProducts && (
-  <p className="text-red-400">{errors.canReceiveProducts}</p>
-)}
+    <input
+      className={inputStyle}
+      name="state"
+      value={creatorData.state}
+      onChange={handleCreatorChange}
+      placeholder="State"
+    />
 
-<select
-  className={inputStyle + " mt-2"}
-  name="addressType"
-  value={creatorData.addressType}
-  onChange={handleCreatorChange}
->
-  <option value="" className="bg-blue-950">Address Type</option>
-  <option value="Home" className="bg-blue-950">Home</option>
-  <option value="Office" className="bg-blue-950">Office</option>
-  <option value="Studio" className="bg-blue-950">Studio</option>
-  <option value="Other" className="bg-blue-950">Other</option>
-</select>
+    <input
+      className={inputStyle}
+      name="pincode"
+      value={creatorData.pincode}
+      onChange={handleCreatorChange}
+      placeholder="Pincode"
+    />
 
-{errors.addressType && (
-  <p className="text-red-400">{errors.addressType}</p>
-)}
+    <div>
+      <select
+        className={inputStyle}
+        name="canReceiveProducts"
+        value={creatorData.canReceiveProducts}
+        onChange={handleCreatorChange}
+      >
+        <option value="">Can receive products?</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
 
+      {errors.canReceiveProducts && (
+        <p className="text-red-500 mt-1">
+          {errors.canReceiveProducts}
+        </p>
+      )}
+    </div>
+
+    <div>
+      <select
+        className={inputStyle}
+        name="addressType"
+        value={creatorData.addressType}
+        onChange={handleCreatorChange}
+      >
+        <option value="">Address Type</option>
+        <option value="Home">Home</option>
+        <option value="Office">Office</option>
+        <option value="Studio">Studio</option>
+        <option value="Other">Other</option>
+      </select>
+
+      {errors.addressType && (
+        <p className="text-red-500 mt-1">
+          {errors.addressType}
+        </p>
+      )}
+    </div>
+
+  </div>
 </div>
 {/* ================= ADDITIONAL ================= */}
-        <div>
-  <h3 className="text-xl text-cyan-300 font-semibold">Additional Information</h3>
+   <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
+    Additional Information
+  </h3>
 
-  <textarea
-  className={inputStyle}
-  name="brandNames"
-  value={creatorData.brandNames}
-  onChange={handleCreatorChange}
-  placeholder="Previously worked brands"
-/>
+  <div className="grid grid-cols-1 gap-5">
 
-<textarea
-  className={inputStyle + " mt-2"}
-  name="message"
-  value={creatorData.message}
-  onChange={handleCreatorChange}
-  placeholder="Message for InfluNexa"
-/>
-</div>
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        Previously Worked Brands
+      </label>
+
+      <textarea
+        className={`${inputStyle} min-h-[120px] resize-none`}
+        name="brandNames"
+        value={creatorData.brandNames}
+        onChange={handleCreatorChange}
+        placeholder="Enter brands you have worked with"
+      />
+    </div>
+
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        Message for InfluNexa
+      </label>
+
+      <textarea
+        className={`${inputStyle} min-h-[120px] resize-none`}
+        name="message"
+        value={creatorData.message}
+        onChange={handleCreatorChange}
+        placeholder="Write your message here..."
+      />
+    </div>
+    </div>
+    </div>
 {/* ================= CONSENT ================= */}
-<div className="space-y-2">
- <label>
-  <input
-    type="checkbox"
-    name="consent1"
-    checked={creatorData.consent1}
-    onChange={handleCreatorChange}
-  />
-  I confirm information is correct
-</label><br></br>
+<div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
+  <h3 className="text-xl font-semibold text-gray-800 mb-6">
+    Terms & Consent
+  </h3>
 
-<label>
-  <input
-    type="checkbox"
-    name="consent2"
-    checked={creatorData.consent2}
-    onChange={handleCreatorChange}
-  />
-  I agree to receive campaigns
-</label><br></br>
+  <div className="space-y-4">
 
-<label>
-  <input
-    type="checkbox"
-    name="consent3"
-    checked={creatorData.consent3}
-    onChange={handleCreatorChange}
-  />
-  I understand selection is not guaranteed
-</label>
+    <label className="flex items-start gap-3 text-gray-700 cursor-pointer">
+      <input
+        type="checkbox"
+        name="consent1"
+        checked={creatorData.consent1}
+        onChange={handleCreatorChange}
+        className="w-5 h-5 mt-1 accent-purple-600"
+      />
+      <span>I confirm that the information provided is correct.</span>
+    </label>
 
-{errors.consent && (
-  <p className="text-red-400">{errors.consent}</p>
-)}
+    <label className="flex items-start gap-3 text-gray-700 cursor-pointer">
+      <input
+        type="checkbox"
+        name="consent2"
+        checked={creatorData.consent2}
+        onChange={handleCreatorChange}
+        className="w-5 h-5 mt-1 accent-purple-600"
+      />
+      <span>I agree to receive campaigns and promotional updates.</span>
+    </label>
+
+    <label className="flex items-start gap-3 text-gray-700 cursor-pointer">
+      <input
+        type="checkbox"
+        name="consent3"
+        checked={creatorData.consent3}
+        onChange={handleCreatorChange}
+        className="w-5 h-5 mt-1 accent-purple-600"
+      />
+      <span>I understand that creator selection is not guaranteed.</span>
+    </label>
+
+    {errors.consent && (
+      <p className="text-red-500 text-sm">
+        {errors.consent}
+      </p>
+    )}
+
+  </div>
 </div>
         {/* SUBMIT */}
-        <button
-          type="submit"
-          className="w-full py-3 rounded-xl font-bold 
-          bg-gradient-to-r from-pink-500 to-purple-600 
-          hover:scale-105 transition"
-        >
-          Register as Creator
-        </button>
+      <div className="flex flex-col md:flex-row gap-4 pt-6">
+  <button
+    type="button"
+    onClick={() => setIsCreatorFormOpen(false)}
+    className="w-full md:w-1/2 py-3 rounded-xl font-semibold border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-200 transition"
+  >
+    Cancel
+  </button>
 
-      </form>
-    </div>
-  </div>
+  <button
+    type="submit"
+    className="w-full md:w-1/2 py-3 rounded-xl font-bold text-white
+    bg-gradient-to-r from-blue-600 to-purple-600
+    hover:scale-105 transition duration-300 shadow-lg"
+  >
+    Register as Creator
+  </button>
+</div>
+
+</form>
+</div>
+</div>
 )}      
     </div>
   );
