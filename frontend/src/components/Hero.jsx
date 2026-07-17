@@ -102,85 +102,104 @@ const validateCreatorForm = () => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^[6-9]\d{9}$/;
+  const urlRegex =
+    /^(https?:\/\/)?(www\.)?(instagram\.com|youtube\.com|youtu\.be)/i;
+  const pincodeRegex = /^[1-9][0-9]{5}$/;
 
-  // REQUIRED FIELDS
-  if (!creatorData.instagramUsername)
-    err.instagramUsername = "Required";
+  if (!creatorData.instagramUsername.trim())
+    err.instagramUsername = "Instagram username is required";
 
-  if (!creatorData.instagramLink)
-    err.instagramLink = "Required";
+  if (!creatorData.instagramLink.trim())
+    err.instagramLink = "Instagram profile link is required";
+  else if (!urlRegex.test(creatorData.instagramLink))
+    err.instagramLink = "Enter a valid Instagram URL";
 
-  if (!creatorData.fullName)
-    err.fullName = "Required";
+  if (!creatorData.fullName.trim())
+    err.fullName = "Full name is required";
 
-  if (!creatorData.email || !emailRegex.test(creatorData.email))
-    err.email = "Invalid email";
+  if (!creatorData.email.trim())
+    err.email = "Email is required";
+  else if (!emailRegex.test(creatorData.email))
+    err.email = "Please enter a valid email";
 
-  if (!creatorData.mobileNumber || !phoneRegex.test(creatorData.mobileNumber))
-    err.mobileNumber = "Invalid mobile";
+  if (!creatorData.mobileNumber)
+    err.mobileNumber = "Mobile number is required";
+  else if (!phoneRegex.test(creatorData.mobileNumber))
+    err.mobileNumber = "Enter a valid 10-digit mobile number";
 
   if (!creatorData.whatsappNumber)
-    err.whatsappNumber = "Required";
+    err.whatsappNumber = "WhatsApp number is required";
+  else if (!phoneRegex.test(creatorData.whatsappNumber))
+    err.whatsappNumber = "Enter a valid WhatsApp number";
 
   if (!creatorData.gender)
-    err.gender = "Required";
+    err.gender = "Please select your gender";
 
   if (!creatorData.dob)
-    err.dob = "Required";
+    err.dob = "Date of birth is required";
 
   if (!creatorData.followersRange)
-    err.followersRange = "Required";
+    err.followersRange = "Please select followers range";
 
-  if (!creatorData.city)
-    err.city = "Required";
+  if (creatorData.preferredCategory.length === 0)
+    err.preferredCategory = "Select at least one category";
 
-  if (!creatorData.state)
-    err.state = "Required";
+  if (creatorData.campaignTypes.length === 0)
+    err.campaignTypes = "Select at least one campaign type";
+
+  if (!creatorData.reelRate)
+    err.reelRate = "Reel rate is required";
+
+  if (!creatorData.storyRate)
+    err.storyRate = "Story rate is required";
+
+  if (!creatorData.hasYoutube)
+    err.hasYoutube = "Please select Yes or No";
+
+  if (creatorData.hasYoutube === "Yes") {
+    if (!creatorData.youtubeName.trim())
+      err.youtubeName = "YouTube channel name is required";
+
+    if (!creatorData.youtubeLink.trim())
+      err.youtubeLink = "YouTube channel link is required";
+
+    if (!creatorData.youtubeSubs)
+      err.youtubeSubs = "Please select YouTube subscribers";
+  }
+
+  if (!creatorData.address1.trim())
+    err.address1 = "Address is required";
+
+  if (!creatorData.city.trim())
+    err.city = "City is required";
+
+  if (!creatorData.state.trim())
+    err.state = "State is required";
 
   if (!creatorData.pincode)
-    err.pincode = "Required";
-
-  if (!creatorImage)
-    err.image = "Upload image";
-
-  if (creatorImage && creatorImage.size > 10 * 1024 * 1024)
-    err.image = "Max 10MB allowed";
-
-if(!creatorData.hasYoutube)
-  err.hasYoutube="required"
-
-if(!creatorData.youtubeName)
-  err.youtubeName="required"
-
-if(!creatorData.youtubeLink)
-  err.youtubeLink="required"
-
-if(!creatorData.youtubeSubs)
-  err.youtubeSubs="required"
-
-if(creatorData.preferredCategory.length===0)
-  err.preferredCategory="required"
-
-if(!creatorData.reelRate)
-  err.reelRate="required"
-
-if(!creatorData.storyRate)
-  err.storyRate="required"
-
-if(!creatorData.ytVideoRate)
-  err.ytVideoRate="required"
-
-if (!creatorData.campaignTypes.length === 0)
-  err.campaignTypes = "Select at least one campaign type";
+    err.pincode = "Pincode is required";
+  else if (!pincodeRegex.test(creatorData.pincode))
+    err.pincode = "Enter a valid 6-digit pincode";
 
   if (!creatorData.addressType)
-    err.addressType = "Required";
+    err.addressType = "Select address type";
 
   if (!creatorData.canReceiveProducts)
-    err.canReceiveProducts = "Required";
+    err.canReceiveProducts = "Please select an option";
 
-  if (!creatorData.consent1 || !creatorData.consent2 || !creatorData.consent3)
-    err.consent = "Accept all consents";
+  if (!creatorImage)
+    err.image = "Please upload a profile image";
+
+  if (creatorImage && creatorImage.size > 10 * 1024 * 1024)
+    err.image = "Image size must be less than 10MB";
+
+  if (
+    !creatorData.consent1 ||
+    !creatorData.consent2 ||
+    !creatorData.consent3
+  ) {
+    err.consent = "Please accept all terms and conditions";
+  }
 
   setErrors(err);
 
