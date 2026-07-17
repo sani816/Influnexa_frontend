@@ -10,7 +10,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardHome from "./components/DashboardHome";
 
-
+import CreatorProfile from "./pages/CreatorProfile";
 
 function App() {
 
@@ -45,7 +45,10 @@ function App() {
           }
         />
  <Route path="*" element={<Navigate to="/" />} />
-       
+       <Route
+  path="/creator/:id"
+  element={<CreatorProfile />}
+/>
       </Routes>
 
     </BrowserRouter>
