@@ -239,7 +239,9 @@ const handleCreatorChange = (e) => {
 
   setCreatorData((prev) => ({
     ...prev,
-    [name]: type === "checkbox" ? checked : value,
+    [name]: type === "checkbox" ? checked : name === "followersRange"
+        ? Number(value)
+        : value,
   }));
 };
 
