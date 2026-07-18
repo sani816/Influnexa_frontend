@@ -235,7 +235,7 @@ const removeImage = () => {
 
                 // creator handler
 const handleCreatorChange = (e) => {
-  const { name, value, type, checked } = e.target;
+  const { name, value, type, checked,Number } = e.target;
 
   setCreatorData((prev) => ({
     ...prev,
