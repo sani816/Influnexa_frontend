@@ -235,7 +235,7 @@ const removeImage = () => {
 
                 // creator handler
 const handleCreatorChange = (e) => {
-  const { name, value, type, checked,Number } = e.target;
+  const { name, value, type, checked } = e.target;
 
   setCreatorData((prev) => ({
     ...prev,
@@ -1054,11 +1054,11 @@ try {
         onChange={handleCreatorChange}
       >
         <option value="" className="text-black">Select Range</option>
-        <option className="text-black">Under 2K</option>
-        <option className="text-black">2K - 10K</option>
-        <option className="text-black">10K - 50K</option>
-        <option className="text-black">50K - 100K</option>
-        <option className="text-black">100K+</option>
+        <option className="text-black" value={2000}>Under 2K</option>
+        <option className="text-black" value={10000}>2K - 10K</option>
+        <option className="text-black" value={50000}>10K - 50K</option>
+        <option className="text-black" value={100000}>50K - 100K</option>
+        <option className="text-black" value={100001}>100K+</option>
       </select>
       {errors.followersRange && (
   <p className="text-red-500 text-sm mt-1">
@@ -1174,11 +1174,11 @@ try {
       onChange={handleCreatorChange}
     >
       <option value="" className="text-black">Subscriber Range</option>
-      <option className="text-black" value={2000}>Under 2K</option>
-      <option className="text-black" value={10000}>2K - 10K</option>
-      <option className="text-black" value={50000}>10K - 50K</option>
-      <option className="text-black" value={100000}>50K - 100K</option>
-      <option className="text-black" value={100001}>100K+</option>
+      <option className="text-black" >Under 2K</option>
+      <option className="text-black" >2K - 10K</option>
+      <option className="text-black" >10K - 50K</option>
+      <option className="text-black" >50K - 100K</option>
+      <option className="text-black">100K+</option>
     </select>
 
     {errors.youtubeSubs && (
