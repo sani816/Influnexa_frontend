@@ -884,7 +884,7 @@ try {
   </h3>
 
   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
+<div>
     <input
        className={`${inputStyle} !text-black`}
       name="fullName"
@@ -892,7 +892,15 @@ try {
       onChange={handleCreatorChange}
       placeholder="Full Name"
     />
+   {errors.fullName && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.fullName}
+    </p>
+  )}
+</div>
 
+
+<div>
     <input
        className={`${inputStyle} !text-black`}
       name="email"
@@ -901,6 +909,16 @@ try {
       placeholder="Email Address"
     />
 
+
+    {errors.email && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.email}
+    </p>
+  )}
+</div>
+
+
+<div>
     <input
        className={`${inputStyle} !text-black`}
       name="mobileNumber"
@@ -909,6 +927,14 @@ try {
       placeholder="Mobile Number"
     />
 
+ {errors.mobileNumber && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.mobileNumber}
+    </p>
+  )}
+</div>
+
+<div>
     <input
       className={`${inputStyle} !text-black`}
       name="whatsappNumber"
@@ -917,6 +943,16 @@ try {
       placeholder="WhatsApp Number"
     />
 
+
+{errors.whatsappNumber && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.whatsappNumber}
+    </p>
+  )}
+</div>
+
+
+<div>
     <select
       className={`${inputStyle} !text-black`}
       name="gender"
@@ -929,6 +965,16 @@ try {
       <option className="text-black">Other</option>
     </select>
 
+
+     {errors.gender && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.gender}
+    </p>
+  )}
+</div>
+
+
+<div>
     <input
       type="date"
        className={`${inputStyle} !text-black`}
@@ -936,7 +982,12 @@ try {
       value={creatorData.dob}
       onChange={handleCreatorChange}
     />
-
+ {errors.dob && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.dob}
+    </p>
+  )}
+</div>
   </div>
 </div>
 
@@ -1007,21 +1058,39 @@ try {
         <option className="text-black">50K - 100K</option>
         <option className="text-black">100K+</option>
       </select>
+      {errors.followersRange && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.followersRange}
+  </p>
+)}
     </div>
     </div>
     </div>
+
+
+
 {/* upload image */}
+
+
 <div className="bg-gray-50 border border-gray-300 rounded-2xl p-6">
   <h3 className="text-xl font-semibold text-gray-800 mb-6">
     Upload Your Photo
   </h3>
-
+<div>
   <input
     type="file"
     accept="image/*"
     onChange={handleImageUpload}
     className={`${inputStyle} !text-black`}
   />
+  {errors.image && (
+  <p className="text-red-500 text-sm mt-2">
+    {errors.image}
+  </p>
+)}
+</div>
+
+
 
   {creatorImage && (
     <div className="mt-3 flex gap-3 items-center">
@@ -1046,7 +1115,7 @@ try {
   </h3>
 
   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
+<div>
     <input
       className={`${inputStyle} !text-black`}
       name="hasYoutube"
@@ -1055,6 +1124,15 @@ try {
       placeholder="Do you have YouTube?"
     />
 
+    {errors.hasYoutube && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.hasYoutube}
+  </p>
+)}
+</div>
+
+
+<div>
     <input
      className={`${inputStyle} !text-black`}
       name="youtubeName"
@@ -1062,7 +1140,14 @@ try {
       onChange={handleCreatorChange}
       placeholder="Channel Name"
     />
+{errors.youtubeName && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.youtubeName}
+  </p>
+)}
+</div>
 
+<div>
     <input
       className={`${inputStyle} !text-black`}
       name="youtubeLink"
@@ -1071,6 +1156,15 @@ try {
       placeholder="Channel Link"
     />
 
+{errors.youtubeLink && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.youtubeLink}
+  </p>
+)}
+</div>
+
+
+<div>
     <select
      className={`${inputStyle} !text-black`}
       name="youtubeSubs"
@@ -1084,6 +1178,13 @@ try {
       <option className="text-black">50K - 100K</option>
       <option className="text-black">100K+</option>
     </select>
+
+    {errors.youtubeSubs && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.youtubeSubs}
+  </p>
+)}
+</div>
 
   </div>
 </div>
@@ -1108,6 +1209,7 @@ try {
         key={cat}
         className="flex items-center gap-3 p-3 bg-white border border-gray-300 rounded-xl cursor-pointer hover:border-purple-500 transition"
       >
+        <div>
         <input
           type="checkbox"
           className="w-4 h-4 accent-purple-600"
@@ -1132,6 +1234,12 @@ try {
             }
           }}
         />
+        {errors.preferredCategory && (
+  <p className="text-red-500 text-sm mt-3">
+    {errors.preferredCategory}
+  </p>
+)}
+</div>
 
         <span className="text-gray-800 font-medium">
           {cat}
@@ -1147,7 +1255,7 @@ try {
   </h3>
 
   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-
+<div>
     <input
       className={`${inputStyle} !text-black`}
       name="reelRate"
@@ -1155,6 +1263,13 @@ try {
       onChange={handleCreatorChange}
       placeholder="Instagram Reel Rate"
     />
+{errors.reelRate && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.reelRate}
+  </p>
+)}
+</div>
+
 
     <input
       className={`${inputStyle} !text-black`}
@@ -1163,7 +1278,7 @@ try {
       onChange={handleCreatorChange}
       placeholder="Instagram Story Rate"
     />
-
+<div>
     <input
       className={`${inputStyle} !text-black`}
       name="ytVideoRate"
@@ -1171,6 +1286,13 @@ try {
       onChange={handleCreatorChange}
       placeholder="YouTube Video Rate"
     />
+
+    {errors.storyRate && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.storyRate}
+  </p>
+)}
+</div>
 
   </div>
 </div>
@@ -1194,6 +1316,7 @@ try {
         key={item}
         className="flex items-center gap-3 p-3 bg-white border border-gray-300 rounded-xl cursor-pointer hover:border-purple-500 transition"
       >
+        <div>
         <input
           type="checkbox"
           className="w-4 h-4 accent-purple-600"
@@ -1202,7 +1325,12 @@ try {
             handleCreatorMulti("campaignTypes", item)
           }
         />
-
+{errors.campaignTypes && (
+  <p className="text-red-500 text-sm mt-3">
+    {errors.campaignTypes}
+  </p>
+)}
+</div>
         <span className="text-gray-800 font-medium">
           {item}
         </span>
@@ -1217,7 +1345,7 @@ try {
   </h3>
 
   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
+<div>
     <input
       className={`${inputStyle} !text-black`}
       name="address1"
@@ -1226,6 +1354,15 @@ try {
       placeholder="Address Line 1"
     />
 
+    {errors.address1 && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.address1}
+  </p>
+)}
+</div>
+
+
+<div>
     <input
      className={`${inputStyle} !text-black`}
       name="address2"
@@ -1233,6 +1370,14 @@ try {
       onChange={handleCreatorChange}
       placeholder="Address Line 2"
     />
+
+    {errors.state && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.state}
+  </p>
+)}
+</div>
+
 
     <div>
       <input
@@ -1249,7 +1394,7 @@ try {
         </p>
       )}
     </div>
-
+<div>
     <input
       className={`${inputStyle} !text-black`}
       name="state"
@@ -1258,6 +1403,13 @@ try {
       placeholder="State"
     />
 
+    {errors.state && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.state}
+  </p>
+)}
+</div>
+<div>
     <input
      className={`${inputStyle} !text-black`}
       name="pincode"
@@ -1265,6 +1417,12 @@ try {
       onChange={handleCreatorChange}
       placeholder="Pincode"
     />
+    {errors.pincode && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.pincode}
+  </p>
+)}
+</div>
 
     <div>
       <select
