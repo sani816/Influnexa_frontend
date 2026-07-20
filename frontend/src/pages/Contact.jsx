@@ -17,11 +17,11 @@ function Contact() {
   const [bookingData, setBookingData] = useState({
     name: "",
     email: "",
-    company:"",
+    company: "",
     budget: "",
     date: "",
     time: "",
-    message: ""
+    message: "",
   });
 const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -40,7 +40,7 @@ const [msgSuccess, setMsgSuccess] = useState(false);
 
 const handleBooking = async (e) => {
   e.preventDefault();
-
+console.log("Booking Data:", bookingData);
   setLoading(true);
 
   try {
@@ -58,7 +58,7 @@ const handleBooking = async (e) => {
       budget: "",
       date: "",
       time: "",
-      message: ""
+      message: "",
     });
 
     setTimeout(() => {
