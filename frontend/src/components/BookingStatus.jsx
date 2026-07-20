@@ -19,11 +19,12 @@ function BookingStatus() {
 
     const socket = io(Config.API_URL);
 
-    socket.on("booking-update", (data) => {
-      setBookings((prev) => [
-        { _id: Date.now(), ...data },
-        ...prev,
-      ]);
+    socket.on("booking-update", (booking) => {
+      setBookings((prev) => [booking, ...prev]);
+    });
+
+    socket.on("delete-booking", (id) => {
+      setBookings((prev) => prev.filter((item) => item._id !== id));
     });
 
     return () => socket.disconnect();
@@ -31,8 +32,13 @@ function BookingStatus() {
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get(`${Config.API_URL}/api/bookings`);
-      setBookings(res.data);
+      const res = await axios.get(
+        `${Config.API_URL}/api/consultation/all`
+      );
+
+      if (res.data.success) {
+        setBookings(res.data.consultations);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -40,8 +46,13 @@ function BookingStatus() {
 
   const deleteBooking = async (id) => {
     try {
-      await axios.delete(`${Config.API_URL}/api/bookings/${id}`);
-      setBookings((prev) => prev.filter((b) => b._id !== id));
+      await axios.delete(
+        `${Config.API_URL}/api/consultation/${id}`
+      );
+
+      setBookings((prev) =>
+        prev.filter((item) => item._id !== id)
+      );
     } catch (err) {
       console.log(err);
     }
@@ -50,74 +61,81 @@ function BookingStatus() {
   return (
     <div className="p-6">
       <h1 className="text-4xl font-bold text-white mb-8">
-        Booking Status
+        Consultation Bookings
       </h1>
 
-      <div className="space-y-5">
-        {bookings.length === 0 ? (
-          <div className="bg-slate-800 p-6 rounded-xl text-center text-gray-400">
-            No bookings yet
-          </div>
-        ) : (
-          bookings.map((item) => (
+      {bookings.length === 0 ? (
+        <div className="bg-slate-800 rounded-xl p-6 text-center text-gray-400">
+          No consultation bookings found.
+        </div>
+      ) : (
+        <div className="space-y-5">
+          {bookings.map((item) => (
             <div
               key={item._id}
               className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-cyan-500 transition"
             >
               <div className="flex justify-between">
-                
-                <div className="space-y-2 text-white">
 
-                  <div className="flex gap-2 text-cyan-300 font-semibold">
-                    <FaUser /> {item.name}
+                <div className="space-y-3 text-white">
+
+                  <div className="flex items-center gap-2 text-cyan-400 font-semibold">
+                    <FaUser />
+                    {item.name}
                   </div>
 
-                  <div className="flex gap-2 text-gray-300">
-                    <FaEnvelope /> {item.email}
+                  <div className="flex items-center gap-2">
+                    <FaEnvelope />
+                    {item.email}
                   </div>
 
-                  <div className="flex gap-2 text-gray-300">
-                    <FaBuilding /> {item.company}
+                  <div className="flex items-center gap-2">
+                    <FaBuilding />
+                    {item.company || "N/A"}
                   </div>
 
-                  <div className="flex gap-2 text-green-400">
-                    <FaMoneyBill /> {item.budget}
+                  <div className="flex items-center gap-2 text-green-400">
+                    <FaMoneyBill />
+                    ₹ {item.budget || 0}
                   </div>
 
-                  <p className="text-white mt-2">
-                    {item.message}
-                  </p>
+                  <div>
+                    <strong>Date :</strong> {item.date}
+                  </div>
 
-                  <p className="text-xs text-gray-500 flex items-center gap-2 mt-2">
+                  <div>
+                    <strong>Time :</strong> {item.time}
+                  </div>
+
+                  <div>
+                    <strong>Message :</strong>
+                    <br />
+                    {item.message || "No message"}
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs text-gray-400">
                     <FaCalendar />
                     {new Date(item.createdAt).toLocaleString()}
-                  </p>
+                  </div>
 
-                  {/* TYPE BADGE */}
-                  <span className={`
-                    inline-block mt-2 px-3 py-1 text-xs rounded-full
-                    ${item.type === "consultation"
-                      ? "bg-purple-500/20 text-purple-300"
-                      : "bg-cyan-500/20 text-cyan-300"}
-                  `}>
-                    {item.type}
+                  <span className="inline-block px-3 py-1 rounded-full bg-purple-600/20 text-purple-300 text-xs">
+                    Consultation
                   </span>
 
                 </div>
 
-                {/* DELETE */}
                 <button
                   onClick={() => deleteBooking(item._id)}
-                  className="bg-red-500 hover:bg-red-600 p-2 rounded-lg text-white"
+                  className="bg-red-500 hover:bg-red-600 p-3 rounded-lg text-white h-fit"
                 >
                   <FaTrash />
                 </button>
 
               </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
