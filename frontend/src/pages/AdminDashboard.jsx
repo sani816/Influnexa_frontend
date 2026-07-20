@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import DashboardHome from "../components/DashboardHome";
 import BrandSection from "../components/BrandSection";
 import CreatorSection from "../components/CreatorSection";
-import AnalyticsSection from "../components/AnalyticsSection";
+// import AnalyticsSection from "../components/AnalyticsSection";
 // import NotificationSection from "../components/NotificationSection";
 import SettingsSection from "../components/SettingsSection";
 import BookingStatus from "../components/BookingStatus";
@@ -65,7 +65,7 @@ function AdminDashboard() {
 
             {section === "creators" && <CreatorSection />}
 
-            {section === "analytics" && <AnalyticsSection />}
+            {/* {section === "analytics" && <AnalyticsSection />} */}
 
             {section === "bookings" && <BookingStatus />}
 

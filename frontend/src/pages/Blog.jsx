@@ -87,14 +87,8 @@ function Blog() {
       <Navbar />
 
       {/* background glow (responsive) */}
-     <div className="bg-gradient-to-b from-indigo-900 via-purple-900 to-black text-white">
       <div>
-  <div className="absolute inset-0 overflow-hidden">
-    <div className="absolute top-10 left-1/2 sm:left-10 -translate-x-1/2 sm:translate-x-0 w-40 h-40 sm:w-72 sm:h-72 bg-fuchsia-600/40 blur-3xl rounded-full"></div>
-
-    <div className="absolute bottom-10 right-1/2 sm:right-10 translate-x-1/2 sm:translate-x-0 w-40 h-40 sm:w-72 sm:h-72 bg-sky-600/40 blur-3xl rounded-full"></div>
-  </div>
-
+     <div className="bg-gradient-to-b from-indigo-900 via-purple-900 text-white">
         {/* HERO */}
         <section className="py-16 sm:py-24 text-black relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
