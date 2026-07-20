@@ -17,8 +17,11 @@ function Contact() {
   const [bookingData, setBookingData] = useState({
     name: "",
     email: "",
+    company:"",
+    budget: "",
     date: "",
     time: "",
+    message: ""
   });
 const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -51,8 +54,11 @@ const handleBooking = async (e) => {
     setBookingData({
       name: "",
       email: "",
+      company:"",
+      budget: "",
       date: "",
       time: "",
+      message: ""
     });
 
     setTimeout(() => {
@@ -237,7 +243,7 @@ const handleMessage = async (e) => {
 
          <form className="space-y-5" onSubmit={handleMessage}>
 
-               <input
+  <input
   type="text"
   placeholder="Full Name"
   value={messageData.name}
@@ -293,10 +299,8 @@ const handleMessage = async (e) => {
 >
   {msgLoading ? "Sending..." : "Submit Inquiry"}
 </button>
-
-              </form>
-
-            </div>
+</form>
+ </div>
 
             {/* Consultation Booking */}
             <div className="bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white text-white p-8 rounded-xl shadow-lg">
@@ -343,6 +347,33 @@ const handleMessage = async (e) => {
   />
 
   <input
+  type="text"
+  placeholder="Company Name"
+  value={bookingData.company}
+  onChange={(e) =>
+      setBookingData({
+        ...bookingData,
+        company: e.target.value,
+      })
+  }
+  className="w-full border p-3 sm:p-4 rounded-lg text-black"
+/>
+
+<input
+  type="text"
+  placeholder="Campaign Budget"
+  value={bookingDataData.budget}
+  onChange={(e) =>
+      setBookingData({
+        ...bookingData,
+        budget: e.target.value,
+      })
+  }
+  className="w-full border p-3 sm:p-4 rounded-lg text-black"
+/>
+
+
+  <input
     type="date"
     value={bookingData.date}
     onChange={(e) =>
@@ -367,6 +398,19 @@ const handleMessage = async (e) => {
     className="w-full p-3 sm:p-4 rounded-lg text-black bg-white"
     required
   />
+
+  <textarea
+  rows="5"
+  placeholder="Tell us about your campaign"
+  value={bookingDataData.message}
+   onChange={(e) =>
+      setBookingData({
+        ...bookingData,
+        message: e.target.value,
+      })
+  }
+  className="w-full border p-3 sm:p-4 rounded-lg text-black"
+/>
 <button
   type="submit"
   disabled={loading}
