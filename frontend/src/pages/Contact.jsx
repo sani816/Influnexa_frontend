@@ -26,16 +26,16 @@ function Contact() {
 const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [messageData, setMessageData] = useState({
-  name: "",
-  email: "",
-  company: "",
-  budget: "",
-  message: "",
-});
+//   const [messageData, setMessageData] = useState({
+//   name: "",
+//   email: "",
+//   company: "",
+//   budget: "",
+//   message: "",
+// });
 
-const [msgLoading, setMsgLoading] = useState(false);
-const [msgSuccess, setMsgSuccess] = useState(false);
+// const [msgLoading, setMsgLoading] = useState(false);
+// const [msgSuccess, setMsgSuccess] = useState(false);
 
 
 const handleBooking = async (e) => {
@@ -79,49 +79,49 @@ console.log("Booking Data:", bookingData);
 };
 
 
-const handleMessage = async (e) => {
-  e.preventDefault();
- if (
-    !messageData.name ||
-    !messageData.email ||
-    !messageData.company ||
-    !messageData.budget ||
-    !messageData.message
-  ) {
-    alert("⚠️ Please fill all fields before submitting!");
-    return;
-  }
-  setMsgLoading(true);
+// const handleMessage = async (e) => {
+//   e.preventDefault();
+//  if (
+//     !messageData.name ||
+//     !messageData.email ||
+//     !messageData.company ||
+//     !messageData.budget ||
+//     !messageData.message
+//   ) {
+//     alert("⚠️ Please fill all fields before submitting!");
+//     return;
+//   }
+//   setMsgLoading(true);
 
-  try {
-    const res = await axios.post(
-      `${Config.API_URL}/api/message/send-message`,
-  messageData
-    );
+//   try {
+//     const res = await axios.post(
+//       `${Config.API_URL}/api/message/send-message`,
+//   messageData
+//     );
 
-    console.log("MESSAGE SUCCESS:", res.data);
+//     console.log("MESSAGE SUCCESS:", res.data);
 
-    setMsgSuccess(true);
+//     setMsgSuccess(true);
 
-    setMessageData({
-      name: "",
-      email: "",
-      company: "",
-      budget: "",
-      message: "",
-    });
+//     setMessageData({
+//       name: "",
+//       email: "",
+//       company: "",
+//       budget: "",
+//       message: "",
+//     });
 
-    setTimeout(() => {
-      setMsgSuccess(false);
-    }, 3000);
+//     setTimeout(() => {
+//       setMsgSuccess(false);
+//     }, 3000);
 
-  } catch (error) {
-    console.error("MESSAGE ERROR:", error);
-    alert(error.response?.data?.message || error.message);
-  }
+//   } catch (error) {
+//     console.error("MESSAGE ERROR:", error);
+//     alert(error.response?.data?.message || error.message);
+//   }
 
-  setMsgLoading(false);
-};
+//   setMsgLoading(false);
+// };
 
 
   return (
@@ -132,11 +132,11 @@ const handleMessage = async (e) => {
     ✅ Consultation Booked Successfully!
   </div>
 )}
-{msgSuccess && (
+{/* {msgSuccess && (
   <div className="fixed right-5 left-5 bg-green-500 text-white px-3 py-3 rounded-lg shadow-lg">
     ✅ Message Sent Successfully!
   </div>
-)}
+)} */}
 
       {/* Hero Section */}
       <div className="bg-gradient-to-b from-indigo-200 via-purple-900 to-black text-white">
@@ -235,7 +235,7 @@ const handleMessage = async (e) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
             {/* Contact Form */}
-            <div className="bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white p-8 rounded-xl shadow-lg">
+            {/* <div className="bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white p-8 rounded-xl shadow-lg">
 
               <h2 className="text-2xl sm:text-3xl font-bold mb-6">
                 Send Us A Message
@@ -300,7 +300,7 @@ const handleMessage = async (e) => {
   {msgLoading ? "Sending..." : "Submit Inquiry"}
 </button>
 </form>
- </div>
+ </div> */}
 
             {/* Consultation Booking */}
             <div className="bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white text-white p-8 rounded-xl shadow-lg">
