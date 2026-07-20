@@ -356,11 +356,12 @@ const handleMessage = async (e) => {
         company: e.target.value,
       })
   }
-  className="w-full border p-3 sm:p-4 rounded-lg text-black"
+  className="w-full p-3 sm:p-4 rounded-lg text-black bg-white"
+    required
 />
 
 <input
-  type="text"
+  type="number"
   placeholder="Campaign Budget"
   value={bookingData.budget}
   onChange={(e) =>
@@ -369,7 +370,8 @@ const handleMessage = async (e) => {
         budget: e.target.value,
       })
   }
-  className="w-full border p-3 sm:p-4 rounded-lg text-black"
+  className="w-full p-3 sm:p-4 rounded-lg text-black bg-white"
+    required
 />
 
 
@@ -409,7 +411,8 @@ const handleMessage = async (e) => {
         message: e.target.value,
       })
   }
-  className="w-full border p-3 sm:p-4 rounded-lg text-black"
+  className="w-full p-3 sm:p-4 rounded-lg text-black bg-white"
+    required
 />
 <button
   type="submit"
