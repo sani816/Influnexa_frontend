@@ -362,7 +362,7 @@ const handleMessage = async (e) => {
 <input
   type="text"
   placeholder="Campaign Budget"
-  value={bookingDataData.budget}
+  value={bookingData.budget}
   onChange={(e) =>
       setBookingData({
         ...bookingData,
@@ -402,7 +402,7 @@ const handleMessage = async (e) => {
   <textarea
   rows="5"
   placeholder="Tell us about your campaign"
-  value={bookingDataData.message}
+  value={bookingData.message}
    onChange={(e) =>
       setBookingData({
         ...bookingData,
