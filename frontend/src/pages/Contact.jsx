@@ -230,9 +230,8 @@ console.log("Booking Data:", bookingData);
       {/* Contact Form + Booking */}
       <section className="py-20">
 
-        <div className="max-w-15xl mx-auto px-6">
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="max-w-7xl mx-auto px-6">
+  <div className="w-full">
 
             {/* Contact Form */}
             {/* <div className="bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white p-8 rounded-xl shadow-lg">
@@ -303,7 +302,7 @@ console.log("Booking Data:", bookingData);
  </div> */}
 
             {/* Consultation Booking */}
-            <div className="bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white text-white p-8 rounded-xl shadow-lg">
+            <div className="bg-gradient-to-b from-gray-900 via-purple-900 to-gray-400 text-white text-white p-8 md:p-12 border border-purple-500/30 rounded-xl shadow-lg">
 
               <h2 className="text-3xl font-bold mb-6">
                 Book Free Consultation
