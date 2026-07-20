@@ -126,11 +126,18 @@ function FeaturedCreators() {
 
                     <p className="mb-2">
                       <span className="font-semibold">
-                        Followers:
+                        Instagram Followers:
                       </span>{" "}
                       {creator.followersRange || "N/A"}
                     </p>
 
+                    <p className="mb-2">
+                      <span className="font-semibold">
+                        Youtube Subscriber:
+                      </span>{" "}
+                      {creator.youtubeSubs || "N/A"}
+                    </p>
+      
                     <p className="mb-2">
                       <span className="font-semibold">
                         City:
