@@ -120,10 +120,10 @@ function Sidebar({ setSection }) {
           <button onClick={() => handleClick("creators")} className={menuClass}>
             <FaUsers /> Influencers
           </button>
-
+{/* 
           <button onClick={() => handleClick("analytics")} className={menuClass}>
             <FaChartLine /> Analytics
-          </button>
+          </button> */}
 
           <button onClick={() => handleClick("bookings")} className={menuClass}>
             <FaCalendarAlt />Booking Status
