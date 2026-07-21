@@ -232,147 +232,181 @@ function CreatorSection() {
             />
 
             {/* DETAILS */}
-        <div className="p-4 text-white">
+       <div className="p-4 text-white">
 
-  <h2 className="text-xl font-bold text-cyan-300 mb-3">
-    {creator.fullName}
-  </h2>
+  {/* HEADER */}
+  <div className="flex justify-between items-start mb-4">
 
-  <div className="space-y-2 text-sm ">
+    <div>
+      <h2 className="text-xl font-bold text-cyan-300">
+        {creator.fullName}
+      </h2>
 
-    <p>
-      📧 <span className="text-gray-100"><span className="text-cyan-200 font-bold ">Creator Email:</span> {creator.email}</span>
-    </p>
+      <p className="text-gray-300">
+        @{creator.instagramUsername}
+      </p>
+    </div>
 
-    <p>
-      📱 <span className="text-gray-300"><span className="text-cyan-200 font-bold ">Mobile Number:</span> {creator.mobileNumber}</span>
-    </p>
-
-    <p>
-      📍 <span className="text-gray-300">
-        <span className="text-cyan-200 font-bold ">Loaction:</span> {creator.city}, {creator.state}
-      </span>
-    </p>
-
-   {/* <p className="text-cyan-300 mb-2">
-    🏷️ Categories
-  </p>
-
-  <div className="flex flex-wrap gap-2">
-    {creator.preferredCategory?.length ? (
-      creator.preferredCategory.map((cat, index) => (
-        <span
-          key={index}
-          className="px-2 py-1 rounded-full text-xs bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
-        >
-          {cat}
-        </span>
-      ))
-    ) : (
-      <span className="text-gray-400">
-        No Category Selected
-      </span>
-    )}
-  </div> */}
-
-    <p>
-      👥 <span className="text-cyan-200 font-bold">Followers:</span>{" "}
+    <span className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500 text-xs font-bold">
       {creator.followersRange || "N/A"}
-    </p>
+    </span>
 
-     <p>
-    🚻 <span className="text-cyan-200 font-bold ">Gender:</span> {creator.gender || "N/A"}
-  </p>
+  </div>
 
-  
-      {/* <p>
-    🏢 Worked With:
-    {" "}
-    {creator.brandNames || "No brands yet"}
-  </p> */}
- <p>
-    🎥 
-    {" "}
-    <span className="text-cyan-200 font-bold ">Reel Rate:</span> {creator.reelRate || "N/A"} %
-  </p>
+  <div className="space-y-2 text-sm">
 
-    {/* <p>
-      💰 <span className="text-cyan-300">Pricing:</span>{" "}
-      {creator.priceRange || "N/A"}
-    </p> */} 
+    <p><span className="text-cyan-300 font-bold">📧 Email:</span> {creator.email || "N/A"}</p>
+
+    <p><span className="text-cyan-300 font-bold">📱 Mobile:</span> {creator.mobileNumber || "N/A"}</p>
+
+    <p><span className="text-cyan-300 font-bold">💬 WhatsApp:</span> {creator.whatsappNumber || "N/A"}</p>
+
+    <p><span className="text-cyan-300 font-bold">🚻 Gender:</span> {creator.gender || "N/A"}</p>
+
+    <p><span className="text-cyan-300 font-bold">🎂 DOB:</span> {creator.dob || "N/A"}</p>
 
     <p>
-      📸{" "}
+      <span className="text-cyan-300 font-bold">📍 Address:</span>{" "}
+      {creator.address1}, {creator.address2}
+    </p>
+
+    <p>
+      <span className="text-cyan-300 font-bold">🏙 City:</span>{" "}
+      {creator.city}
+    </p>
+
+    <p>
+      <span className="text-cyan-300 font-bold">🗺 State:</span>{" "}
+      {creator.state}
+    </p>
+
+    <p>
+      <span className="text-cyan-300 font-bold">📮 Pincode:</span>{" "}
+      {creator.pincode}
+    </p>
+
+    <p>
+      <span className="text-cyan-300 font-bold">🏠 Address Type:</span>{" "}
+      {creator.addressType || "N/A"}
+    </p>
+
+    <p>
+      <span className="text-cyan-300 font-bold">🎯 Preferred Category:</span>{" "}
+      {Array.isArray(creator.preferredCategory)
+        ? creator.preferredCategory.join(", ")
+        : creator.preferredCategory || "N/A"}
+    </p>
+
+    <p>
+      <span className="text-cyan-300 font-bold">📢 Campaign Types:</span>{" "}
+      {Array.isArray(creator.campaignTypes)
+        ? creator.campaignTypes.join(", ")
+        : creator.campaignTypes || "N/A"}
+    </p>
+
+    <p>
+      <span className="text-cyan-300 font-bold">📸 Instagram:</span>{" "}
       <a
         href={creator.instagramLink}
         target="_blank"
         rel="noreferrer"
-        className="text-white "
+        className="text-cyan-400 underline"
       >
-        <span className="text-cyan-200 font-bold ">Instagram Link:</span> {creator.instagramUsername}
+        {creator.instagramUsername}
       </a>
     </p>
 
-  </div>
+    <p>
+      <span className="text-cyan-300 font-bold">▶ YouTube:</span>{" "}
+      {creator.hasYoutube === "Yes" ? "Yes" : "No"}
+    </p>
 
-  {/* BIO BOX */}
-  {/* <div className="mt-4 bg-black/20 border border-cyan-500/20 rounded-xl p-3">
-    <h3 className="text-cyan-300 font-semibold mb-2">
-      Creator Bio
+    {creator.hasYoutube === "Yes" && (
+      <>
+        <p>
+          <span className="text-cyan-300 font-bold">📺 Channel:</span>{" "}
+          {creator.youtubeName}
+        </p>
+
+        <p>
+          <span className="text-cyan-300 font-bold">🔗 Channel Link:</span>{" "}
+          <a
+            href={creator.youtubeLink}
+            target="_blank"
+            rel="noreferrer"
+            className="text-cyan-400 underline"
+          >
+            Visit Channel
+          </a>
+        </p>
+
+        <p>
+          <span className="text-cyan-300 font-bold">👥 Subscribers:</span>{" "}
+          {creator.youtubeSubs || "N/A"}
+        </p>
+      </>
+    )}
+
+    <hr className="border-white/20 my-3" />
+
+    <h3 className="text-cyan-300 font-bold">
+      💰 Pricing Details
     </h3>
 
-    <p className="text-xs text-gray-300">
-      {creator.bio || "No bio available"}
+    <p>🎥 Reel : ₹ {creator.reelRate || 0}</p>
+
+    <p>📸 Story : ₹ {creator.storyRate || 0}</p>
+
+    <p>🖼 Post : ₹ {creator.postRate || 0}</p>
+
+    <p>▶ YouTube Video : ₹ {creator.ytVideoRate || 0}</p>
+
+    <p>🎬 YouTube Shorts : ₹ {creator.ytShortsRate || 0}</p>
+
+    <hr className="border-white/20 my-3" />
+
+    <p>
+      <span className="text-cyan-300 font-bold">🎁 Can Receive Products:</span>{" "}
+      {creator.canReceiveProducts || "No"}
     </p>
-  </div> */}
 
-  {/* STATS */}
-  <div className="grid grid-cols-3 gap-2 mt-4">
+    <p>
+      <span className="text-cyan-300 font-bold">🤝 Worked With Brands:</span>{" "}
+      {creator.brandNames || "No Brands"}
+    </p>
 
-    {/* <div className="bg-cyan-500/10 rounded-lg p-2 text-center">
-      <p className="text-xs text-gray-400">Followers</p>
-      <p className="font-bold">
-        {creator.followersRange || "-"}
-      </p>
-    </div> */}
+    <p>
+      <span className="text-cyan-300 font-bold">📝 Message:</span>{" "}
+      {creator.message || "N/A"}
+    </p>
 
-    {/* <div className="bg-purple-500/10 rounded-lg p-2 text-center">
-      <p className="text-xs text-gray-400">Engagement</p>
-      <p className="font-bold">
-        {creator.engagementRate || "-"}
-      </p>
-    </div> */}
-
-    {/* <div className="bg-pink-500/10 rounded-lg p-2 text-center">
-      <p className="text-xs text-gray-400">Rating</p>
-      <p className="font-bold">
-        ⭐ {creator.rating || "5.0"}
-      </p>
-    </div> */}
+    <p>
+      <span className="text-cyan-300 font-bold">📅 Registered:</span>{" "}
+      {new Date(creator.createdAt).toLocaleDateString()}
+    </p>
 
   </div>
 
-  {/* BUTTONS */}
-  <div className="flex gap-2 mt-4">
+  <div className="flex gap-2 mt-5">
 
     <button
       onClick={() => setEditData(creator)}
-      className="bg-blue-500 px-3 py-2 rounded text-xs"
+      className="flex-1 bg-blue-600 hover:bg-blue-700 py-2 rounded-lg font-semibold"
     >
       Edit
     </button>
 
     <button
       onClick={() => deleteCreator(creator._id)}
-      className="bg-red-500 px-3 py-2 rounded text-xs"
+      className="flex-1 bg-red-600 hover:bg-red-700 py-2 rounded-lg font-semibold"
     >
       Delete
     </button>
 
   </div>
 
+</div>          
 </div>
-          </div>
         ))}
 
       </div>
