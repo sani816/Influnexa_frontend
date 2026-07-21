@@ -236,7 +236,6 @@ useEffect(() => {
         <div className="flex gap-3">
 
           <input
-            placeholder="Search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="px-3 py-2 rounded-lg bg-white/10 text-white border border-white/20"
@@ -518,8 +517,8 @@ useEffect(() => {
 
   <BrandTable
     brands={filteredBrands}
-    editBrand={editBrand}
-    setEditBrand={setEditBrand}
+    loadData={fetchBrands}
+   
   />
 )}
     </div>
