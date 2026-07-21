@@ -254,30 +254,22 @@ function CreatorSection() {
             {/* IMAGE */}
 
             <td className="px-4 py-3">
-
-              {creator.image ? (
-
-                <a
-                  href={`${Config.API_URL}/uploads/${creator.image}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-
-                  <img
-                    src={`${Config.API_URL}/uploads/${creator.image}`}
-                    alt={creator.fullName}
-                    className="w-14 h-14 rounded-lg border object-cover hover:scale-105 transition"
-                  />
-
-                </a>
-
-              ) : (
-
-                <span className="text-gray-400">No Image</span>
-
-              )}
-
-            </td>
+  {creator.image ? (
+    <a
+      href={creator.image}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img
+        src={creator.image}
+        alt={creator.fullName}
+        className="w-14 h-14 rounded-lg object-cover border"
+      />
+    </a>
+  ) : (
+    <span>No Image</span>
+  )}
+</td>
 
             <td className="px-4 py-3 whitespace-nowrap">
               {creator.fullName || "N/A"}
