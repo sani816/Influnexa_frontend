@@ -70,7 +70,7 @@ function BrandTable({ brands, loadData }) {
     <th className="p-3">Location</th>
     <th className="p-3">Followers</th>
     <th className="p-3">Status</th>
-    <th className="p-3">Verified</th>
+   
     <th className="p-3">Created</th>
     <th className="p-3">Action</th>
   </tr>
@@ -141,9 +141,7 @@ function BrandTable({ brands, loadData }) {
         </span>
       </td>
 
-      <td className="p-3">
-        {brand.isVerified ? "✅ Yes" : "❌ No"}
-      </td>
+     
 
       <td className="p-3">
         {new Date(brand.createdAt).toLocaleDateString()}
