@@ -393,8 +393,8 @@ useEffect(() => {
             >
 
               {/* HEADER */}
-              <div className="flex items-center gap-3 mb-4">
-
+              <div className="flex items-start justify-between w-full mb-4">
+                <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 flex items-center justify-center font-bold text-black">
                   {brand.brandName?.charAt(0)}
                 </div>
@@ -406,21 +406,20 @@ useEffect(() => {
                   <p className="text-l text-gray-100 font-bold">
                     Owner: {brand.fullName}
                   </p>
-                </div>
-
-              </div>
- <span
-    className={`px-4 py-1 rounded-full text-sm font-bold shadow-md ${
-      brand.status === "active"
-        ? "bg-green-500/20 text-green-400 border border-green-500"
-        : brand.status === "pending"
-        ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500"
-        : "bg-red-500/20 text-red-400 border border-red-500"
-    }`}
-  >
-    {brand.status?.charAt(0).toUpperCase() + brand.status?.slice(1)}
-  </span>
-
+                </div>             
+<span
+      className={`px-3 py-1 rounded-full text-sm font-bold ${
+        brand.status === "active"
+          ? "bg-green-500/20 text-green-400 border border-green-500"
+          : brand.status === "pending"
+          ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500"
+          : "bg-red-500/20 text-red-400 border border-red-500"
+      }`}
+    >
+      {brand.status}
+    </span>
+</div>
+</div>
              
              {/* INFO */}
 <div className="space-y-2 text-sm font-bold">
