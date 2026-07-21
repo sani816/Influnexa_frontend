@@ -16,32 +16,40 @@ function BrandTable({ brands, loadData }) {
 
   // OPEN EDIT
   const openEdit = (brand) => {
-    setEditBrand(brand);
-    setFormData({
-      fullName: brand.fullName,
-      brandName: brand.brandName,
-      workEmail: brand.workEmail,
-      status: brand.status || "active"
-    });
-  };
+  setEditBrand(brand);
+  setFormData({
+    ...brand
+  });
+};
 
   // UPDATE BRAND
   const updateBrand = async () => {
-    try {
-      await axios.put(
-         `${Config.API_URL}/api/brands/${editBrand._id}`,
-  formData
-      );
+  try {
+    const res = await axios.put(
+      `${Config.API_URL}/api/brands/${editBrand._id}`,
+      formData
+    );
 
-      setEditBrand(null);
-      loadData();
+    console.log(res.data);
 
-      alert("Brand updated successfully");
+    setEditBrand(null);
 
-    } catch (err) {
-      alert("Update failed");
+    if (loadData) {
+      await loadData();
     }
-  };
+
+    alert("Brand updated successfully");
+
+  } catch (err) {
+    console.error(err);
+
+    alert(
+      err.response?.data?.message ||
+      err.message ||
+      "Update failed"
+    );
+  }
+};
 
   return (
     <div className="mt-10">
@@ -52,9 +60,9 @@ function BrandTable({ brands, loadData }) {
       </h2>
 
       {/* TABLE */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-xl">
 
-        <table className="w-full text-white bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden">
+        <table className="min-w-[1800px] w-full text-white bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden">
 
          <thead>
   <tr className="bg-cyan-500 text-black text-sm">
