@@ -212,6 +212,7 @@ function BrandTable({ brands, loadData }) {
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
+              <option value="pending">pending</option>
             </select>
 
             <div className="flex justify-end gap-2">
