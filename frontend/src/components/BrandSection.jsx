@@ -276,7 +276,7 @@ useEffect(() => {
       </div>
 
       {/* EDIT MODAL */}
-      {editBrand && (
+      {/* {editBrand && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl w-[420px]">
 
@@ -345,7 +345,7 @@ useEffect(() => {
 
           </div>
         </div>
-      )}
+      )} */}
 
 {/* 🔥 MATCHING SECTION
 <div className="mb-6 bg-white/10 p-4 rounded-xl border border-white/20">
@@ -503,19 +503,15 @@ useEffect(() => {
 
 </div>
 
-              {/* EDIT */}
-              <div className="flex gap-2 mt-4">
-                <button
-                  onClick={() => setEditBrand(brand)}
-                  className="bg-blue-500 px-3 py-1 rounded text-xs"
-                >
-                  Edit
-                </button>
-              </div>
-
-            </div>
-          ))}
-        </div>
+ {/* EDIT */}
+{/* <div className="flex gap-2 mt-4">
+ <button
+ onClick={() => setEditBrand(brand)}
+ className="bg-blue-500 px-3 py-1 rounded text-xs" >Edit </button>
+</div> */}
+</div>
+))}
+</div>
 
       ) : (
         //TABLE
