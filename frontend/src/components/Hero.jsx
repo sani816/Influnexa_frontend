@@ -164,6 +164,10 @@ const validateCreatorForm = () => {
     if (!creatorData.youtubeName.trim())
       err.youtubeName = "YouTube channel name is required";
 
+
+if (!creatorData.ytVideoRate)
+    err.ytVideoRate = "Youtube video rate is required";
+
    if (!creatorData.youtubeLink.trim()) {
   err.youtubeLink = "YouTube channel link is required";
 } else if (!youtubeChannelRegex.test(creatorData.youtubeLink)) {
@@ -1302,9 +1306,9 @@ try {
       placeholder="YouTube Video Rate"
     />
 
-    {errors.storyRate && (
+    {errors.ytVideoRate && (
   <p className="text-red-500 text-sm mt-1">
-    {errors.storyRate}
+    {errors.ytVideoRate}
   </p>
 )}
 </div>
