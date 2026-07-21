@@ -245,7 +245,7 @@ useEffect(() => {
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className="px-3 py-2 rounded-lg bg-white/10 text-white"
+            className="px-3 py-2 rounded-lg bg-white/10 text-black"
           >
             <option value="all">All</option>
             <option value="active">Active</option>
