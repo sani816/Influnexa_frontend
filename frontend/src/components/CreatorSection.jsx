@@ -377,10 +377,7 @@ function CreatorSection() {
 
             <td className="px-4 py-3">{creator.brandNames || "N/A"}</td>
 
-            <td className="px-4 py-3 max-w-xs break-words">
-              {creator.message || "N/A"}
-            </td>
-
+            
             <td className="px-4 py-3 whitespace-nowrap">
 
               {creator.createdAt
