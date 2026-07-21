@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaSyncAlt, FaTh, FaList } from "react-icons/fa";
 import { io } from "socket.io-client";
 import Config from "../config/Config";
+import BrandTable from "../components/BrandTable";
 
 function BrandSection() {
   const [brands, setBrands] = useState([]);
@@ -517,41 +518,14 @@ useEffect(() => {
         </div>
 
       ) : (
-        /* TABLE */
-        <div className="bg-white/10 p-4 rounded-xl text-white">
-          <table className="w-full">
-
-            <thead>
-              <tr>
-                <th>Brand</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {filteredBrands.map((b) => (
-                <tr key={b._id}>
-                  <td>{b.brandName}</td>
-                  <td>{b.fullName}</td>
-                  <td>{b.workEmail}</td>
-                  <td>
-                    <button
-                      onClick={() => setEditBrand(b)}
-                      className="bg-blue-500 px-3 py-1 text-xs"
-                    >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-
-          </table>
-        </div>
-      )}
-
+        //TABLE
+        
+  <BrandTable
+    brands={filteredBrands}
+    editBrand={editBrand}
+    setEditBrand={setEditBrand}
+  />
+)}
     </div>
   );
 }
