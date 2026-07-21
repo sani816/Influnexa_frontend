@@ -5,17 +5,23 @@ import Config from "../config/Config";
 
 function CreatorSection() {
   const [creators, setCreators] = useState([]);
-  const [search, setSearch] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
   const [cityFilter, setCityFilter] = useState("");
-  const [followersFilter, setFollowersFilter] = useState("");
+  const [mobileFilter, setMobileFilter] = useState("");
+  const [emailFilter, setEmailFilter] = useState("");
+
 
   // 🔥 EDIT STATE
   const [editData, setEditData] = useState(null);
 
   // FETCH
   const fetchCreators = async () => {
-    const res = await axios.get(`${Config.API_URL}/api/creator`);
-    setCreators(res.data.creators || []);
+    try {
+      const res = await axios.get(`${Config.API_URL}/api/creator`);
+      setCreators(res.data.creators || []);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -23,8 +29,8 @@ function CreatorSection() {
 
     const socket = io(Config.API_URL);
 
-    socket.on("new-creator", (data) => {
-      setCreators((prev) => [data, ...prev]);
+    socket.on("new-creator", (creator) => {
+      setCreators((prev) => [creator, ...prev]);
     });
 
     socket.on("update-creator", (updated) => {
@@ -34,36 +40,46 @@ function CreatorSection() {
     });
 
     socket.on("delete-creator", (id) => {
-      setCreators((prev) => prev.filter((c) => c._id !== id));
+      setCreators((prev) =>
+        prev.filter((c) => c._id !== id)
+      );
     });
 
     return () => socket.disconnect();
   }, []);
-
   // DELETE
-  const deleteCreator = async (id) => {
-    await axios.delete(`${Config.API_URL}/api/creator/${id}`);
-  };
+ const deleteCreator = async (id) => {
+    if (!window.confirm("Delete this creator?")) return;
 
+    try {
+      await axios.delete(`${Config.API_URL}/api/creator/${id}`);
+      fetchCreators();
+    } catch (err) {
+      console.log(err);
+      alert("Delete Failed");
+    }
+  };
   // UPDATE
-  const updateCreator = async () => {
+   const updateCreator = async () => {
     try {
       const formData = new FormData();
 
-      formData.append("fullName", editData.fullName);
-      formData.append("email", editData.email);
-      formData.append("mobileNumber", editData.mobileNumber);
-      formData.append("city", editData.city);
-      formData.append("state", editData.state);
-      formData.append("instagramUsername", editData.instagramUsername);
+      Object.keys(editData).forEach((key) => {
+        if (editData[key] !== undefined && editData[key] !== null) {
+          formData.append(key, editData[key]);
+        }
+      });
 
       await axios.put(
-         `${Config.API_URL}/api/creator/${editData._id}`,
-  formData
+        `${Config.API_URL}/api/creator/${editData._id}`,
+        formData
       );
 
+      alert("Creator Updated Successfully");
+
       setEditData(null);
-      alert("Updated Successfully");
+
+      fetchCreators();
 
     } catch (err) {
       console.log(err);
@@ -72,56 +88,361 @@ function CreatorSection() {
   };
 
   // FILTER
-  const filtered = creators
-    .filter((c) =>
-      c.fullName?.toLowerCase().includes(search.toLowerCase()) ||
-      c.email?.toLowerCase().includes(search.toLowerCase()) ||
-      c.instagramUsername?.toLowerCase().includes(search.toLowerCase())
-    )
-    .filter((c) => (cityFilter ? c.city === cityFilter : true))
-    .filter((c) =>
-      followersFilter ? c.followersRange === followersFilter : true
+ const filtered = creators.filter((creator) => {
+
+    const matchName =
+      creator.fullName
+        ?.toLowerCase()
+        .includes(nameFilter.toLowerCase());
+
+    const matchCity =
+      creator.city
+        ?.toLowerCase()
+        .includes(cityFilter.toLowerCase());
+
+    const matchMobile =
+      creator.mobileNumber
+        ?.toString()
+        .includes(mobileFilter);
+
+    const matchEmail =
+      creator.email
+        ?.toLowerCase()
+        .includes(emailFilter.toLowerCase());
+
+    return (
+      matchName &&
+      matchCity &&
+      matchMobile &&
+      matchEmail
     );
+  });
+
 
   return (
     <div className="p-6">
 
       {/* HEADER */}
-      <h1 className="text-3xl font-bold text-white mb-5">
-        Influencer Admin Panel
+      <h1 className="text-3xl font-bold text-white mb-6">
+        Creator Management
       </h1>
 
       {/* FILTERS */}
-      <div className="flex gap-3 mb-6 flex-wrap">
-
+       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         <input
-          placeholder="Search..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="px-3 py-2 bg-white/10 text-white rounded"
+          placeholder="Search by Name"
+          value={nameFilter}
+          onChange={(e)=>setNameFilter(e.target.value)}
+          className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
         />
 
         <input
-          placeholder="Filter City"
+          placeholder="Search by City"
           value={cityFilter}
-          onChange={(e) => setCityFilter(e.target.value)}
-          className="px-3 py-2 bg-white/10 text-white rounded"
+          onChange={(e)=>setCityFilter(e.target.value)}
+          className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
         />
 
-        {/* <select
-          value={followersFilter}
-          onChange={(e) => setFollowersFilter(e.target.value)}
-          className="px-3 py-2 bg-white/10 text-white rounded"
-        >
-          <option value="">All Followers</option>
-          <option value="0-10K">0-10K</option>
-          <option value="10K-50K">10K-50K</option>
-          <option value="50K-100K">50K-100K</option>
-          <option value="100K+">100K+</option>
-        </select> */}
+        <input
+          placeholder="Search by Contact Number"
+          value={mobileFilter}
+          onChange={(e)=>setMobileFilter(e.target.value)}
+          className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
+        />
+
+        <input
+          placeholder="Search by Email"
+          value={emailFilter}
+          onChange={(e)=>setEmailFilter(e.target.value)}
+          className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
+        />
 
       </div>
+{/* ======================= CREATOR TABLE ======================= */}
 
+<div className="overflow-x-auto rounded-xl border border-cyan-500 shadow-lg">
+
+  <table className="w-max min-w-full text-sm text-white border-collapse">
+
+    {/* ================= HEADER ================= */}
+
+    <thead className="bg-cyan-500 text-black sticky top-0 z-10">
+
+      <tr>
+
+        <th className="px-4 py-3 text-left">#</th>
+
+        <th className="px-4 py-3 text-left whitespace-nowrap">Image</th>
+
+        <th className="px-4 py-3 text-left whitespace-nowrap">Full Name</th>
+
+        <th className="px-4 py-3 text-left whitespace-nowrap">Instagram</th>
+
+        <th className="px-4 py-3 text-left whitespace-nowrap">Followers</th>
+
+        <th className="px-4 py-3 text-left whitespace-nowrap">Email</th>
+
+        <th className="px-4 py-3 text-left whitespace-nowrap">Mobile</th>
+
+        <th className="px-4 py-3 text-left whitespace-nowrap">WhatsApp</th>
+
+        <th className="px-4 py-3 text-left">Gender</th>
+
+        <th className="px-4 py-3 text-left">DOB</th>
+
+        <th className="px-4 py-3 text-left">Preferred Category</th>
+
+        <th className="px-4 py-3 text-left">Campaign Types</th>
+
+        <th className="px-4 py-3 text-left">Reel ₹</th>
+
+        <th className="px-4 py-3 text-left">Story ₹</th>
+
+        <th className="px-4 py-3 text-left">Post ₹</th>
+
+        <th className="px-4 py-3 text-left">YT Video ₹</th>
+
+        <th className="px-4 py-3 text-left">YT Shorts ₹</th>
+
+        <th className="px-4 py-3 text-left">Has YouTube</th>
+
+        <th className="px-4 py-3 text-left">YouTube Name</th>
+
+        <th className="px-4 py-3 text-left">YouTube Link</th>
+
+        <th className="px-4 py-3 text-left">Subscribers</th>
+
+        <th className="px-4 py-3 text-left">Address 1</th>
+
+        <th className="px-4 py-3 text-left">Address 2</th>
+
+        <th className="px-4 py-3 text-left">City</th>
+
+        <th className="px-4 py-3 text-left">State</th>
+
+        <th className="px-4 py-3 text-left">Pincode</th>
+
+        <th className="px-4 py-3 text-left">Address Type</th>
+
+        <th className="px-4 py-3 text-left">Receive Products</th>
+
+        <th className="px-4 py-3 text-left">Worked Brands</th>
+
+        <th className="px-4 py-3 text-left">Message</th>
+
+        <th className="px-4 py-3 text-left">Registered</th>
+
+        <th className="px-4 py-3 text-center">Actions</th>
+
+      </tr>
+
+    </thead>
+
+    {/* ================= BODY ================= */}
+
+    <tbody>
+
+      {filtered.length > 0 ? (
+
+        filtered.map((creator, index) => (
+
+          <tr
+            key={creator._id}
+            className="border-b border-white/10 hover:bg-cyan-500/10 transition"
+          >
+
+            <td className="px-4 py-3">{index + 1}</td>
+
+            {/* IMAGE */}
+
+            <td className="px-4 py-3">
+
+              {creator.image ? (
+
+                <a
+                  href={`${Config.API_URL}/uploads/${creator.image}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+
+                  <img
+                    src={`${Config.API_URL}/uploads/${creator.image}`}
+                    alt={creator.fullName}
+                    className="w-14 h-14 rounded-lg border object-cover hover:scale-105 transition"
+                  />
+
+                </a>
+
+              ) : (
+
+                <span className="text-gray-400">No Image</span>
+
+              )}
+
+            </td>
+
+            <td className="px-4 py-3 whitespace-nowrap">
+              {creator.fullName || "N/A"}
+            </td>
+
+            <td className="px-4 py-3 whitespace-nowrap">
+
+              {creator.instagramLink ? (
+
+                <a
+                  href={creator.instagramLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-300 underline"
+                >
+                  {creator.instagramUsername || "Open"}
+                </a>
+
+              ) : (
+                "N/A"
+              )}
+
+            </td>
+
+            <td className="px-4 py-3">{creator.followersRange || "N/A"}</td>
+
+            <td className="px-4 py-3 whitespace-nowrap">{creator.email || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.mobileNumber || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.whatsappNumber || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.gender || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.dob || "N/A"}</td>
+
+            <td className="px-4 py-3">
+
+              {creator.preferredCategory?.length
+                ? creator.preferredCategory.join(", ")
+                : "N/A"}
+
+            </td>
+
+            <td className="px-4 py-3">
+
+              {creator.campaignTypes?.length
+                ? creator.campaignTypes.join(", ")
+                : "N/A"}
+
+            </td>
+
+            <td className="px-4 py-3">₹ {creator.reelRate || 0}</td>
+
+            <td className="px-4 py-3">₹ {creator.storyRate || 0}</td>
+
+            <td className="px-4 py-3">₹ {creator.postRate || 0}</td>
+
+            <td className="px-4 py-3">₹ {creator.ytVideoRate || 0}</td>
+
+            <td className="px-4 py-3">₹ {creator.ytShortsRate || 0}</td>
+
+            <td className="px-4 py-3">{creator.hasYoutube || "No"}</td>
+
+            <td className="px-4 py-3">{creator.youtubeName || "N/A"}</td>
+
+            <td className="px-4 py-3">
+
+              {creator.youtubeLink ? (
+
+                <a
+                  href={creator.youtubeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-300 underline"
+                >
+                  Open
+                </a>
+
+              ) : (
+                "N/A"
+              )}
+
+            </td>
+
+            <td className="px-4 py-3">{creator.youtubeSubs || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.address1 || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.address2 || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.city || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.state || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.pincode || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.addressType || "N/A"}</td>
+
+            <td className="px-4 py-3">{creator.canReceiveProducts || "No"}</td>
+
+            <td className="px-4 py-3">{creator.brandNames || "N/A"}</td>
+
+            <td className="px-4 py-3 max-w-xs break-words">
+              {creator.message || "N/A"}
+            </td>
+
+            <td className="px-4 py-3 whitespace-nowrap">
+
+              {creator.createdAt
+                ? new Date(creator.createdAt).toLocaleString()
+                : "N/A"}
+
+            </td>
+
+            {/* ACTIONS */}
+
+            <td className="px-4 py-3">
+
+              <div className="flex justify-center gap-2">
+
+                <button
+                  onClick={() => setEditData(creator)}
+                  className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white"
+                >
+                  Edit
+                </button>
+
+                <button
+                  onClick={() => deleteCreator(creator._id)}
+                  className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white"
+                >
+                  Delete
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        ))
+
+      ) : (
+
+        <tr>
+
+          <td
+            colSpan={32}
+            className="text-center py-10 text-gray-400 text-lg"
+          >
+            No Creator Found
+          </td>
+
+        </tr>
+
+      )}
+
+    </tbody>
+
+  </table>
+
+</div>
       {/* EDIT MODAL */}
       {editData && (
   <div className="fixed top-0 right-0 h-full w-[400px] bg-gray-900 border-l border-cyan-500 shadow-2xl z-50 overflow-y-auto">
@@ -211,207 +532,9 @@ function CreatorSection() {
     </div>
   </div>
 )}
-      {/* GRID */}
-      <div className="grid md:grid-cols-3 gap-6">
-
-        {filtered.map((creator) => (
-          <div
-            key={creator._id}
-            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl overflow-hidden shadow-xl"
-          >
-
-            {/* IMAGE */}
-            <img
-              src={
-                creator.image
-                  ? `${Config.API_URL}/uploads/${creator.image}`
-                  : "https://via.placeholder.com/400x200"
-              }
-              className="w-full h-44 object-cover"
-              alt="creator"
-            />
-
-            {/* DETAILS */}
-       <div className="p-4 text-white">
-
-  {/* HEADER */}
-  <div className="flex justify-between items-start mb-4">
-
-    <div>
-      <h2 className="text-xl font-bold text-cyan-300">
-        {creator.fullName}
-      </h2>
-
-      <p className="text-gray-300">
-        @{creator.instagramUsername}
-      </p>
-    </div>
-
-    <span className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500 text-xs font-bold">
-      {creator.followersRange || "N/A"}
-    </span>
-
-  </div>
-
-  <div className="space-y-2 text-sm">
-
-    <p><span className="text-cyan-300 font-bold">📧 Email:</span> {creator.email || "N/A"}</p>
-
-    <p><span className="text-cyan-300 font-bold">📱 Mobile:</span> {creator.mobileNumber || "N/A"}</p>
-
-    <p><span className="text-cyan-300 font-bold">💬 WhatsApp:</span> {creator.whatsappNumber || "N/A"}</p>
-
-    <p><span className="text-cyan-300 font-bold">🚻 Gender:</span> {creator.gender || "N/A"}</p>
-
-    <p><span className="text-cyan-300 font-bold">🎂 DOB:</span> {creator.dob || "N/A"}</p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">📍 Address:</span>{" "}
-      {creator.address1}, {creator.address2}
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">🏙 City:</span>{" "}
-      {creator.city}
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">🗺 State:</span>{" "}
-      {creator.state}
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">📮 Pincode:</span>{" "}
-      {creator.pincode}
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">🏠 Address Type:</span>{" "}
-      {creator.addressType || "N/A"}
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">🎯 Preferred Category:</span>{" "}
-      {Array.isArray(creator.preferredCategory)
-        ? creator.preferredCategory.join(", ")
-        : creator.preferredCategory || "N/A"}
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">📢 Campaign Types:</span>{" "}
-      {Array.isArray(creator.campaignTypes)
-        ? creator.campaignTypes.join(", ")
-        : creator.campaignTypes || "N/A"}
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">📸 Instagram:</span>{" "}
-      <a
-        href={creator.instagramLink}
-        target="_blank"
-        rel="noreferrer"
-        className="text-cyan-400 underline"
-      >
-        {creator.instagramUsername}
-      </a>
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">▶ YouTube:</span>{" "}
-      {creator.hasYoutube === "Yes" ? "Yes" : "No"}
-    </p>
-
-    {creator.hasYoutube === "Yes" && (
-      <>
-        <p>
-          <span className="text-cyan-300 font-bold">📺 Channel:</span>{" "}
-          {creator.youtubeName}
-        </p>
-
-        <p>
-          <span className="text-cyan-300 font-bold">🔗 Channel Link:</span>{" "}
-          <a
-            href={creator.youtubeLink}
-            target="_blank"
-            rel="noreferrer"
-            className="text-cyan-400 underline"
-          >
-            Visit Channel
-          </a>
-        </p>
-
-        <p>
-          <span className="text-cyan-300 font-bold">👥 Subscribers:</span>{" "}
-          {creator.youtubeSubs || "N/A"}
-        </p>
-      </>
-    )}
-
-    <hr className="border-white/20 my-3" />
-
-    <h3 className="text-cyan-300 font-bold">
-      💰 Pricing Details
-    </h3>
-
-    <p>🎥 Reel : ₹ {creator.reelRate || 0}</p>
-
-    <p>📸 Story : ₹ {creator.storyRate || 0}</p>
-
-    <p>🖼 Post : ₹ {creator.postRate || 0}</p>
-
-    <p>▶ YouTube Video : ₹ {creator.ytVideoRate || 0}</p>
-
-    <p>🎬 YouTube Shorts : ₹ {creator.ytShortsRate || 0}</p>
-
-    <hr className="border-white/20 my-3" />
-
-    <p>
-      <span className="text-cyan-300 font-bold">🎁 Can Receive Products:</span>{" "}
-      {creator.canReceiveProducts || "No"}
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">🤝 Worked With Brands:</span>{" "}
-      {creator.brandNames || "No Brands"}
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">📝 Message:</span>{" "}
-      {creator.message || "N/A"}
-    </p>
-
-    <p>
-      <span className="text-cyan-300 font-bold">📅 Registered:</span>{" "}
-      {new Date(creator.createdAt).toLocaleDateString()}
-    </p>
-
-  </div>
-
-  <div className="flex gap-2 mt-5">
-
-    <button
-      onClick={() => setEditData(creator)}
-      className="flex-1 bg-blue-600 hover:bg-blue-700 py-2 rounded-lg font-semibold"
-    >
-      Edit
-    </button>
-
-    <button
-      onClick={() => deleteCreator(creator._id)}
-      className="flex-1 bg-red-600 hover:bg-red-700 py-2 rounded-lg font-semibold"
-    >
-      Delete
-    </button>
-
-  </div>
-
-</div>          
+            
 </div>
-        ))}
-
-      </div>
-
-    </div>
+      
   );
 }
 
