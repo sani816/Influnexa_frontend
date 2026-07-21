@@ -398,7 +398,7 @@ try {
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[6-9]\d{9}$/;
-    const urlRegex = /^(https?:\/\/)?([\w\d-]+\.)+\w{2,}(\/.*)?$/;
+    /^(https?:\/\/)(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
 
     if (!formData.fullName.trim()) return "Full Name is required";
     if (!formData.workEmail.trim()) return "Work Email is required";
@@ -406,7 +406,7 @@ try {
 
     if (!formData.mobileNumber.trim()) return "Mobile Number is required";
     if (!phoneRegex.test(formData.mobileNumber))
-      return "Invalid Mobile Number (Must be 10 digits starting 6-9)";
+      return "Invalid Mobile Number (Must be 10 digits)";
 
     if (!formData.brandName.trim()) return "Brand Name is required";
 
