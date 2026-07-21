@@ -146,25 +146,25 @@ function BrandSection() {
   }
 };
   // UPDATE (FIXED)
-  const updateBrand = async () => {
-    try {
-      const res = await axios.put(
-        `${Config.API_URL}/api/brands/${editBrand._id}`,
-  editBrand
-      );
+  // const updateBrand = async () => {
+  //   try {
+  //     const res = await axios.put(
+  //       `${Config.API_URL}/api/brands/${editBrand._id}`,
+  // editBrand
+  //     );
 
-      const updated = res.data?.brand;
+  //     const updated = res.data?.brand;
 
-      setBrands((prev) =>
-        prev.map((b) => (b._id === updated._id ? updated : b))
-      );
+  //     setBrands((prev) =>
+  //       prev.map((b) => (b._id === updated._id ? updated : b))
+  //     );
 
-      setEditBrand(null);
-    } catch (err) {
-      console.log(err);
-      alert("Update failed (check backend route)");
-    }
-  };
+  //     setEditBrand(null);
+  //   } catch (err) {
+  //     console.log(err);
+  //     alert("Update failed (check backend route)");
+  //   }
+  // };
 
   // SOCKET
  useEffect(() => {
@@ -519,7 +519,7 @@ useEffect(() => {
 
       ) : (
         //TABLE
-        
+
   <BrandTable
     brands={filteredBrands}
     editBrand={editBrand}
