@@ -71,10 +71,12 @@ const [creatorData, setCreatorData] = useState({
   campaignTypes: [],
   reelRate: "",
   storyRate: "",
+  postRate:"",
   // feedRate: "",
   // carouselRate: "",
   // ugcRate: "",
   ytVideoRate: "",
+  ytShortsRate:"",
   // ytIntegrationRate: "",
   hasYoutube: "",
   youtubeName: "",
@@ -329,8 +331,9 @@ try {
 
       reelRate: "",
       storyRate: "",
+      postRate:"",
       ytVideoRate: "",
-
+      ytShortsRate:"",
       hasYoutube: "",
       youtubeName: "",
       youtubeLink: "",
@@ -1272,7 +1275,7 @@ try {
 )}
 </div>
 
-
+<div>
     <input
       className={`${inputStyle} !text-black`}
       name="storyRate"
@@ -1280,6 +1283,22 @@ try {
       onChange={handleCreatorChange}
       placeholder="Instagram Story Rate"
     />
+{errors.storyRate && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.storyRate}
+  </p>
+)}
+</div>
+    
+ <input
+      className={`${inputStyle} !text-black`}
+      name="postRate"
+      value={creatorData.postRate}
+      onChange={handleCreatorChange}
+      placeholder="Instagram Story Rate"
+    />
+
+
 <div>
     <input
       className={`${inputStyle} !text-black`}
@@ -1295,6 +1314,15 @@ try {
   </p>
 )}
 </div>
+
+ <input
+      className={`${inputStyle} !text-black`}
+      name="ytShortsRate"
+      value={creatorData.ytShortsRate}
+      onChange={handleCreatorChange}
+      placeholder="Instagram Story Rate"
+    />
+
 
   </div>
 </div>
