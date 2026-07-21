@@ -228,8 +228,6 @@ function CreatorSection() {
 
         <th className="px-4 py-3 text-left">Worked Brands</th>
 
-        <th className="px-4 py-3 text-left">Message</th>
-
         <th className="px-4 py-3 text-left">Registered</th>
 
         <th className="px-4 py-3 text-center">Actions</th>
@@ -347,23 +345,19 @@ function CreatorSection() {
             <td className="px-4 py-3">{creator.youtubeName || "N/A"}</td>
 
             <td className="px-4 py-3">
-
-              {creator.youtubeLink ? (
-
-                <a
-                  href={creator.youtubeLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cyan-300 underline"
-                >
-                  Open
-                </a>
-
-              ) : (
-                "N/A"
-              )}
-
-            </td>
+  {creator.youtubeLink ? (
+    <a
+      href={creator.youtubeLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-cyan-300 underline hover:text-cyan-200"
+    >
+      {creator.youtubeLink}
+    </a>
+  ) : (
+    <span className="text-gray-400">N/A</span>
+  )}
+</td>
 
             <td className="px-4 py-3">{creator.youtubeSubs || "N/A"}</td>
 
