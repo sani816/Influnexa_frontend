@@ -90,15 +90,15 @@ function BrandTable({ brands, loadData }) {
       key={brand._id}
       className="border-b border-white/10 hover:bg-white/10 text-sm"
     >
-      <td className="p-3">{brand.fullName}</td>
+      <td className="px-4 py-3 align-middle whitespace-nowrap">{brand.fullName}</td>
 
-      <td className="p-3">{brand.brandName}</td>
+      <td className="px-4 py-3 align-middle whitespace-nowrap">{brand.brandName}</td>
 
-      <td className="p-3">{brand.workEmail}</td>
+      <td className="px-4 py-3 break-words">{brand.workEmail}</td>
 
-      <td className="p-3">{brand.mobileNumber}</td>
+      <td className="px-4 py-3 align-middle whitespace-nowrap">{brand.mobileNumber}</td>
 
-      <td className="p-3">
+      <td className="px-4 py-3 align-middle whitespace-nowrap">
         {brand.websiteUrl ? (
           <a
             href={
@@ -117,27 +117,27 @@ function BrandTable({ brands, loadData }) {
         )}
       </td>
 
-      <td className="p-3">{brand.instagramHandle || "N/A"}</td>
+      <td className="px-4 py-3 align-middle whitespace-nowrap">{brand.instagramHandle || "N/A"}</td>
 
-      <td className="p-3">
+      <td className="px-4 py-3 align-middle whitespace-nowrap">
         {Array.isArray(brand.lookingFor)
           ? brand.lookingFor.join(", ")
           : brand.lookingFor}
       </td>
 
-      <td className="p-3">{brand.budgetRange}</td>
+      <td className="px-4 py-3 align-middle whitespace-nowrap">{brand.budgetRange}</td>
 
-      <td className="p-3">
+      <td className="px-4 py-3 align-middle whitespace-nowrap">
         {Array.isArray(brand.preferredCategory)
           ? brand.preferredCategory.join(", ")
           : brand.preferredCategory}
       </td>
 
-      <td className="p-3">{brand.influencerLocation}</td>
+      <td className="px-4 py-3 align-middle whitespace-nowrap">{brand.influencerLocation}</td>
 
-      <td className="p-3">{brand.followersRange}</td>
+      <td className="px-4 py-3 align-middle whitespace-nowrap">{brand.followersRange}</td>
 
-      <td className="p-3">
+      <td className="px-4 py-3 align-middle whitespace-nowrap">
         <span
           className={`px-3 py-1 rounded-full text-xs ${
             brand.status === "active"
@@ -151,11 +151,11 @@ function BrandTable({ brands, loadData }) {
 
      
 
-      <td className="p-3">
+      <td className="px-4 py-3 align-middle whitespace-nowrap">
         {new Date(brand.createdAt).toLocaleDateString()}
       </td>
 
-      <td className="p-3">
+      <td className="px-4 py-3 text-center">
         <button
           onClick={() => openEdit(brand)}
           className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded-lg"
