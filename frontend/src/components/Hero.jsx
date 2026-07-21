@@ -485,7 +485,7 @@ try {
   } catch (error) {
     console.log(error);
 
-    alert("❌ Failed to save brand details");
+    alert("Email already exist please enter different email");
   }
 };
 
