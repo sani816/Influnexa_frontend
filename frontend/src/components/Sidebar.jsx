@@ -7,6 +7,7 @@ import {
   FaBars,
   FaTimes,
   FaCalendarAlt,
+  FaBlog,
 } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
@@ -129,7 +130,13 @@ function Sidebar({ setSection }) {
             <FaCalendarAlt />Booking Status
           </button>
           
-
+         
+          <button
+  onClick={() => handleClick("blogs")}
+  className={menuClass}
+>
+  <FaBlog /> Blog Management
+</button>
 
           {/* <button onClick={() => handleClick("settings")} className={menuClass}>
             <FaCog /> Settings

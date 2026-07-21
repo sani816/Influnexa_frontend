@@ -8,6 +8,8 @@ import CreatorSection from "../components/CreatorSection";
 // import NotificationSection from "../components/NotificationSection";
 // import SettingsSection from "../components/SettingsSection";
 import BookingStatus from "../components/BookingStatus";
+import AdminBlogs from "../components/AdminBlog";
+
 
 function AdminDashboard() {
   const [section, setSection] = useState("dashboard");
@@ -68,7 +70,8 @@ function AdminDashboard() {
             {/* {section === "analytics" && <AnalyticsSection />} */}
 
             {section === "bookings" && <BookingStatus />}
-
+            
+            { section === "blogs" && <AdminBlogs />}
             {/* {section === "settings" && (
               <SettingsSection setSection={setSection} />
             )} */}
