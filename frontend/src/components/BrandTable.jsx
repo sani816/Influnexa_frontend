@@ -29,7 +29,7 @@ function BrandTable({ brands, loadData }) {
   const updateBrand = async () => {
     try {
       await axios.put(
-         `${Config.API_URL}/api/admin/brand/${editBrand._id}`,
+         `${Config.API_URL}/api/brands/${editBrand._id}`,
   formData
       );
 
