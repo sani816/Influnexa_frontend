@@ -409,6 +409,17 @@ useEffect(() => {
                 </div>
 
               </div>
+ <span
+    className={`px-4 py-1 rounded-full text-sm font-bold shadow-md ${
+      brand.status === "active"
+        ? "bg-green-500/20 text-green-400 border border-green-500"
+        : brand.status === "pending"
+        ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500"
+        : "bg-red-500/20 text-red-400 border border-red-500"
+    }`}
+  >
+    {brand.status?.charAt(0).toUpperCase() + brand.status?.slice(1)}
+  </span>
 
              
              {/* INFO */}
