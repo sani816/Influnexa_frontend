@@ -56,75 +56,111 @@ function BrandTable({ brands, loadData }) {
 
         <table className="w-full text-white bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden">
 
-          <thead>
-            <tr className="bg-cyan-500 text-black">
-              <th className="p-3 text-left">Name</th>
-              <th className="p-3 text-left">Brand</th>
-              <th className="p-3 text-left">Email</th>
-              <th className="p-3 text-left">Status</th>
-              <th className="p-3 text-left">Action</th>
-            </tr>
-          </thead>
+         <thead>
+  <tr className="bg-cyan-500 text-black text-sm">
+    <th className="p-3">Owner</th>
+    <th className="p-3">Brand</th>
+    <th className="p-3">Email</th>
+    <th className="p-3">Mobile</th>
+    <th className="p-3">Website</th>
+    <th className="p-3">Instagram</th>
+    <th className="p-3">Looking For</th>
+    <th className="p-3">Budget</th>
+    <th className="p-3">Category</th>
+    <th className="p-3">Location</th>
+    <th className="p-3">Followers</th>
+    <th className="p-3">Status</th>
+    <th className="p-3">Verified</th>
+    <th className="p-3">Created</th>
+    <th className="p-3">Action</th>
+  </tr>
+</thead>
 
           <tbody>
+  {brands.map((brand) => (
+    <tr
+      key={brand._id}
+      className="border-b border-white/10 hover:bg-white/10 text-sm"
+    >
+      <td className="p-3">{brand.fullName}</td>
 
-            {brands.map((brand) => (
+      <td className="p-3">{brand.brandName}</td>
 
-              <tr
-                key={brand._id}
-                className="border-b border-white/10 hover:bg-white/10 transition"
-              >
+      <td className="p-3">{brand.workEmail}</td>
 
-                <td className="p-3 font-semibold">
-                  {brand.fullName}
-                </td>
+      <td className="p-3">{brand.mobileNumber}</td>
 
-                <td className="p-3 text-cyan-300">
-                  {brand.brandName}
-                </td>
+      <td className="p-3">
+        {brand.websiteUrl ? (
+          <a
+            href={
+              brand.websiteUrl.startsWith("http")
+                ? brand.websiteUrl
+                : `https://${brand.websiteUrl}`
+            }
+            target="_blank"
+            rel="noreferrer"
+            className="text-cyan-300 underline"
+          >
+            Visit
+          </a>
+        ) : (
+          "N/A"
+        )}
+      </td>
 
-                <td className="p-3">
-                  {brand.workEmail}
-                </td>
+      <td className="p-3">{brand.instagramHandle || "N/A"}</td>
 
-                {/* STATUS */}
-                <td className="p-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                    brand.status === "inactive"
-                      ? "bg-red-500/30 text-red-300"
-                      : "bg-green-500/30 text-green-300"
-                  }`}>
-                    {brand.status || "active"}
-                  </span>
-                </td>
+      <td className="p-3">
+        {Array.isArray(brand.lookingFor)
+          ? brand.lookingFor.join(", ")
+          : brand.lookingFor}
+      </td>
 
-                {/* ACTION */}
-                <td className="p-3">
+      <td className="p-3">{brand.budgetRange}</td>
 
-                  <button
-                    onClick={() => openEdit(brand)}
-                    className="
-                      flex items-center gap-2
-                      bg-yellow-400
-                      hover:bg-yellow-500
-                      text-black
-                      px-3 py-1
-                      rounded-lg
-                      font-semibold
-                      transition
-                    "
-                  >
-                    <FaEdit />
-                    Edit
-                  </button>
+      <td className="p-3">
+        {Array.isArray(brand.preferredCategory)
+          ? brand.preferredCategory.join(", ")
+          : brand.preferredCategory}
+      </td>
 
-                </td>
+      <td className="p-3">{brand.influencerLocation}</td>
 
-              </tr>
+      <td className="p-3">{brand.followersRange}</td>
 
-            ))}
+      <td className="p-3">
+        <span
+          className={`px-3 py-1 rounded-full text-xs ${
+            brand.status === "active"
+              ? "bg-green-500/30 text-green-300"
+              : "bg-red-500/30 text-red-300"
+          }`}
+        >
+          {brand.status}
+        </span>
+      </td>
 
-          </tbody>
+      <td className="p-3">
+        {brand.isVerified ? "✅ Yes" : "❌ No"}
+      </td>
+
+      <td className="p-3">
+        {new Date(brand.createdAt).toLocaleDateString()}
+      </td>
+
+      <td className="p-3">
+        <button
+          onClick={() => openEdit(brand)}
+          className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded-lg"
+        >
+          <FaEdit />
+          Edit
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
 
         </table>
 
