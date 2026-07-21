@@ -62,9 +62,9 @@ function BrandTable({ brands, loadData }) {
       {/* TABLE */}
       <div className="overflow-x-auto rounded-xl">
 
-        <table className="min-w-[1800px] w-full text-white bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden">
+        <table className="min-w-[1800px] w-full text-white bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden table-fixed border-collapse">
 
-         <thead>
+         <thead className="bg-cyan-500 text-black sticky top-0">
   <tr className="bg-cyan-500 text-black text-sm">
     <th className="p-3">Owner</th>
     <th className="p-3">Brand</th>
