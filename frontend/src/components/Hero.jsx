@@ -163,7 +163,9 @@ const validateCreatorForm = () => {
       err.youtubeName = "YouTube channel name is required";
 
     if (!creatorData.youtubeLink.trim())
-      err.youtubeLink = "YouTube channel link is required";
+    err.youtubeLink = "Youtube profile link is required";
+  else if (!urlRegex.test(creatorData.youtubeLink))
+    err.youtubeLink = "Enter a valid Youtube URL";
 
     if (!creatorData.youtubeSubs)
       err.youtubeSubs = "Please select YouTube subscribers";
@@ -1154,12 +1156,12 @@ try {
 
 <div>
     <input
-      className={`${inputStyle} !text-black`}
-      name="youtubeLink"
-      value={creatorData.youtubeLink}
-      onChange={handleCreatorChange}
-      placeholder="Channel Link"
-    />
+        className={`${inputStyle} !text-black`}
+        name="YoutubeLink"
+        value={creatorData.youtubeLink}
+        onChange={handleCreatorChange}
+        placeholder="https://Youtube.com/username"
+      />
 
 {errors.youtubeLink && (
   <p className="text-red-500 text-sm mt-1">
