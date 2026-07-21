@@ -219,7 +219,7 @@ useEffect(() => {
       (b) =>
         b.brandName?.toLowerCase().includes(search.toLowerCase()) ||
         b.fullName?.toLowerCase().includes(search.toLowerCase()) ||
-        b.workEmail?.toLowerCase().includes(search.toLowerCase())
+        b.mobileNumber?.toLowerCase().includes(search.toLowerCase())
     );
 
    
@@ -239,6 +239,7 @@ useEffect(() => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="px-3 py-2 rounded-lg bg-white/10 text-white border border-white/20"
+            placeholder="Search by company, owner, phone ..."
           />
 
           <select
