@@ -1295,7 +1295,7 @@ try {
       name="postRate"
       value={creatorData.postRate}
       onChange={handleCreatorChange}
-      placeholder="Instagram Story Rate"
+      placeholder="Instagram Post Rate"
     />
 
 
@@ -1320,7 +1320,7 @@ try {
       name="ytShortsRate"
       value={creatorData.ytShortsRate}
       onChange={handleCreatorChange}
-      placeholder="Instagram Story Rate"
+      placeholder="Youtube Shorts Rate"
     />
 
 
