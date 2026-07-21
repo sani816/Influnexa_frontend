@@ -398,7 +398,7 @@ try {
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[6-9]\d{9}$/;
-    /^(https?:\/\/)(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
+    const urlRegex=/^(https?:\/\/)(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
 
     if (!formData.fullName.trim()) return "Full Name is required";
     if (!formData.workEmail.trim()) return "Work Email is required";
