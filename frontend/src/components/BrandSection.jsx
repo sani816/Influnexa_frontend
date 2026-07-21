@@ -442,6 +442,15 @@ useEffect(() => {
   </p>
 
   <p>
+    <span className="text-cyan-300">👥 Followers Range:</span>{" "}
+    {brand.followersRange || "N/A"}
+  </p>
+ <p>
+    <span className="text-cyan-300">📝 Campaign Description:</span>{" "}
+    {brand.campaignDescription || "N/A"}
+  </p>
+
+  <p>
     <span className="text-cyan-300">📍 Location required:</span>{" "}
     {brand.influencerLocation || "N/A"}
   </p>
@@ -473,6 +482,16 @@ useEffect(() => {
       "N/A"
     )}
   </p>
+
+   <p>
+    <span className="text-cyan-300">📋 Additional Notes:</span>{" "}
+    {brand.additionalNotes || "N/A"}
+  </p>
+ <p>
+    <span className="text-cyan-300">✅ Consent:</span>{" "}
+    {brand.consent ? "Yes" : "No"}
+  </p>
+
 
   <p>
     <span className="text-cyan-300">📅 Created:</span>{" "}
