@@ -131,9 +131,9 @@ function Sidebar({ setSection }) {
           
 
 
-          <button onClick={() => handleClick("settings")} className={menuClass}>
+          {/* <button onClick={() => handleClick("settings")} className={menuClass}>
             <FaCog /> Settings
-          </button>
+          </button> */}
         </div>
 
         {/* FOOTER */}
