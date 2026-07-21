@@ -165,8 +165,13 @@ const validateCreatorForm = () => {
       err.youtubeName = "YouTube channel name is required";
 
 
-if (!creatorData.ytVideoRate)
-    err.ytVideoRate = "Youtube video rate is required";
+// YouTube Video Rate Validation
+if (
+  creatorData.hasYoutube === "Yes" &&
+  !creatorData.ytVideoRate?.toString().trim()
+) {
+  err.ytVideoRate = "YouTube video rate is required";
+}
 
    if (!creatorData.youtubeLink.trim()) {
   err.youtubeLink = "YouTube channel link is required";
