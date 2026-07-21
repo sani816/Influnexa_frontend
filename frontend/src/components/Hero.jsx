@@ -107,6 +107,8 @@ const validateCreatorForm = () => {
   const urlRegex =
     /^(https?:\/\/)?(www\.)?(instagram\.com|youtube\.com|youtu\.be)/i;
   const pincodeRegex = /^[1-9][0-9]{5}$/;
+  const youtubeChannelRegex =
+  /^(https?:\/\/)?(www\.)?youtube\.com\/(@[A-Za-z0-9._-]+|channel\/[A-Za-z0-9_-]+|c\/[A-Za-z0-9._-]+|user\/[A-Za-z0-9._-]+)\/?$/i;
 
   if (!creatorData.instagramUsername.trim())
     err.instagramUsername = "Instagram username is required";
@@ -162,10 +164,12 @@ const validateCreatorForm = () => {
     if (!creatorData.youtubeName.trim())
       err.youtubeName = "YouTube channel name is required";
 
-    if (!creatorData.youtubeLink.trim())
-    err.youtubeLink = "Youtube profile link is required";
-  else if (!urlRegex.test(creatorData.youtubeLink))
-    err.youtubeLink = "Enter a valid Youtube URL";
+   if (!creatorData.youtubeLink.trim()) {
+  err.youtubeLink = "YouTube channel link is required";
+} else if (!youtubeChannelRegex.test(creatorData.youtubeLink)) {
+  err.youtubeLink =
+    "Enter a valid YouTube channel/profile URL";
+}
 
     if (!creatorData.youtubeSubs)
       err.youtubeSubs = "Please select YouTube subscribers";
@@ -1139,7 +1143,7 @@ try {
 </div>
 
 
-<div>
+
     <input
      className={`${inputStyle} !text-black`}
       name="youtubeName"
@@ -1147,28 +1151,16 @@ try {
       onChange={handleCreatorChange}
       placeholder="Channel Name"
     />
-{errors.youtubeName && (
-  <p className="text-red-500 text-sm mt-1">
-    {errors.youtubeName}
-  </p>
-)}
-</div>
 
-<div>
     <input
-        className={`${inputStyle} !text-black`}
-        name="YoutubeLink"
-        value={creatorData.youtubeLink}
-        onChange={handleCreatorChange}
-        placeholder="https://Youtube.com/username"
-      />
+  type="url"
+  className={`${inputStyle} !text-black`}
+  name="youtubeLink"
+  value={creatorData.youtubeLink}
+  onChange={handleCreatorChange}
+  placeholder="https://www.youtube.com/@username"
+/>
 
-{errors.youtubeLink && (
-  <p className="text-red-500 text-sm mt-1">
-    {errors.youtubeLink}
-  </p>
-)}
-</div>
 
 
 <div>
