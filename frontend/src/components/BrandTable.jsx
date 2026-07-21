@@ -66,21 +66,21 @@ function BrandTable({ brands, loadData }) {
 
          <thead className="bg-cyan-500 text-black sticky top-0">
   <tr className="bg-cyan-500 text-black text-sm">
-    <th className="p-3">Owner</th>
-    <th className="p-3">Brand</th>
-    <th className="p-3">Email</th>
-    <th className="p-3">Mobile</th>
-    <th className="p-3">Website</th>
-    <th className="p-3">Instagram</th>
-    <th className="p-3">Looking For</th>
-    <th className="p-3">Budget</th>
-    <th className="p-3">Category</th>
-    <th className="p-3">Location</th>
-    <th className="p-3">Followers</th>
-    <th className="p-3">Status</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap-3">Owner</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Brand</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Email</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Mobile</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Website</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Instagram</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Looking For</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Budget</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Category</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Location</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Followers</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Status</th>
    
-    <th className="p-3">Created</th>
-    <th className="p-3">Action</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Created</th>
+    <th className="px-4 py-3 text-left whitespace-nowrap">Action</th>
   </tr>
 </thead>
 
