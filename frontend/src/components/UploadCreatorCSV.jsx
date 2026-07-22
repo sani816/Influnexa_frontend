@@ -32,12 +32,16 @@ const uploadCSV = async()=>{
  }
  catch(error){
 
-  console.log(error);
-  alert("CSV upload failed");
+ console.log(
+   "CSV ERROR:",
+   error.response?.data
+ );
+   alert(
+   error.response?.data?.message ||
+   "CSV upload failed"
+ );
 
- }
-
-};
+}
 
 
 return(
@@ -87,5 +91,5 @@ Upload CSV
 )
 
 }
-
+}
 export default UploadCreatorsCSV;
