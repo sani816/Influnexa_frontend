@@ -223,7 +223,7 @@ const filteredBlogs = useMemo(() => {
   categoryFilter,
 ]);
 
-const blogsPerPage = 5;
+
 
 const indexOfLastBlog = currentPage * blogsPerPage;
 const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
