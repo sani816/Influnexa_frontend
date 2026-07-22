@@ -103,7 +103,7 @@ function Blog() {
                 <div className="grid lg:grid-cols-2 bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden">
 
                   <img
-                    src={`${API_URL}/uploads/${blogs[0].image}`}
+                    src={blogs[0].image}
                     alt={blogs[0].title}
                     className="w-full h-[350px] object-cover"
                   />
