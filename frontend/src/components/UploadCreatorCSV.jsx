@@ -21,7 +21,7 @@ const uploadCSV = async()=>{
 
 
   await axios.post(
-    `${API_URL}/api/csv/creators`,
+    `${Config.API_URL}/api/csv/creators`,
     formData
   );
 
