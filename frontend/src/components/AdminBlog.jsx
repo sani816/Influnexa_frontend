@@ -133,29 +133,47 @@ const handleSubmit = async (e) => {
       data.append("image", formData.image);
     }
 
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+
     if (editingBlog) {
+
       await axios.put(
         `${API_URL}/api/blogs/${editingBlog._id}`,
-        data
+        data,
+        config
       );
 
       alert("Blog Updated Successfully");
+
     } else {
+
       await axios.post(
         `${API_URL}/api/blogs`,
-        data
+        data,
+        config
       );
 
       alert("Blog Published Successfully");
     }
+
 
     fetchBlogs();
     setShowForm(false);
     resetForm();
 
   } catch (err) {
-    console.log(err);
-    alert("Something went wrong");
+
+    console.log("BLOG ERROR:", err.response?.data || err.message);
+
+    alert(
+      err.response?.data?.message || 
+      "Something went wrong"
+    );
   }
 };
 
