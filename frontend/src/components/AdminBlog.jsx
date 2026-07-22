@@ -483,7 +483,7 @@ return (
       {/* Image */}
       <td className="px-5 py-4">
         <img
-          src={`${API_URL}/uploads/${blog.image}`}
+          src={blog.image}
           alt={blog.title}
           className="w-24 h-16 rounded-lg object-cover"
         />

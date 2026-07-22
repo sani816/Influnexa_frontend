@@ -209,7 +209,7 @@ function Blog() {
               <div className="flip-card-front bg-white rounded-3xl shadow-xl overflow-hidden">
 
                 <img
-                  src={`${API_URL}/uploads/${blog.image}`}
+                  src={blog.image}
                   alt={blog.title}
                   className="w-full h-60 object-cover"
                 />

@@ -50,7 +50,7 @@ function CreatorTable({creators,loadData}) {
               <td>
 
                 <img
-                  src={`${Config.API_URL}/uploads/${creator.image}`}
+                  src={creator.image}
                   className="w-16 h-16 rounded-full"
                 />
 

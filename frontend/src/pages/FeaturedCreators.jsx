@@ -100,11 +100,8 @@ function FeaturedCreators() {
 
                   {/* Creator Image */}
                   <img
-                    src={
-                      creator.image
-                        ? `${API_URL}/uploads/${creator.image}`
-                        : "https://via.placeholder.com/500"
-                    }
+                    src=
+                    {creator.image}    
                     alt={creator.fullName}
                     className="w-full h-72 object-cover"
                   />
