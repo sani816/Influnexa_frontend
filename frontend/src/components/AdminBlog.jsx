@@ -25,6 +25,7 @@ function AdminBlogs() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const blogsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Modal
   const [showForm, setShowForm] = useState(false);
@@ -183,6 +184,58 @@ const deleteBlog = async (id) => {
 
   }
 };
+const categories = [
+  "All",
+  ...new Set(blogs.map((blog) => blog.category)),
+];
+const filteredBlogs = useMemo(() => {
+  return blogs.filter((blog) => {
+
+    const matchesSearch =
+      blog.title
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      blog.author
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+    const matchesStatus =
+      statusFilter === "All"
+        ? true
+        : blog.status === statusFilter;
+
+    const matchesCategory =
+      categoryFilter === "All"
+        ? true
+        : blog.category === categoryFilter;
+
+    return (
+      matchesSearch &&
+      matchesStatus &&
+      matchesCategory
+    );
+
+  });
+}, [
+  blogs,
+  search,
+  statusFilter,
+  categoryFilter,
+]);
+
+const blogsPerPage = 5;
+
+const indexOfLastBlog = currentPage * blogsPerPage;
+const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+
+const currentBlogs = filteredBlogs.slice(
+  indexOfFirstBlog,
+  indexOfLastBlog
+);
+
+const totalPages = Math.ceil(
+  filteredBlogs.length / blogsPerPage
+);
 return (
   <div className="p-8">
 
@@ -281,56 +334,66 @@ return (
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
 
-      <div className="relative">
+  {/* Search */}
 
-        <FaSearch className="absolute left-4 top-4 text-gray-500" />
+  <div className="relative">
 
-        <input
-          type="text"
-          placeholder="Search blog..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full bg-slate-800 rounded-lg py-3 pl-12 pr-4 text-white outline-none"
-        />
+    <FaSearch className="absolute left-4 top-4 text-gray-500" />
 
-      </div>
+    <input
+      type="text"
+      placeholder="Search by title or author..."
+      value={search}
+      onChange={(e) =>
+        setSearch(e.target.value)
+      }
+      className="w-full bg-slate-800 text-white rounded-lg py-3 pl-12 pr-4 outline-none"
+    />
 
-      <select
-        value={statusFilter}
-        onChange={(e) =>
-          setStatusFilter(e.target.value)
-        }
-        className="bg-slate-800 rounded-lg p-3 text-white"
+  </div>
+
+  <select
+    value={statusFilter}
+    onChange={(e) =>
+      setStatusFilter(e.target.value)
+    }
+    className="bg-slate-800 text-white rounded-lg p-3"
+  >
+    <option value="All">
+      All Status
+    </option>
+
+    <option value="Published">
+      Published
+    </option>
+
+    <option value="Draft">
+      Draft
+    </option>
+
+  </select>
+
+  {/* Category Filter */}
+
+  <select
+    value={categoryFilter}
+    onChange={(e) =>
+      setCategoryFilter(e.target.value)
+    }
+    className="bg-slate-800 text-white rounded-lg p-3"
+  >
+    {categories.map((category) => (
+      <option
+        key={category}
+        value={category}
       >
-        <option value="All">All Status</option>
-        <option value="Published">Published</option>
-        <option value="Draft">Draft</option>
-      </select>
+        {category}
+      </option>
+    ))}
 
-      <select
-        value={categoryFilter}
-        onChange={(e) =>
-          setCategoryFilter(e.target.value)
-        }
-        className="bg-slate-800 rounded-lg p-3 text-white"
-      >
-        <option value="All">All Categories</option>
+  </select>
 
-        {[...new Set(blogs.map((b) => b.category))].map(
-          (category) => (
-            <option
-              key={category}
-              value={category}
-            >
-              {category}
-            </option>
-          )
-        )}
-
-      </select>
-
-    </div>
-
+</div>
     {/* Blog Table */}
 
     <div className="bg-slate-800 rounded-xl overflow-hidden shadow-lg">
