@@ -142,7 +142,7 @@ const handleSubmit = async (e) => {
       alert("Blog Updated Successfully");
     } else {
       await axios.post(
-        `${API_URL}/api/blogs`,
+        `${API_URL}/api/blogs/admin`,
         data
       );
 
