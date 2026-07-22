@@ -67,7 +67,38 @@ function UploadCreatorsCSV(){
     }
 
   }
+const deleteCSVCreators = async()=>{
 
+ try{
+
+  const confirmDelete = window.confirm(
+    "Delete all CSV uploaded creators?"
+  );
+
+
+  if(!confirmDelete) return;
+
+
+  const response = await axios.delete(
+    `${Config.API_URL}/api/csv/creators`
+  );
+
+
+  alert(response.data.message);
+
+
+ }
+ catch(error){
+
+  console.log(
+   error.response?.data || error.message
+  );
+
+  alert("Delete failed");
+
+ }
+
+};
 
 return(
 <div className="
@@ -87,7 +118,18 @@ mb-5
 Upload Creator CSV
 </h2>
 
-
+<button
+onClick={deleteCSVCreators}
+className="
+mt-4
+bg-red-500
+px-5 py-2
+rounded-lg
+text-white
+"
+>
+Delete CSV Creators
+</button>
 <input
 type="file"
 accept=".csv"
