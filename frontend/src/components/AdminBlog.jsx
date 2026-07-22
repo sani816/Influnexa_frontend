@@ -25,7 +25,7 @@ function AdminBlogs() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const blogsPerPage = 5;
-  const [currentPage, setCurrentPage] = useState(1);
+ 
 
   // Modal
   const [showForm, setShowForm] = useState(false);
