@@ -9,6 +9,7 @@ import CreatorSection from "../components/CreatorSection";
 // import SettingsSection from "../components/SettingsSection";
 import BookingStatus from "../components/BookingStatus";
 import AdminBlogs from "../components/AdminBlog";
+import UploadCreatorsCSV from "../components/UploadCreatorCSV";
 
 
 function AdminDashboard() {
@@ -72,6 +73,9 @@ function AdminDashboard() {
             {section === "bookings" && <BookingStatus />}
             
             { section === "blogs" && <AdminBlogs />}
+            {section === "uploadCreators" && (
+  <UploadCreatorsCSV />
+)}
             {/* {section === "settings" && (
               <SettingsSection setSection={setSection} />
             )} */}

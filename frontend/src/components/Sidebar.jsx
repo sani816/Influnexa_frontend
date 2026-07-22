@@ -8,6 +8,7 @@ import {
   FaTimes,
   FaCalendarAlt,
   FaBlog,
+  FaFileCsv,
 } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
@@ -132,6 +133,13 @@ function Sidebar({ setSection }) {
           
          
           <button onClick={() => handleClick("blogs")} className={menuClass}><FaBlog /> Blog Management</button>
+
+          <button 
+  onClick={() => handleClick("uploadCreators")} 
+  className={menuClass}
+>
+  <FaFileCsv /> Upload Creators CSV
+</button>
 
           {/* <button onClick={() => handleClick("settings")} className={menuClass}>
             <FaCog /> Settings
