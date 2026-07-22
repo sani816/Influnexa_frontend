@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-import { API_URL } from "../config";
+import Config from "../config/Config";
 
 function UploadCreatorsCSV(){
 
