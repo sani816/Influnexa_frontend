@@ -36,7 +36,7 @@ const blogsPerPage = 5;
       setLoading(true);
 
       const res = await axios.get(
-        `${API_URL}/api/blog/admin`
+        `${API_URL}/api/blogs/admin`
       );
 
       setBlogs(res.data);
