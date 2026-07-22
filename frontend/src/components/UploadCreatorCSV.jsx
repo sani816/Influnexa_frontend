@@ -43,7 +43,7 @@ const uploadCSV = async()=>{
 
 }
 
-
+}
 return(
 <div className="
 bg-white/10 
@@ -91,5 +91,5 @@ Upload CSV
 )
 
 }
-}
+
 export default UploadCreatorsCSV;
