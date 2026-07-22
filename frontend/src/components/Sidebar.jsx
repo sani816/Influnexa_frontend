@@ -131,12 +131,7 @@ function Sidebar({ setSection }) {
           </button>
           
          
-          <button
-  onClick={() => handleClick("blogs")}
-  className={menuClass}
->
-  <FaBlog /> Blog Management
-</button>
+          <button onClick={() => handleClick("blogs")} className={menuClass}><FaBlog /> Blog Management</button>
 
           {/* <button onClick={() => handleClick("settings")} className={menuClass}>
             <FaCog /> Settings
