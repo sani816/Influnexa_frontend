@@ -1,49 +1,74 @@
 import { useState } from "react";
 import axios from "axios";
-
 import Config from "../config/Config";
 
 function UploadCreatorsCSV(){
 
-const [file,setFile] = useState(null);
+  const [file,setFile] = useState(null);
+  const [loading,setLoading] = useState(false);
 
 
-const uploadCSV = async()=>{
+  const uploadCSV = async()=>{
 
- try{
-
-  const formData = new FormData();
-
-  formData.append(
-    "file",
-    file
-  );
+    console.log("Button clicked");
+    console.log("Selected file:", file);
 
 
-  await axios.post(
-    `${Config.API_URL}/api/csv/creators`,
-    formData
-  );
+    try{
+
+      if(!file){
+        alert("Please select CSV file first");
+        return;
+      }
 
 
-  alert("Creators uploaded successfully");
+      setLoading(true);
 
 
- }
- catch(error){
+      const formData = new FormData();
 
- console.log(
-   "CSV ERROR:",
-   error.response?.data
- );
-   alert(
-   error.response?.data?.message ||
-   "CSV upload failed"
- );
+      formData.append("file", file);
 
-}
 
-}
+      const response = await axios.post(
+        `${Config.API_URL}/api/csv/creators`,
+        formData
+      );
+
+
+      console.log(
+        "UPLOAD RESPONSE:",
+        response.data
+      );
+
+
+      alert("Creators uploaded successfully");
+
+
+    }
+    catch(error){
+
+      console.log(
+        "CSV ERROR:",
+        error.response?.data || error.message
+      );
+
+
+      alert(
+        error.response?.data?.message ||
+        "CSV upload failed"
+      );
+
+    }
+    finally{
+
+      setLoading(false);
+
+    }
+
+  }
+
+
 return(
 <div className="
 bg-white/10 
@@ -66,15 +91,17 @@ Upload Creator CSV
 <input
 type="file"
 accept=".csv"
-onChange={(e)=>
- setFile(e.target.files[0])
-}
+onChange={(e)=>{
+  console.log("File selected:",e.target.files[0]);
+  setFile(e.target.files[0]);
+}}
 className="text-white"
 />
 
 
 <button
 onClick={uploadCSV}
+disabled={loading}
 className="
 mt-5
 bg-cyan-500
@@ -83,7 +110,9 @@ rounded-lg
 text-white
 "
 >
-Upload CSV
+{
+ loading ? "Uploading..." : "Upload CSV"
+}
 </button>
 
 
