@@ -44,10 +44,8 @@ function App() {
           }
         />
  <Route path="*" element={<Navigate to="/" />} />
-       <Route
-  path="/creator/:id"
-  element={<CreatorProfile />}
-/>
+ 
+<Route path="/creator/:id"element={<CreatorProfile />}/>
       </Routes>
 
     </BrowserRouter>
