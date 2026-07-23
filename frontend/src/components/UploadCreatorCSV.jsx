@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import Config from "../config/Config";
 
@@ -6,7 +6,63 @@ function UploadCreatorsCSV(){
 
   const [file,setFile] = useState(null);
   const [loading,setLoading] = useState(false);
+const [summary, setSummary] = useState({
+  totalRecords: 0,
+  successfulRecords: 0,
+  failedRecords: 0,
+});
 
+const [uploadReport, setUploadReport] = useState([]);
+useEffect(()=>{
+
+  fetchLatestReport();
+
+},[]);
+
+
+const fetchLatestReport = async()=>{
+
+  try{
+
+    const response = await axios.get(
+      `${Config.API_URL}/api/csv/latest-report`
+    );
+
+
+    if(response.data.success && response.data.report){
+
+      setSummary({
+
+        totalRecords:
+        response.data.report.totalRecords,
+
+        successfulRecords:
+        response.data.report.successfulRecords,
+
+        failedRecords:
+        response.data.report.failedRecords
+
+      });
+
+
+      setUploadReport(
+        response.data.report.report
+      );
+
+    }
+
+
+  }
+  catch(error){
+
+    console.log(
+      "REPORT FETCH ERROR:",
+      error.response?.data || error.message
+    );
+
+  }
+
+};
 
   const uploadCSV = async()=>{
 
@@ -36,12 +92,13 @@ function UploadCreatorsCSV(){
       );
      
       setSummary({
-    totalRecords: res.data.totalRecords,
-    successfulRecords: res.data.successfulRecords,
-    failedRecords: res.data.failedRecords,
+    totalRecords: response.data.totalRecords,
+    successfulRecords: response.data.successfulRecords,
+    failedRecords: response.data.failedRecords,
 });
 
-setUploadReport(res.data.report);
+setUploadReport(response.data.report);
+fetchLatestReport();
 
       console.log(
         "UPLOAD RESPONSE:",
@@ -93,7 +150,14 @@ const deleteCSVCreators = async()=>{
 
   alert(response.data.message);
 
+setSummary({
+ totalRecords:0,
+ successfulRecords:0,
+ failedRecords:0
+});
 
+
+setUploadReport([]);
  }
  catch(error){
 
@@ -163,7 +227,113 @@ text-white
  loading ? "Uploading..." : "Upload CSV"
 }
 </button>
+{summary.totalRecords > 0 && (
+  <div className="mt-6 bg-black/30 border border-cyan-500 rounded-lg p-4 text-white">
 
+    <h3 className="text-xl font-bold mb-4">
+      Upload Summary
+    </h3>
+
+    <div className="grid grid-cols-3 gap-4">
+
+      <div className="bg-blue-600 rounded-lg p-4 text-center">
+        <p>Total Records</p>
+        <h2 className="text-3xl font-bold">
+          {summary.totalRecords}
+        </h2>
+      </div>
+
+      <div className="bg-green-600 rounded-lg p-4 text-center">
+        <p>Successfully Uploaded</p>
+        <h2 className="text-3xl font-bold">
+          {summary.successfulRecords}
+        </h2>
+      </div>
+
+      <div className="bg-red-600 rounded-lg p-4 text-center">
+        <p>Failed</p>
+        <h2 className="text-3xl font-bold">
+          {summary.failedRecords}
+        </h2>
+      </div>
+
+    </div>
+
+  </div>
+)}
+{uploadReport.length > 0 && (
+
+<div className="mt-8 overflow-x-auto">
+
+<table className="min-w-full border border-cyan-500 text-white">
+
+<thead className="bg-cyan-600">
+
+<tr>
+
+<th className="border p-2">Row</th>
+
+<th className="border p-2">Name</th>
+
+<th className="border p-2">Email</th>
+
+<th className="border p-2">Mobile</th>
+
+<th className="border p-2">Instagram</th>
+
+<th className="border p-2">YouTube</th>
+
+<th className="border p-2">Status</th>
+
+<th className="border p-2">Reason</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{uploadReport.map((item,index)=>(
+
+<tr key={index}>
+
+<td className="border p-2">{item.row}</td>
+
+<td className="border p-2">{item.fullName}</td>
+
+<td className="border p-2">{item.email}</td>
+
+<td className="border p-2">{item.mobileNumber}</td>
+
+<td className="border p-2">{item.instagramUsername}</td>
+
+<td className="border p-2">{item.youtubeName}</td>
+
+<td
+className={`border p-2 font-bold ${
+item.status==="Uploaded"
+?"text-green-400"
+:"text-red-400"
+}`}
+>
+{item.status}
+</td>
+
+<td className="border p-2">
+{item.reason}
+</td>
+
+</tr>
+
+))}
+
+</tbody>
+
+</table>
+
+</div>
+
+)}
 
 </div>
 )
