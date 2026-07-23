@@ -191,10 +191,12 @@ const matchProducts =
 
 const matchBrand =
 creator.brandNames?.toLowerCase().includes(brandFilter.toLowerCase());
+
+
 const matchHasYoutube =
-  youtubeFilter === "" ||
+  HasYoutubeFilter === "" ||
   creator.hasYoutube?.trim().toLowerCase() ===
-    youtubeFilter.trim().toLowerCase();
+    HasYoutubeFilter.trim().toLowerCase();
 
     return (
   matchName &&
@@ -405,7 +407,7 @@ const isFilterApplied =
   pincodeFilter.trim() !== "" ||
   addressTypeFilter.trim() !== "" ||
   productFilter.trim() !== "" ||
-  brandFilter.trim() !== ""
+  brandFilter.trim() !== "" ||
   HasYoutubeFilter.trim() !== "";
 
 
@@ -451,27 +453,28 @@ const isFilterApplied =
         placeholder="Instagram Username"
         value={instagramFilter}
         onChange={(e)=>setInstagramFilter(e.target.value)}
-        className="filter-input"
+       className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
         />
 
         <input
 placeholder="Followers"
 value={followersFilter}
 onChange={(e)=>setFollowersFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
 placeholder="WhatsApp"
 value={whatsappFilter}
 onChange={(e)=>setWhatsappFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <select
+placeholder="select gender"
 value={genderFilter}
 onChange={(e)=>setGenderFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 >
 <option value="">All Gender</option>
 <option>Male</option>
@@ -483,97 +486,112 @@ className="filter-input"
 type="date"
 value={dobFilter}
 onChange={(e)=>setDobFilter(e.target.value)}
-className="filter-input"
+cclassName="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
 placeholder="Category"
 value={categoryFilter}
 onChange={(e)=>setCategoryFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
 placeholder="Campaign Type"
 value={campaignFilter}
 onChange={(e)=>setCampaignFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
 placeholder="Reel Rate"
 value={reelRateFilter}
 onChange={(e)=>setReelRateFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
 placeholder="Story Rate"
 value={storyRateFilter}
 onChange={(e)=>setStoryRateFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
 placeholder="Post Rate"
 value={postRateFilter}
 onChange={(e)=>setPostRateFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
 placeholder="YouTube Name"
 value={youtubeNameFilter}
 onChange={(e)=>setYoutubeNameFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
 placeholder="Subscribers"
 value={youtubeSubsFilter}
 onChange={(e)=>setYoutubeSubsFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
 placeholder="State"
 value={stateFilter}
 onChange={(e)=>setStateFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
 placeholder="Pincode"
 value={pincodeFilter}
 onChange={(e)=>setPincodeFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <select
+placeholder="Adress Type?"
 value={addressTypeFilter}
 onChange={(e)=>setAddressTypeFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 >
 <option value="">All</option>
 <option>Home</option>
 <option>Office</option>
+<option>Studio</option>
+<option>other</option>
 </select>
 
 <select
+placeholder="Recive Product?"
 value={productFilter}
 onChange={(e)=>setProductFilter(e.target.value)}
-className="filter-input"
+cclassName="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 >
 <option value="">All</option>
 <option>Yes</option>
 <option>No</option>
 </select>
 
+<select
+placeholder="Has Youtube?"
+  value={hasYoutubeFilter}
+  onChange={(e) => setHasYoutubeFilter(e.target.value)}
+  cclassName="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
+>
+  <option value="">Has YouTube</option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select>
+
 <input
 placeholder="Brand"
 value={brandFilter}
 onChange={(e)=>setBrandFilter(e.target.value)}
-className="filter-input"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 </div>
 
