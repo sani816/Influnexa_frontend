@@ -486,7 +486,7 @@ className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 type="date"
 value={dobFilter}
 onChange={(e)=>setDobFilter(e.target.value)}
-cclassName="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 />
 
 <input
@@ -569,7 +569,7 @@ className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 placeholder="Recive Product?"
 value={productFilter}
 onChange={(e)=>setProductFilter(e.target.value)}
-cclassName="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
+className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 >
 <option value="">All</option>
 <option>Yes</option>
@@ -580,7 +580,7 @@ cclassName="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 placeholder="Has Youtube?"
   value={hasYoutubeFilter}
   onChange={(e) => setHasYoutubeFilter(e.target.value)}
-  cclassName="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
+  className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 >
   <option value="">Has YouTube</option>
   <option value="Yes">Yes</option>
