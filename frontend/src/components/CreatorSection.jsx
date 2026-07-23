@@ -194,9 +194,9 @@ creator.brandNames?.toLowerCase().includes(brandFilter.toLowerCase());
 
 
 const matchHasYoutube =
-  HasYoutubeFilter === "" ||
+  hasYoutubeFilter === "" ||
   creator.hasYoutube?.trim().toLowerCase() ===
-    HasYoutubeFilter.trim().toLowerCase();
+    hasYoutubeFilter.trim().toLowerCase();
 
     return (
   matchName &&
@@ -408,7 +408,7 @@ const isFilterApplied =
   addressTypeFilter.trim() !== "" ||
   productFilter.trim() !== "" ||
   brandFilter.trim() !== "" ||
-  HasYoutubeFilter.trim() !== "";
+  hasYoutubeFilter.trim() !== "";
 
 
   return (
