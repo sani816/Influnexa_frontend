@@ -353,7 +353,7 @@ const downloadMaskedCSV = () => {
     State: creator.state || "",
 
     Pincode: creator.pincode
-  ? creator.pincode.toString().replace(/^(\d{2})\d{2}(\d{2})$/, "$1**$2")
+  ? creator.pincode.replace(/^(\d{2})\d{2}(\d{2})$/, "$1**$2")
   : "",
 
     AddressType: creator.addressType || "",
