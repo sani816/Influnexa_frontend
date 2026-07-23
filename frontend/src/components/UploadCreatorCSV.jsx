@@ -131,6 +131,8 @@ fetchLatestReport();
     }
 
   }
+
+  // Delete CSV file
 const deleteCSVCreators = async()=>{
 
  try{
@@ -149,6 +151,7 @@ const deleteCSVCreators = async()=>{
 
 
   alert(response.data.message);
+  setUploadReport([]);
 
 setSummary({
  totalRecords:0,
@@ -156,8 +159,7 @@ setSummary({
  failedRecords:0
 });
 
-
-setUploadReport([]);
+setFile(null);
  }
  catch(error){
 
@@ -261,7 +263,7 @@ text-white
 
   </div>
 )}
-{uploadReport.length > 0 && (
+{uploadReport.length > 0 ? (
 
 <div className="mt-8 overflow-x-auto">
 
@@ -272,50 +274,55 @@ text-white
 <tr>
 
 <th className="border p-2">Row</th>
-
 <th className="border p-2">Name</th>
-
 <th className="border p-2">Email</th>
-
 <th className="border p-2">Mobile</th>
-
 <th className="border p-2">Instagram</th>
-
 <th className="border p-2">YouTube</th>
-
 <th className="border p-2">Status</th>
-
 <th className="border p-2">Reason</th>
 
 </tr>
 
 </thead>
 
+
 <tbody>
 
-{uploadReport.map((item,index)=>(
+{
+uploadReport.map((item,index)=>(
 
 <tr key={index}>
 
-<td className="border p-2">{item.row}</td>
+<td className="border p-2">
+{item.row}
+</td>
 
-<td className="border p-2">{item.fullName}</td>
+<td className="border p-2">
+{item.fullName}
+</td>
 
-<td className="border p-2">{item.email}</td>
+<td className="border p-2">
+{item.email}
+</td>
 
-<td className="border p-2">{item.mobileNumber}</td>
+<td className="border p-2">
+{item.mobileNumber}
+</td>
 
-<td className="border p-2">{item.instagramUsername}</td>
+<td className="border p-2">
+{item.instagramUsername}
+</td>
 
-<td className="border p-2">{item.youtubeName}</td>
+<td className="border p-2">
+{item.youtubeName}
+</td>
 
-<td
-className={`border p-2 font-bold ${
+<td className={`border p-2 font-bold ${
 item.status==="Uploaded"
 ?"text-green-400"
 :"text-red-400"
-}`}
->
+}`}>
 {item.status}
 </td>
 
@@ -323,9 +330,11 @@ item.status==="Uploaded"
 {item.reason}
 </td>
 
+
 </tr>
 
-))}
+))
+}
 
 </tbody>
 
@@ -333,11 +342,30 @@ item.status==="Uploaded"
 
 </div>
 
-)}
 
-</div>
 )
 
+:
+
+(
+
+<div className="
+mt-8
+text-center
+text-white
+text-xl
+font-bold
+">
+
+No Creator Found
+
+</div>
+
+)
 }
+</div>
+)
+}
+
 
 export default UploadCreatorsCSV;
