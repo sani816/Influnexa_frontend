@@ -62,14 +62,14 @@ function WhyChooseUs() {
               India's Trusted Influencer Marketing Partner
             </h3>
 
-            <p className="text-white text-lg leading-9 mb-6">
+            <p className="text-black text-lg leading-9 mb-6">
               At InfluNexa, we believe influencer marketing is much more than
               simply connecting brands with creators. It is about building
               authentic relationships, creating impactful stories, and helping
               businesses reach the right audience at the right time.
             </p>
 
-            <p className="text-white text-lg leading-9 mb-6">
+            <p className="text-black text-lg leading-9 mb-6">
               Our platform combines data-driven strategies, verified creators,
               creative campaign planning, and dedicated campaign management to
               deliver measurable business results. Whether you are a startup,
@@ -78,7 +78,7 @@ function WhyChooseUs() {
               audience.
             </p>
 
-            <p className="text-white text-lg leading-9 mb-6">
+            <p className="text-black text-lg leading-9 mb-6">
               With a growing network of creators across Instagram, YouTube,
               Facebook, and emerging platforms, we ensure every collaboration
               drives awareness, engagement, trust, and conversions. From
@@ -87,7 +87,7 @@ function WhyChooseUs() {
               entire process seamlessly.
             </p>
 
-            <p className="text-white text-lg leading-9">
+            <p className="text-black text-lg leading-9">
               Brands choose InfluNexa because we focus on transparency,
               innovation, creativity, and long-term success. Our mission is to
               empower brands and creators to grow together through meaningful

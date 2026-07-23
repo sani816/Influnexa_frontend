@@ -540,7 +540,7 @@ return (
             title="View"
             onClick={() =>
               window.open(
-                `/blog/${blog._id}`,
+                "/blog",
                 "_blank"
               )
             }

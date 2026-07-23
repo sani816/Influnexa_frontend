@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FaHeart } from "react-icons/fa";
+
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -84,19 +84,7 @@ function FeaturedCreators() {
                   duration-300
                 "
                 >
-                  {/* Like */}
-                  <button
-                    onClick={() => toggleLike(index)}
-                    className="absolute top-4 right-4 z-20"
-                  >
-                    <FaHeart
-                      className={`text-3xl transition-all duration-300 ${
-                        liked[index]
-                          ? "text-red-500 scale-125"
-                          : "text-white"
-                      }`}
-                    />
-                  </button>
+                  
 
                   {/* Creator Image */}
                   <img

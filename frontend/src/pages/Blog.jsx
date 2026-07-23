@@ -95,64 +95,54 @@ function Blog() {
           {/* FEATURED BLOG */}
 
           {blogs.length > 0 && (
+  <section className="pb-16 px-4">
+    <div className="max-w-7xl mx-auto">
 
-            <section className="pb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden">
 
-              <div className="max-w-7xl mx-auto px-6">
+        {/* Image */}
+        <div className="bg-black flex items-center justify-center">
+          <img
+            src={blogs[0].image}
+            alt={blogs[0].title}
+            className="w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-full object-contain"
+          />
+        </div>
 
-                <div className="grid lg:grid-cols-2 bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden">
+        {/* Content */}
+        <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
 
-                  <img
-                    src={blogs[0].image}
-                    alt={blogs[0].title}
-                    className="w-full h-[350px] object-cover"
-                  />
+          <span className="text-cyan-300 font-semibold text-sm sm:text-base">
+            Featured Article
+          </span>
 
-                  <div className="p-10 flex flex-col justify-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 leading-tight">
+            {blogs[0].title}
+          </h2>
 
-                    <span className="text-cyan-300 font-semibold">
+          <p className="mt-6 text-base sm:text-lg text-gray-200 line-clamp-6">
+            {blogs[0].description}
+          </p>
 
-                      Featured Article
+          <div className="mt-8 flex flex-wrap items-center gap-4">
 
-                    </span>
+            <span className="bg-cyan-500 text-black px-5 py-2 rounded-full font-semibold">
+              {blogs[0].category}
+            </span>
 
-                    <h2 className="text-4xl font-bold mt-4">
+            <span className="text-gray-300">
+              By {blogs[0].author}
+            </span>
 
-                      {blogs[0].title}
+          </div>
 
-                    </h2>
+        </div>
 
-                    <p className="mt-6 text-lg">
+      </div>
 
-                      {blogs[0].description}
-
-                    </p>
-
-                    <div className="mt-6 flex gap-4">
-
-                      <span className="bg-cyan-500 text-black px-4 py-2 rounded-full font-semibold">
-
-                        {blogs[0].category}
-
-                      </span>
-
-                      <span className="text-gray-300">
-
-                        By {blogs[0].author}
-
-                      </span>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </section>
-
-          )}
+    </div>
+  </section>
+)}
 
         </div>
 
@@ -206,54 +196,46 @@ function Blog() {
 
               {/* FRONT */}
 
-              <div className="flip-card-front bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div className="flip-card-front bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col h-[650px]">
 
-                <img
-                  src={blog.image}
-                  alt={blog.title}
-                  className="w-full h-60 object-cover"
-                />
+  <img
+    src={blog.image}
+    alt={blog.title}
+    className="w-full h-60 object-cover"
+  />
 
-                <div className="p-6">
+  <div className="p-6 flex flex-col flex-1">
 
-                  <span className="inline-block bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-semibold">
+    <span className="inline-block bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-semibold w-fit">
+      {blog.category}
+    </span>
 
-                    {blog.category}
+    <h3 className="text-2xl font-bold mt-4 text-gray-900 line-clamp-2">
+      {blog.title}
+    </h3>
 
-                  </span>
+    <p className="text-gray-600 mt-4 line-clamp-5 flex-1">
+      {blog.description}
+    </p>
 
-                  <h3 className="text-2xl font-bold mt-4 text-gray-900">
+    <div className="mt-6 flex items-center justify-between">
 
-                    {blog.title}
+      <span className="text-sm text-gray-500">
+        By {blog.author}
+      </span>
 
-                  </h3>
+      <button
+        onClick={() => toggleCard(blog._id)}
+        className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl transition"
+      >
+        Read More →
+      </button>
 
-                  <p className="text-gray-600 mt-4 line-clamp-4">
+    </div>
 
-                    {blog.description}
+  </div>
 
-                  </p>
-
-                  <div className="mt-6 flex items-center justify-between">
-
-                    <span className="text-sm text-gray-500">
-
-                      By {blog.author}
-
-                    </span>
-
-                    <button
-                      onClick={() => toggleCard(blog._id)}
-                      className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl transition"
-                    >
-                      Read More →
-                    </button>
-
-                  </div>
-
-                </div>
-
-              </div>
+</div>
 
               {/* BACK */}
 
