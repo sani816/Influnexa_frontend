@@ -118,7 +118,7 @@ const fetchLatestReport = async()=>{
 });
 
 setUploadReport(response.data.report);
-fetchLatestReport();
+
 
       console.log(
         "UPLOAD RESPONSE:",
@@ -180,7 +180,7 @@ setSummary({
 });
 
 setFile(null);
-await fetchLatestReport();
+
  }
  catch(error){
 
