@@ -19,6 +19,7 @@ useEffect(()=>{
 
 },[]);
 
+//   Fetch latest report
 
 const fetchLatestReport = async()=>{
 
@@ -29,25 +30,41 @@ const fetchLatestReport = async()=>{
     );
 
 
-    if(response.data.success && response.data.report){
+    if(
+      response.data.success &&
+      response.data.report
+    ){
 
       setSummary({
 
-        totalRecords:
-        response.data.report.totalRecords,
+        totalRecords: response.data.report.totalRecords,
 
-        successfulRecords:
-        response.data.report.successfulRecords,
+        successfulRecords: response.data.report.successfulRecords,
 
-        failedRecords:
-        response.data.report.failedRecords
+        failedRecords: response.data.report.failedRecords
 
       });
 
 
       setUploadReport(
-        response.data.report.report
+        response.data.report.report || []
       );
+
+
+    }
+    else{
+
+      setUploadReport([]);
+
+      setSummary({
+
+        totalRecords:0,
+
+        successfulRecords:0,
+
+        failedRecords:0
+
+      });
 
     }
 
@@ -59,6 +76,9 @@ const fetchLatestReport = async()=>{
       "REPORT FETCH ERROR:",
       error.response?.data || error.message
     );
+
+
+    setUploadReport([]);
 
   }
 
@@ -160,6 +180,7 @@ setSummary({
 });
 
 setFile(null);
+await fetchLatestReport();
  }
  catch(error){
 
