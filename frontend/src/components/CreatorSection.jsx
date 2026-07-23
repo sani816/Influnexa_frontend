@@ -582,7 +582,7 @@ placeholder="Has Youtube?"
   onChange={(e) => setHasYoutubeFilter(e.target.value)}
   className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
 >
-  <option value="">Has YouTube</option>
+  <option value="">All</option>
   <option value="Yes">Yes</option>
   <option value="No">No</option>
 </select>
