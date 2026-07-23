@@ -35,7 +35,7 @@ const [addressTypeFilter, setAddressTypeFilter] = useState("");
 const [productFilter, setProductFilter] = useState("");
 
 const [brandFilter, setBrandFilter] = useState("");
-
+const [hasYoutubeFilter, setHasYoutubeFilter] = useState("");
   // 🔥 EDIT STATE
   const [editData, setEditData] = useState(null);
 
@@ -191,7 +191,7 @@ const matchProducts =
 
 const matchBrand =
 creator.brandNames?.toLowerCase().includes(brandFilter.toLowerCase());
-const matchYoutube =
+const matchHasYoutube =
   youtubeFilter === "" ||
   creator.hasYoutube?.trim().toLowerCase() ===
     youtubeFilter.trim().toLowerCase();
@@ -218,7 +218,7 @@ const matchYoutube =
   matchAddress &&
   matchProducts &&
   matchBrand &&
-  hasYoutube
+  matchHasYoutube
 );
   });
 
@@ -405,7 +405,8 @@ const isFilterApplied =
   pincodeFilter.trim() !== "" ||
   addressTypeFilter.trim() !== "" ||
   productFilter.trim() !== "" ||
-  brandFilter.trim() !== "";
+  brandFilter.trim() !== ""
+  HasYoutubeFilter.trim() !== "";
 
 
   return (
