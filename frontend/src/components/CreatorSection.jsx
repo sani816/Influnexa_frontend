@@ -145,7 +145,9 @@ const matchWhatsapp =
 creator.whatsappNumber?.includes(whatsappFilter);
 
 const matchGender =
-creator.gender?.toLowerCase().includes(genderFilter.toLowerCase());
+  genderFilter === "" ||
+  creator.gender?.trim().toLowerCase() ===
+    genderFilter.trim().toLowerCase();
 
 const matchDOB =
 creator.dob?.includes(dobFilter);
@@ -178,13 +180,21 @@ const matchPincode =
 creator.pincode?.includes(pincodeFilter);
 
 const matchAddress =
-creator.addressType?.toLowerCase().includes(addressTypeFilter.toLowerCase());
+  addressTypeFilter === "" ||
+  creator.addressType?.trim().toLowerCase() ===
+    addressTypeFilter.trim().toLowerCase();
 
 const matchProducts =
-creator.canReceiveProducts?.toLowerCase().includes(productFilter.toLowerCase());
+  productFilter === "" ||
+  creator.canReceiveProducts?.trim().toLowerCase() ===
+    productFilter.trim().toLowerCase();
 
 const matchBrand =
 creator.brandNames?.toLowerCase().includes(brandFilter.toLowerCase());
+const matchYoutube =
+  youtubeFilter === "" ||
+  creator.hasYoutube?.trim().toLowerCase() ===
+    youtubeFilter.trim().toLowerCase();
 
     return (
   matchName &&
@@ -207,7 +217,8 @@ creator.brandNames?.toLowerCase().includes(brandFilter.toLowerCase());
   matchPincode &&
   matchAddress &&
   matchProducts &&
-  matchBrand
+  matchBrand &&
+  hasYoutube
 );
   });
 
@@ -221,51 +232,52 @@ const downloadCSV = () => {
 
   const exportData = filtered.map((creator) => ({
     InstagramUsername: creator.instagramUsername || "",
-    InstagramLink: creator.instagramLink || "",
-    Followers: creator.followersRange || "",
+  InstagramLink: creator.instagramLink || "",
+  Followers: creator.followersRange || "",
 
-    FullName: creator.fullName || "",
-    Email: creator.email || "",
-    MobileNumber: creator.mobileNumber || "",
-    WhatsAppNumber: creator.whatsappNumber || "",
+  FullName: creator.fullName || "",
+  Email: creator.email || "",
+  MobileNumber: creator.mobileNumber || "",
+  WhatsAppNumber: creator.whatsappNumber || "",
 
-    Gender: creator.gender || "",
-    DOB: creator.dob || "",
+  Gender: creator.gender || "",
+  DOB: creator.dob || "",
 
-    PreferredCategory: creator.preferredCategory?.join(", ") || "",
-    CampaignTypes: creator.campaignTypes?.join(", ") || "",
+  PreferredCategory: creator.preferredCategory?.join(", ") || "",
+  CampaignTypes: creator.campaignTypes?.join(", ") || "",
 
-    ReelRate: creator.reelRate || "",
-    StoryRate: creator.storyRate || "",
-    PostRate: creator.postRate || "",
+  ReelRate: creator.reelRate || "",
+  StoryRate: creator.storyRate || "",
+  PostRate: creator.postRate || "",
 
-    YoutubeName: creator.youtubeName || "",
-    YoutubeLink: creator.youtubeLink || "",
-    YoutubeSubscribers: creator.youtubeSubs || "",
-    YoutubeVideoRate: creator.ytVideoRate || "",
-    YoutubeShortRate: creator.ytShortsRate || "",
+  HasYoutube: creator.hasYoutube || "",
+  YoutubeName: creator.youtubeName || "",
+  YoutubeLink: creator.youtubeLink || "",
+  YoutubeSubscribers: creator.youtubeSubs || "",
+  YoutubeVideoRate: creator.ytVideoRate || "",
+  YoutubeShortRate: creator.ytShortsRate || "",
 
-    Address1: creator.address1 || "",
-    Address2: creator.address2 || "",
-    City: creator.city || "",
-    State: creator.state || "",
-    Pincode: creator.pincode || "",
+  Address1: creator.address1 || "",
+  Address2: creator.address2 || "",
+  City: creator.city || "",
+  State: creator.state || "",
+  Pincode: creator.pincode || "",
 
-    AddressType: creator.addressType || "",
-    CanReceiveProducts: creator.canReceiveProducts || "",
+  AddressType: creator.addressType || "",
+  CanReceiveProducts: creator.canReceiveProducts || "",
 
-    BrandNames: creator.brandNames || "",
-    Image: creator.image || "",
+  BrandNames: creator.brandNames || "",
 
-    Consent1: creator.consent1,
-    Consent2: creator.consent2,
-    Consent3: creator.consent3,
+  Image: creator.image || "",
 
-    RegisteredOn: creator.createdAt
-      ? new Date(creator.createdAt).toLocaleString()
-      : "",
-  }));
+  Consent1: creator.consent1 ? "Yes" : "No",
+  Consent2: creator.consent2 ? "Yes" : "No",
+  Consent3: creator.consent3 ? "Yes" : "No",
 
+  RegisteredOn: creator.createdAt
+    ? new Date(creator.createdAt).toLocaleString()
+    : "",
+}));
   const csv = Papa.unparse(exportData);
 
   const blob = new Blob([csv], {
@@ -285,9 +297,12 @@ const downloadMaskedCSV = () => {
   }
 
   const exportData = filtered.map((creator) => ({
+    // Instagram
     InstagramUsername: creator.instagramUsername || "",
+    InstagramLink: creator.instagramLink || "",
     Followers: creator.followersRange || "",
 
+    // Personal Details
     FullName: creator.fullName || "",
 
     Email: creator.email
@@ -303,25 +318,58 @@ const downloadMaskedCSV = () => {
       : "",
 
     Gender: creator.gender || "",
+    DOB: creator.dob || "",
 
+    // Categories
     PreferredCategory:
       creator.preferredCategory?.join(", ") || "",
 
     CampaignTypes:
       creator.campaignTypes?.join(", ") || "",
 
+    // Rates
+    ReelRate: creator.reelRate || "",
+    StoryRate: creator.storyRate || "",
+    PostRate: creator.postRate || "",
+
+    // YouTube
+    HasYoutube: creator.hasYoutube || "",
+
+    YoutubeName: creator.youtubeName || "",
+    YoutubeLink: creator.youtubeLink || "",
+
+    YoutubeSubscribers: creator.youtubeSubs || "",
+
+    YoutubeVideoRate: creator.ytVideoRate || "",
+    YoutubeShortRate: creator.ytShortsRate || "",
+
+    // Address
+    Address1: creator.address1 || "",
+    Address2: creator.address2 || "",
+
     City: creator.city || "",
     State: creator.state || "",
 
+    Pincode: creator.pincode
+      ? creator.pincode.replace(/^(\d{2})\d{2}(\d{2})$/, "$1**$2")
+      : "",
+
+    AddressType: creator.addressType || "",
+
+    CanReceiveProducts: creator.canReceiveProducts || "",
+
+    // Brands
     BrandNames: creator.brandNames || "",
 
+    // Image
     Image: creator.image || "",
 
-    Consent1: creator.consent1,
-    Consent2: creator.consent2,
-    Consent3: creator.consent3,
+    // Consents
+    Consent1: creator.consent1 ? "Yes" : "No",
+    Consent2: creator.consent2 ? "Yes" : "No",
+    Consent3: creator.consent3 ? "Yes" : "No",
 
-
+    // Registration
     RegisteredOn: creator.createdAt
       ? new Date(creator.createdAt).toLocaleString()
       : "",
@@ -335,7 +383,6 @@ const downloadMaskedCSV = () => {
 
   saveAs(blob, "Filtered_Creators_Masked.csv");
 };
-
 
 const isFilterApplied =
   nameFilter.trim() !== "" ||
