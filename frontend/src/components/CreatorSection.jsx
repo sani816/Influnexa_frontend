@@ -2,14 +2,39 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
 import Config from "../config/Config";
+import Papa from "papaparse";
+import { saveAs } from "file-saver";
 
 function CreatorSection() {
   const [creators, setCreators] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
-  const [cityFilter, setCityFilter] = useState("");
-  const [mobileFilter, setMobileFilter] = useState("");
-  const [emailFilter, setEmailFilter] = useState("");
+const [instagramFilter, setInstagramFilter] = useState("");
+const [followersFilter, setFollowersFilter] = useState("");
+const [emailFilter, setEmailFilter] = useState("");
+const [mobileFilter, setMobileFilter] = useState("");
+const [whatsappFilter, setWhatsappFilter] = useState("");
 
+const [genderFilter, setGenderFilter] = useState("");
+const [dobFilter, setDobFilter] = useState("");
+
+const [categoryFilter, setCategoryFilter] = useState("");
+const [campaignFilter, setCampaignFilter] = useState("");
+
+const [reelRateFilter, setReelRateFilter] = useState("");
+const [storyRateFilter, setStoryRateFilter] = useState("");
+const [postRateFilter, setPostRateFilter] = useState("");
+
+const [youtubeNameFilter, setYoutubeNameFilter] = useState("");
+const [youtubeSubsFilter, setYoutubeSubsFilter] = useState("");
+
+const [cityFilter, setCityFilter] = useState("");
+const [stateFilter, setStateFilter] = useState("");
+const [pincodeFilter, setPincodeFilter] = useState("");
+
+const [addressTypeFilter, setAddressTypeFilter] = useState("");
+const [productFilter, setProductFilter] = useState("");
+
+const [brandFilter, setBrandFilter] = useState("");
 
   // 🔥 EDIT STATE
   const [editData, setEditData] = useState(null);
@@ -110,13 +135,230 @@ function CreatorSection() {
         ?.toLowerCase()
         .includes(emailFilter.toLowerCase());
 
+        const matchInstagram =
+creator.instagramUsername?.toLowerCase().includes(instagramFilter.toLowerCase());
+
+const matchFollowers =
+creator.followersRange?.toString().includes(followersFilter);
+
+const matchWhatsapp =
+creator.whatsappNumber?.includes(whatsappFilter);
+
+const matchGender =
+creator.gender?.toLowerCase().includes(genderFilter.toLowerCase());
+
+const matchDOB =
+creator.dob?.includes(dobFilter);
+
+const matchCategory =
+creator.preferredCategory?.join(",").toLowerCase().includes(categoryFilter.toLowerCase());
+
+const matchCampaign =
+creator.campaignTypes?.join(",").toLowerCase().includes(campaignFilter.toLowerCase());
+
+const matchReel =
+creator.reelRate?.toString().includes(reelRateFilter);
+
+const matchStory =
+creator.storyRate?.toString().includes(storyRateFilter);
+
+const matchPost =
+creator.postRate?.toString().includes(postRateFilter);
+
+const matchYoutubeName =
+creator.youtubeName?.toLowerCase().includes(youtubeNameFilter.toLowerCase());
+
+const matchYoutubeSubs =
+creator.youtubeSubs?.toString().includes(youtubeSubsFilter);
+
+const matchState =
+creator.state?.toLowerCase().includes(stateFilter.toLowerCase());
+
+const matchPincode =
+creator.pincode?.includes(pincodeFilter);
+
+const matchAddress =
+creator.addressType?.toLowerCase().includes(addressTypeFilter.toLowerCase());
+
+const matchProducts =
+creator.canReceiveProducts?.toLowerCase().includes(productFilter.toLowerCase());
+
+const matchBrand =
+creator.brandNames?.toLowerCase().includes(brandFilter.toLowerCase());
+
     return (
-      matchName &&
-      matchCity &&
-      matchMobile &&
-      matchEmail
-    );
+  matchName &&
+  matchInstagram &&
+  matchFollowers &&
+  matchEmail &&
+  matchMobile &&
+  matchWhatsapp &&
+  matchGender &&
+  matchDOB &&
+  matchCategory &&
+  matchCampaign &&
+  matchReel &&
+  matchStory &&
+  matchPost &&
+  matchYoutubeName &&
+  matchYoutubeSubs &&
+  matchCity &&
+  matchState &&
+  matchPincode &&
+  matchAddress &&
+  matchProducts &&
+  matchBrand
+);
   });
+
+//  DOwnload filter CSV
+
+const downloadCSV = () => {
+  if (filtered.length === 0) {
+    alert("No filtered data available to download.");
+    return;
+  }
+
+  const exportData = filtered.map((creator) => ({
+    InstagramUsername: creator.instagramUsername || "",
+    InstagramLink: creator.instagramLink || "",
+    Followers: creator.followersRange || "",
+
+    FullName: creator.fullName || "",
+    Email: creator.email || "",
+    MobileNumber: creator.mobileNumber || "",
+    WhatsAppNumber: creator.whatsappNumber || "",
+
+    Gender: creator.gender || "",
+    DOB: creator.dob || "",
+
+    PreferredCategory: creator.preferredCategory?.join(", ") || "",
+    CampaignTypes: creator.campaignTypes?.join(", ") || "",
+
+    ReelRate: creator.reelRate || "",
+    StoryRate: creator.storyRate || "",
+    PostRate: creator.postRate || "",
+
+    YoutubeName: creator.youtubeName || "",
+    YoutubeLink: creator.youtubeLink || "",
+    YoutubeSubscribers: creator.youtubeSubs || "",
+    YoutubeVideoRate: creator.ytVideoRate || "",
+    YoutubeShortRate: creator.ytShortsRate || "",
+
+    Address1: creator.address1 || "",
+    Address2: creator.address2 || "",
+    City: creator.city || "",
+    State: creator.state || "",
+    Pincode: creator.pincode || "",
+
+    AddressType: creator.addressType || "",
+    CanReceiveProducts: creator.canReceiveProducts || "",
+
+    BrandNames: creator.brandNames || "",
+    Image: creator.image || "",
+
+    Consent1: creator.consent1,
+    Consent2: creator.consent2,
+    Consent3: creator.consent3,
+
+    RegisteredOn: creator.createdAt
+      ? new Date(creator.createdAt).toLocaleString()
+      : "",
+  }));
+
+  const csv = Papa.unparse(exportData);
+
+  const blob = new Blob([csv], {
+    type: "text/csv;charset=utf-8;",
+  });
+
+  saveAs(blob, "Filtered_Creators.csv");
+};
+
+
+// Download mask CSV
+
+const downloadMaskedCSV = () => {
+  if (filtered.length === 0) {
+    alert("No filtered data available to download.");
+    return;
+  }
+
+  const exportData = filtered.map((creator) => ({
+    InstagramUsername: creator.instagramUsername || "",
+    Followers: creator.followersRange || "",
+
+    FullName: creator.fullName || "",
+
+    Email: creator.email
+      ? creator.email.replace(/^(.{2}).*(@.*)$/, "$1******$2")
+      : "",
+
+    MobileNumber: creator.mobileNumber
+      ? creator.mobileNumber.replace(/^(\d{2})\d{6}(\d{2})$/, "$1******$2")
+      : "",
+
+    WhatsAppNumber: creator.whatsappNumber
+      ? creator.whatsappNumber.replace(/^(\d{2})\d{6}(\d{2})$/, "$1******$2")
+      : "",
+
+    Gender: creator.gender || "",
+
+    PreferredCategory:
+      creator.preferredCategory?.join(", ") || "",
+
+    CampaignTypes:
+      creator.campaignTypes?.join(", ") || "",
+
+    City: creator.city || "",
+    State: creator.state || "",
+
+    BrandNames: creator.brandNames || "",
+
+    Image: creator.image || "",
+
+    Consent1: creator.consent1,
+    Consent2: creator.consent2,
+    Consent3: creator.consent3,
+
+
+    RegisteredOn: creator.createdAt
+      ? new Date(creator.createdAt).toLocaleString()
+      : "",
+  }));
+
+  const csv = Papa.unparse(exportData);
+
+  const blob = new Blob([csv], {
+    type: "text/csv;charset=utf-8;",
+  });
+
+  saveAs(blob, "Filtered_Creators_Masked.csv");
+};
+
+
+const isFilterApplied =
+  nameFilter.trim() !== "" ||
+  instagramFilter.trim() !== "" ||
+  followersFilter.trim() !== "" ||
+  emailFilter.trim() !== "" ||
+  mobileFilter.trim() !== "" ||
+  whatsappFilter.trim() !== "" ||
+  genderFilter.trim() !== "" ||
+  dobFilter.trim() !== "" ||
+  categoryFilter.trim() !== "" ||
+  campaignFilter.trim() !== "" ||
+  reelRateFilter.trim() !== "" ||
+  storyRateFilter.trim() !== "" ||
+  postRateFilter.trim() !== "" ||
+  youtubeNameFilter.trim() !== "" ||
+  youtubeSubsFilter.trim() !== "" ||
+  cityFilter.trim() !== "" ||
+  stateFilter.trim() !== "" ||
+  pincodeFilter.trim() !== "" ||
+  addressTypeFilter.trim() !== "" ||
+  productFilter.trim() !== "" ||
+  brandFilter.trim() !== "";
 
 
   return (
@@ -157,7 +399,157 @@ function CreatorSection() {
           className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
         />
 
-      </div>
+        <input
+        placeholder="Instagram Username"
+        value={instagramFilter}
+        onChange={(e)=>setInstagramFilter(e.target.value)}
+        className="filter-input"
+        />
+
+        <input
+placeholder="Followers"
+value={followersFilter}
+onChange={(e)=>setFollowersFilter(e.target.value)}
+className="filter-input"
+/>
+
+<input
+placeholder="WhatsApp"
+value={whatsappFilter}
+onChange={(e)=>setWhatsappFilter(e.target.value)}
+className="filter-input"
+/>
+
+<select
+value={genderFilter}
+onChange={(e)=>setGenderFilter(e.target.value)}
+className="filter-input"
+>
+<option value="">All Gender</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+
+<input
+type="date"
+value={dobFilter}
+onChange={(e)=>setDobFilter(e.target.value)}
+className="filter-input"
+/>
+
+<input
+placeholder="Category"
+value={categoryFilter}
+onChange={(e)=>setCategoryFilter(e.target.value)}
+className="filter-input"
+/>
+
+<input
+placeholder="Campaign Type"
+value={campaignFilter}
+onChange={(e)=>setCampaignFilter(e.target.value)}
+className="filter-input"
+/>
+
+<input
+placeholder="Reel Rate"
+value={reelRateFilter}
+onChange={(e)=>setReelRateFilter(e.target.value)}
+className="filter-input"
+/>
+
+<input
+placeholder="Story Rate"
+value={storyRateFilter}
+onChange={(e)=>setStoryRateFilter(e.target.value)}
+className="filter-input"
+/>
+
+<input
+placeholder="Post Rate"
+value={postRateFilter}
+onChange={(e)=>setPostRateFilter(e.target.value)}
+className="filter-input"
+/>
+
+<input
+placeholder="YouTube Name"
+value={youtubeNameFilter}
+onChange={(e)=>setYoutubeNameFilter(e.target.value)}
+className="filter-input"
+/>
+
+<input
+placeholder="Subscribers"
+value={youtubeSubsFilter}
+onChange={(e)=>setYoutubeSubsFilter(e.target.value)}
+className="filter-input"
+/>
+
+<input
+placeholder="State"
+value={stateFilter}
+onChange={(e)=>setStateFilter(e.target.value)}
+className="filter-input"
+/>
+
+<input
+placeholder="Pincode"
+value={pincodeFilter}
+onChange={(e)=>setPincodeFilter(e.target.value)}
+className="filter-input"
+/>
+
+<select
+value={addressTypeFilter}
+onChange={(e)=>setAddressTypeFilter(e.target.value)}
+className="filter-input"
+>
+<option value="">All</option>
+<option>Home</option>
+<option>Office</option>
+</select>
+
+<select
+value={productFilter}
+onChange={(e)=>setProductFilter(e.target.value)}
+className="filter-input"
+>
+<option value="">All</option>
+<option>Yes</option>
+<option>No</option>
+</select>
+
+<input
+placeholder="Brand"
+value={brandFilter}
+onChange={(e)=>setBrandFilter(e.target.value)}
+className="filter-input"
+/>
+</div>
+
+
+{isFilterApplied && filtered.length > 0 && (
+  <div className="flex justify-end gap-3 mb-5">
+
+    <button
+      onClick={downloadCSV}
+      className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-semibold"
+    >
+      ⬇ Download Filtered CSV
+    </button>
+
+    <button
+      onClick={downloadMaskedCSV}
+      className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold"
+    >
+      🔒 Download Masked CSV
+    </button>
+
+  </div>
+)}
+
 {/* ======================= CREATOR TABLE ======================= */}
 
 <div className="overflow-x-auto rounded-xl border border-cyan-500 shadow-lg">
