@@ -34,7 +34,14 @@ function UploadCreatorsCSV(){
         `${Config.API_URL}/api/csv/creators`,
         formData
       );
+     
+      setSummary({
+    totalRecords: res.data.totalRecords,
+    successfulRecords: res.data.successfulRecords,
+    failedRecords: res.data.failedRecords,
+});
 
+setUploadReport(res.data.report);
 
       console.log(
         "UPLOAD RESPONSE:",
