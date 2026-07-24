@@ -10,6 +10,7 @@ import CreatorSection from "../components/CreatorSection";
 import BookingStatus from "../components/BookingStatus";
 import AdminBlogs from "../components/AdminBlog";
 import UploadCreatorsCSV from "../components/UploadCreatorCSV";
+import CsvCreatorSection from "../components/CsvCreatorSection";
 
 
 function AdminDashboard() {
@@ -73,6 +74,10 @@ function AdminDashboard() {
             {section === "bookings" && <BookingStatus />}
             
             { section === "blogs" && <AdminBlogs />}
+            {
+section==="csvCreators" &&
+<CsvCreatorSection/>
+}
             {section === "uploadCreators" && (
   <UploadCreatorsCSV />
 )}

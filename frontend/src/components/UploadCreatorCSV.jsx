@@ -13,10 +13,12 @@ const [summary, setSummary] = useState({
 });
 
 const [uploadReport, setUploadReport] = useState([]);
+
+const [csvCreators,setCsvCreators] = useState([]);
 useEffect(()=>{
 
   fetchLatestReport();
-
+   fetchCSVCreators();
 },[]);
 
 //   Fetch latest report
@@ -26,7 +28,7 @@ const fetchLatestReport = async()=>{
   try{
 
     const response = await axios.get(
-      `${Config.API_URL}/api/csv/latest-report`
+      `${Config.API_URL}/api/csv-creators/latest-report`
     );
 
 
@@ -84,6 +86,32 @@ const fetchLatestReport = async()=>{
 
 };
 
+const fetchCSVCreators = async()=>{
+
+try{
+
+const response = await axios.get(
+`${Config.API_URL}/api/csv-creators`
+);
+
+
+setCsvCreators(
+response.data.data || []
+);
+
+
+}
+catch(error){
+
+console.log(
+"CSV CREATOR FETCH ERROR",
+error.response?.data || error.message
+);
+
+}
+
+};
+
   const uploadCSV = async()=>{
 
     console.log("Button clicked");
@@ -107,7 +135,7 @@ const fetchLatestReport = async()=>{
 
 
       const response = await axios.post(
-        `${Config.API_URL}/api/csv/creators`,
+         `${Config.API_URL}/api/csv-creators/upload`,
         formData
       );
      
@@ -118,7 +146,8 @@ const fetchLatestReport = async()=>{
 });
 
 setUploadReport(response.data.report);
-
+fetchLatestReport();
+fetchCSVCreators();
 
       console.log(
         "UPLOAD RESPONSE:",
@@ -166,7 +195,7 @@ const deleteCSVCreators = async()=>{
 
 
   const response = await axios.delete(
-    `${Config.API_URL}/api/csv/creators`
+   `${Config.API_URL}/api/csv-creators`
   );
 
 
@@ -180,6 +209,7 @@ setSummary({
 });
 
 setFile(null);
+setCsvCreators([]);
 
  }
  catch(error){
@@ -191,6 +221,63 @@ setFile(null);
   alert("Delete failed");
 
  }
+
+};
+
+
+
+// DELETE SINGLE CSV CREATOR
+
+const deleteSingleCSV = async(id)=>{
+
+
+try{
+
+
+const confirmDelete = window.confirm(
+"Delete this CSV creator?"
+);
+
+
+if(!confirmDelete)
+return;
+
+
+
+const response = await axios.delete(
+
+`${Config.API_URL}/api/csv-creators/${id}`
+
+);
+
+
+
+alert(response.data.message);
+
+
+
+// refresh report/data if needed
+
+fetchLatestReport();
+fetchCSVCreators();
+
+
+}
+catch(error){
+
+
+console.log(
+error.response?.data || error.message
+);
+
+
+alert(
+"Single creator delete failed"
+);
+
+
+}
+
 
 };
 
@@ -336,13 +423,13 @@ uploadReport.map((item,index)=>(
 </td>
 
 <td className="border p-2">
-{item.youtubeName}
+{item.youtubeUsername}
 </td>
 
 <td className={`border p-2 font-bold ${
-item.status==="Uploaded"
-?"text-green-400"
-:"text-red-400"
+item.status==="Failed"
+?"text-red-400"
+:"text-green-400"
 }`}>
 {item.status}
 </td>

@@ -126,14 +126,14 @@ const [hasYoutubeFilter, setHasYoutubeFilter] = useState("");
         .includes(cityFilter.toLowerCase());
 
     const matchMobile =
-      creator.mobileNumber
-        ?.toString()
-        .includes(mobileFilter);
+mobileFilter === "" ||
+(creator.mobileNumber &&
+creator.mobileNumber.includes(mobileFilter));
 
     const matchEmail =
-      creator.email
-        ?.toLowerCase()
-        .includes(emailFilter.toLowerCase());
+emailFilter === "" ||
+(creator.email &&
+creator.email.toLowerCase().includes(emailFilter.toLowerCase()));
 
         const matchInstagram =
 creator.instagramUsername?.toLowerCase().includes(instagramFilter.toLowerCase());

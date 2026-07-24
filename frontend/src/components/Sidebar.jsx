@@ -134,6 +134,14 @@ function Sidebar({ setSection }) {
          
           <button onClick={() => handleClick("blogs")} className={menuClass}><FaBlog /> Blog Management</button>
 
+           
+          <button
+  onClick={() => handleClick("csvCreators")}
+  className={menuClass}
+>
+  <FaFileCsv /> CSV Creators
+</button>
+
           <button 
   onClick={() => handleClick("uploadCreators")} 
   className={menuClass}

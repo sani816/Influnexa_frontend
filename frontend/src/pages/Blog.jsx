@@ -196,12 +196,14 @@ function Blog() {
 
               {/* FRONT */}
 
-            <div className="flip-card-front bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col h-[650px]">
+    {/* FRONT */}
+
+<div className="flip-card-front bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col min-h-[550px]">
 
   <img
     src={blog.image}
     alt={blog.title}
-    className="w-full h-60 object-cover"
+    className="w-full h-48 md:h-60 object-cover"
   />
 
   <div className="p-6 flex flex-col flex-1">
@@ -214,11 +216,12 @@ function Blog() {
       {blog.title}
     </h3>
 
-    <p className="text-gray-600 mt-4 line-clamp-5 flex-1">
+    <p className="text-gray-600 mt-4 line-clamp-3 md:line-clamp-5">
       {blog.description}
     </p>
 
-    <div className="mt-6 flex items-center justify-between">
+    {/* Button always stays at bottom */}
+    <div className="mt-auto pt-6 flex items-center justify-between">
 
       <span className="text-sm text-gray-500">
         By {blog.author}
