@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Config from "../config/Config";
-import { FaTrash, FaSync,FaEye,FaEdit } from "react-icons/fa";
+import { FaTrash,FaEye,FaEdit } from "react-icons/fa";
 import Papa from "papaparse";
 import { saveAs } from "file-saver";
 import { io } from "socket.io-client";
@@ -12,166 +13,157 @@ function CsvCreatorSection() {
   const [creators, setCreators] = useState([]);
   const [filterTimeout,setFilterTimeout] = useState(null);
   const [isFiltered,setIsFiltered] = useState(false);
+  const [selectedCreator, setSelectedCreator] = useState(null);
+const [showEdit, setShowEdit] = useState(false);
+
+const handleEdit = (creator) => {
+  setSelectedCreator(creator);
+  setShowEdit(true);
+};
 
   const [loading, setLoading] = useState(false);
-  const [filters,setFilters] = useState({
+  const [filters, setFilters] = useState({
 
-  // Basic
-  search:"",
-  fullName:"",
-  email:"",
-  mobileNumber:"",
-  whatsappNumber:"",
+   // Personal
+  fullName: "",
+  email: "",
+  phoneNumber: "",
 
   // Instagram
-  instagramUsername:"",
-  instagramFollowersRange:"",
-  exactFollowers:"",
+  instagramUsername: "",
+  instagramFollowersRange: "",
 
   // Category
-  category:"",
+  categories: "",
 
   // Personal
-  gender:"",
-  dob:"",
-  languages:"",
-
-  // Campaign
-  campaignType:"",
-  dealType:"",
+  gender: "",
 
   // Location
-  city:"",
-  state:"",
-  country:"",
-  pincode:"",
-  landmark:"",
+  city: "",
+  state: "",
+  country: "",
 
-  // Youtube
-  youtubeUsername:"",
-  youtubeSubscribersRange:"",
-
-  // Commercial
-  instagramReelCommercial:"",
-  instagramStoryCommercial:"",
-  instagramPostCommercial:"",
-  dedicatedYoutubeVideo:"",
-  integratedYoutubeVideo:"",
-  dedicatedYoutubeShorts:"",
-  integratedYoutubeShorts:"",
+  // YouTube
+  youtubeUsername: "",
+  youtubeSubscribersRange: "",
 
   // Celebrity
-  isCelebrity:"",
-  celebrityType:"",
+  typeOfCeleb: "",
 
   // Platform
-  availablePlatforms:"",
-  platform:"",
+  platform: "",
 
-  // Brand Data
-  fetchedFromBrandPage:"",
-  fetchedForBrand:"",
+  // Languages
+  languages: "",
 
-  // Other
-  hoboUserId:"",
-  bio:"",
-  message:""
-
+  hoboUserId: "",
 });
 
 
+
+const updateCsvCreator = async () => {
+  try {
+    const res = await axios.put(
+      `${Config.API_URL}/api/csv-creators/${selectedCreator._id}`,
+      selectedCreator
+    );
+
+    alert("Creator updated successfully");
+
+    // update UI without refresh
+    setCreators((prev) =>
+      prev.map((creator) =>
+        creator._id === selectedCreator._id
+          ? res.data.creator
+          : creator
+      )
+    );
+
+    setShowEdit(false);
+
+  } catch (error) {
+    console.log(error);
+    alert("Update failed");
+  }
+};
 
   // =========================
   // GET CSV CREATORS
   // =========================
-  const fetchCreators = async () => {
+  const fetchCreators = async (currentFilters = filters) => {
+  try {
+    setLoading(true);
+ setCreators([]);
+    // Remove empty filters
+    const params = Object.fromEntries(
+      Object.entries(currentFilters).filter(
+        ([_, value]) =>
+          value !== "" &&
+          value !== null &&
+          value !== undefined
+      )
+    );
 
-    try {
+    const res = await axios.get(
+      `${Config.API_URL}/api/csv-creators`,
+      {
+        params,
+      }
+    );
 
-      setLoading(true);
+    setCreators(res.data.data || []);
 
-      const res = await axios.get(
-`${Config.API_URL}/api/csv-creators`,
-{
- params: filters
-}
-);
-
-
-      setCreators(
-        res.data.data || []
-      );
-
-
-    } catch(error) {
-
-      console.log(
-        "CSV FETCH ERROR",
-        error
-      );
-
-    }
-    finally {
-
-      setLoading(false);
-
-    }
-
-  };
-
-
-
-  useEffect(()=>{
-
-    fetchCreators();
-    const socket = io(Config.API_URL);
-socket.on(
-"new-csv-creator",
-(creator)=>{
-setCreators((prev)=>[
-creator,
-...prev
-]);
-});
-
-socket.on(
-"update-csv-creator",
-(updated)=>{
-
-
-setCreators((prev)=>
-
-prev.map((creator)=>
-
-creator._id === updated._id
-?
-updated
-:
-creator
-)
-);
-});
-socket.on(
-"delete-csv-creator",
-(id)=>{
-setCreators((prev)=>
-
-prev.filter(
-(creator)=>
-creator._id !== id
-)
-
-);
-});
-
-return ()=>{
-
-socket.disconnect();
-
+  } catch (error) {
+    console.log("CSV FETCH ERROR", error);
+  } finally {
+    setLoading(false);
+  }
 };
 
-  },[]);
 
+
+  useEffect(() => {
+  fetchCreators();
+
+  const socket = io(Config.API_URL);
+
+  socket.on("connect", () => {
+    console.log("Socket Connected:", socket.id);
+  });
+
+  // New CSV Creator Uploaded
+  socket.on("new-csv-creator", () => {
+    console.log("New CSV Creator");
+    fetchCreators();
+  });
+
+  // CSV Creator Updated
+  socket.on("update-csv-creator", () => {
+    console.log("CSV Creator Updated");
+    fetchCreators();
+  });
+
+  // Single CSV Creator Deleted
+  socket.on("delete-csv-creator", () => {
+    console.log("CSV Creator Deleted");
+    fetchCreators();
+  });
+
+  // All CSV Creators Deleted
+  socket.on("delete-all-csv-creators", () => {
+    console.log("All CSV Creators Deleted");
+    setCreators([]);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Socket Disconnected");
+  });
+
+  return () => {
+    socket.disconnect();
+  };
+}, []);
 
 
   // =========================
@@ -216,30 +208,22 @@ socket.disconnect();
 // DOWNLOAD FILTERED CSV
 // =========================
 
-const downloadCSV = ()=>{
+const downloadCSV = () => {
+  if (creators.length === 0) {
+    alert("No filtered data available to download.");
+    return;
+  }
 
+  const csv = Papa.unparse(creators, {
+    header: true,
+    skipEmptyLines: true,
+  });
 
-if(creators.length===0)
-return;
+  const blob = new Blob([csv], {
+    type: "text/csv;charset=utf-8;",
+  });
 
-
-const csv = Papa.unparse(creators);
-
-
-const blob = new Blob(
-[csv],
-{
-type:"text/csv;charset=utf-8;"
-}
-);
-
-
-saveAs(
-blob,
-"filtered_csv_creators.csv"
-);
-
-
+  saveAs(blob, "Filtered_Creators.csv");
 };
 
 
@@ -276,10 +260,10 @@ creator.email.replace(
 "",
 
 
-mobileNumber:
-creator.mobileNumber
+phoneNumber:
+creator.phoneNumber
 ?
-"******"+creator.mobileNumber.slice(-4)
+"******"+creator.phoneNumber.slice(-4)
 :
 "",
 
@@ -343,6 +327,36 @@ blob,
 
 };
 
+
+
+const handleFilterChange = (e) => {
+  const { name, value } = e.target;
+
+  const updatedFilters = {
+    ...filters,
+    [name]: value,
+  };
+
+  setFilters(updatedFilters);
+
+  const filtered = Object.values(updatedFilters).some(
+    (v) => String(v).trim() !== ""
+  );
+
+  setIsFiltered(filtered);
+
+  if (filterTimeout) {
+    clearTimeout(filterTimeout);
+  }
+
+  const timeout = setTimeout(() => {
+    fetchCreators(updatedFilters);
+  }, 500);
+
+  setFilterTimeout(timeout);
+};
+
+
   return (
 
 <div className="bg-white rounded-xl shadow p-6">
@@ -355,7 +369,7 @@ blob,
 CSV Creators
 </h2>
 {
-isFiltered && creators.length > 0 &&
+isFiltered && !loading && creators.length > 0 &&
 
 <div className="flex gap-3">
 
@@ -422,12 +436,6 @@ mb-6
 {
 [
 {
-name:"search",
-type:"text",
-placeholder:"Search Name Email Instagram"
-},
-
-{
 name:"fullName",
 type:"text",
 placeholder:"Full Name"
@@ -440,9 +448,9 @@ placeholder:"Email"
 },
 
 {
-name:"mobileNumber",
+name:"phoneNumber",
 type:"text",
-placeholder:"Mobile Number"
+placeholder:"phoneNumber"
 },
 
 {
@@ -470,7 +478,7 @@ options:[
 
 
 {
-name:"category",
+name:"categories",
 type:"select",
 placeholder:"Category",
 options:[
@@ -546,7 +554,7 @@ placeholder:"Youtube Username"
 
 
 {
-name:"youtubeSubscribers",
+name:"youtubeSubscribersRange",
 type:"select",
 placeholder:"Youtube Subscribers",
 options:[
@@ -575,7 +583,7 @@ options:[
 
 
 {
-name:"celebrityType",
+name:"typeOfCeleb",
 type:"select",
 placeholder:"Celebrity Type",
 options:[
@@ -590,7 +598,7 @@ options:[
 
 
 {
-name:"language",
+name:"languages",
 type:"select",
 placeholder:"Language",
 options:[
@@ -606,45 +614,10 @@ options:[
 
 
 {
-name:"ageGroup",
-type:"select",
-placeholder:"Age Group",
-options:[
-"18-25",
-"25-35",
-"35-45",
-"45+"
-]
+  name: "hoboUserId",
+  type: "text",
+  placeholder: "Hobo User ID",
 },
-
-
-{
-name:"contentType",
-type:"select",
-placeholder:"Content Type",
-options:[
-"Reels",
-"Shorts",
-"Videos",
-"Blogs",
-"Photos",
-"Live"
-]
-},
-
-
-{
-name:"verificationStatus",
-type:"select",
-placeholder:"Verification Status",
-options:[
-"Verified",
-"Not Verified"
-]
-},
-
-
-
 
 ].map((field)=>(
 
@@ -652,65 +625,26 @@ options:[
 field.type==="select" ? (
 
 <select
-
-key={field.name}
-
-className="
-border
-p-2
-rounded
-"
-
-value={
-filters[field.name] || ""
-}
-
-
-onChange={(e)=>{
-
-const value=e.target.value;
-
-const updatedFilters={
-...filters,
-[field.name]:value
-};
-
-
-setFilters(updatedFilters);
-
-
-if(filterTimeout){
-clearTimeout(filterTimeout);
-}
-const timeout=setTimeout(()=>{
-
-fetchCreators(updatedFilters);
-
-},500);
-
-
-setFilterTimeout(timeout);
-
-
-}}
-
+  key={field.name}
+  name={field.name}
+  className="border p-2 rounded"
+  value={filters[field.name]}
+  onChange={handleFilterChange}
 >
-<option value="">
-{field.placeholder}
-</option>
-{
-field.options.map((option)=>(
+  <option value="">
+    {field.placeholder}
+  </option>
 
-<option
-key={option}
-value={option}
->
-{option}
-</option>
-
-))
-}
+  {field.options.map((option) => (
+    <option
+      key={option}
+      value={option}
+    >
+      {option}
+    </option>
+  ))}
 </select>
+
 )
 
 :(
@@ -718,6 +652,7 @@ value={option}
 <input
 
 key={field.name}
+name={field.name}
 
 placeholder={field.placeholder}
 
@@ -762,10 +697,11 @@ clearTimeout(filterTimeout);
 const timeout=setTimeout(()=>{
 
 
-fetchCreators(updatedFilters);
+fetchCreators(updatedFilters,1);
 
 
 },500);
+
 setFilterTimeout(timeout);
 }}
 />
@@ -809,10 +745,9 @@ text-sm
 <tr>
 
 
-<th className="p-3 border">
-Action
-</th>
-
+<th className="p-3 border w-16">
+      S.No.
+    </th>
 
 <th className="p-3 border">
 Timestamp
@@ -1033,6 +968,10 @@ Fetched Date
 hoboUserId
 </th>
 
+ <th className="border p-3 text-center w-32">
+Action
+</th>
+
 
 
 </tr>
@@ -1057,7 +996,7 @@ creators.length===0 ?
 
 <td
 
-colSpan="45"
+colSpan={46}
 
 className="
 text-center
@@ -1078,7 +1017,7 @@ No CSV creators found
 :
 
 
-creators.map((creator)=>(
+creators.map((creator,index)=>(
 
 
 
@@ -1091,348 +1030,209 @@ key={creator._id}
 
 
 
-<td className="border p-2 flex gap-2">
 
 
-<button
-
-className="
-bg-blue-600
-text-white
-p-2
-rounded
-"
-
-title="View"
-
->
-
-<FaEye/>
-
-</button>
-
-
-
-<button
-
-className="
-bg-green-600
-text-white
-p-2
-rounded
-"
-
-title="Edit"
-
->
-
-<FaEdit/>
-
-</button>
-
-
-
-<button
-
-onClick={()=>deleteCreator(creator._id)}
-
-className="
-bg-red-600
-text-white
-p-2
-rounded
-"
-
-title="Delete"
-
->
-
-<FaTrash/>
-
-</button>
-
-
-</td>
-
-
-
-
+ <td className="border p-2 text-center font-semibold">
+    {index + 1}
+  </td>
 
 <td className="border p-2">
-{creator.timestamp || "-"}
+  {creator.timestamp || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.instagramUsername || "-"}
+  {creator.instagramUsername || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.instagramLink || "-"}
+  {creator.instagramProfileLink || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.followersRange || "-"}
+  {creator.instagramFollowersRange || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.exactFollowers || "-"}
+  {creator.exactFollowers || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{
-creator.categories?.join(", ")
-||
-"-"
-}
+  {creator.categories?.join(", ") || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.mobileNumber || "-"}
+  {creator.phoneNumber || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.whatsappNumber || "-"}
+  {creator.whatsappNumber || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.fullName || "-"}
+  {creator.fullName || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.email || "-"}
+  {creator.email || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.gender || "-"}
+  {creator.gender || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.dob || "-"}
+  {creator.dateOfBirth || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{
-creator.campaignTypes?.join(", ")
-||
-"-"
-}
+  {creator.campaignType?.join(", ") || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.dealType || "-"}
+  {creator.whatKindOfDealDoYouParticipateIn || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{
-creator.languages?.join(", ")
-||
-"-"
-}
+  {creator.languages?.join(", ") || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.speakingVideoLink || "-"}
+  {creator.speakingVideoLink || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.fullAddress || "-"}
+  {creator.fullAddress || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.landmark || "-"}
+  {creator.landmark || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.city || "-"}
+  {creator.city || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.state || "-"}
+  {creator.state || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.country || "-"}
+  {creator.country || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.pincode || "-"}
+  {creator.pincode || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.photoLink || "-"}
+  {creator.photoLink || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.youtubeUsername || "-"}
+  {creator.youtubeUsername || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.youtubeChannelLink || "-"}
+  {creator.youtubeChannelLink || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.youtubeSubscribersRange || "-"}
+  {creator.youtubeSubscribersRange || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.instagramReelCommercial || "-"}
+  {creator.commercialsFor1InstagramReel || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.instagramStoryCommercial || "-"}
+  {creator.commercialsFor1InstagramStory || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.instagramPostCommercial || "-"}
+  {creator.commercialsFor1InstagramPost || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.dedicatedYoutubeVideo || "-"}
+  {creator.commercialsFor1DedicatedYouTubeVideo || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.integratedYoutubeVideo || "-"}
+  {creator.commercialsFor1IntegratedYouTubeVideo || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.dedicatedYoutubeShorts || "-"}
+  {creator.commercialsFor1DedicatedYouTubeShortsVideo || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.integratedYoutubeShorts || "-"}
+  {creator.commercialsFor1IntegratedYouTubeShortsVideo || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.message || "-"}
+  {creator.anyMessageForUs || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.bio || "-"}
+  {creator.bio || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.isCelebrity || "-"}
+  {creator.areYouATvMoviesOttCelebrity || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.celebrityType || "-"}
+  {creator.typeOfCeleb || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.availablePlatforms || "-"}
+  {creator.whatAllPlatformsAreYouAvailableOn?.join(", ") || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.amazonReviews || "-"}
+  {creator.howManyAmazonReviewsYouDoPerMonth || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.fetchedFromBrandPage || "-"}
+  {creator.fetchedFromBrandPage || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.fetchedForBrand || "-"}
+  {creator.fetchedForBrand || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.platform || "-"}
+  {creator.platform || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.fetchedDate || "-"}
+  {creator.fetchedDate || "-"}
 </td>
-
-
 
 <td className="border p-2">
-{creator.hoboUserId || "-"}
+  {creator.hoboUserId || "-"}
 </td>
 
 
+{/* Action */}
+<td className="border p-2 align-middle">
+  <div className="flex items-center justify-center gap-2">
+    <button
+    onClick={()=>handleEdit(creator)}
+      className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-md transition"
+      title="Edit"
+    >
+      <FaEdit />
+    </button>
+
+    <button
+      onClick={() => deleteCreator(creator._id)}
+      className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-md transition"
+      title="Delete"
+    >
+      <FaTrash />
+    </button>
+  </div>
+</td>
 
 </tr>
 
@@ -1457,6 +1257,46 @@ creator.languages?.join(", ")
 
 }
 
+      {/* EDIT MODAL */}
+   
+    {showEdit && (
+      <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+        <div className="bg-white p-6 rounded-lg w-[700px]">
+          <h2 className="text-xl font-bold mb-4">
+            Edit Creator
+          </h2>
+
+          <input
+            className="border p-2 w-full rounded"
+            value={selectedCreator?.fullName || ""}
+            onChange={(e) =>
+              setSelectedCreator({
+                ...selectedCreator,
+                fullName: e.target.value,
+              })
+            }
+          />
+
+          <div className="flex justify-end gap-3 mt-5">
+            <button
+              onClick={() => setShowEdit(false)}
+              className="bg-gray-500 text-white px-4 py-2 rounded"
+            >
+              Cancel
+            </button>
+
+            <button
+            onClick={updateCsvCreator}
+              className="bg-green-600 text-white px-4 py-2 rounded"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+
+  
 
 
 </div>

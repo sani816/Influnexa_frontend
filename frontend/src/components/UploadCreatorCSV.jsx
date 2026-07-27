@@ -9,6 +9,7 @@ function UploadCreatorsCSV(){
 const [summary, setSummary] = useState({
   totalRecords: 0,
   successfulRecords: 0,
+  updatedRecords: 0,
   failedRecords: 0,
 });
 
@@ -42,6 +43,7 @@ const fetchLatestReport = async()=>{
         totalRecords: response.data.report.totalRecords,
 
         successfulRecords: response.data.report.successfulRecords,
+        updatedRecords:response.data.report.updatedRecords,
 
         failedRecords: response.data.report.failedRecords
 
@@ -63,6 +65,7 @@ const fetchLatestReport = async()=>{
         totalRecords:0,
 
         successfulRecords:0,
+        updatedRecords:0,
 
         failedRecords:0
 
@@ -142,6 +145,7 @@ error.response?.data || error.message
       setSummary({
     totalRecords: response.data.totalRecords,
     successfulRecords: response.data.successfulRecords,
+    updatedRecords:response.data.report.updatedRecords,
     failedRecords: response.data.failedRecords,
 });
 
@@ -205,6 +209,7 @@ const deleteCSVCreators = async()=>{
 setSummary({
  totalRecords:0,
  successfulRecords:0,
+ updatedRecords:0,
  failedRecords:0
 });
 
@@ -360,6 +365,13 @@ text-white
         </h2>
       </div>
 
+      <div className="bg-green-600 rounded-lg p-4 text-center">
+        <p>Successfully Updated</p>
+        <h2 className="text-3xl font-bold">
+          {summary.updatedRecords}
+        </h2>
+      </div>
+
       <div className="bg-red-600 rounded-lg p-4 text-center">
         <p>Failed</p>
         <h2 className="text-3xl font-bold">
@@ -425,13 +437,16 @@ uploadReport.map((item,index)=>(
 <td className="border p-2">
 {item.youtubeUsername}
 </td>
-
-<td className={`border p-2 font-bold ${
-item.status==="Failed"
-?"text-red-400"
-:"text-green-400"
-}`}>
-{item.status}
+<td
+  className={`border p-2 font-bold ${
+    item.status === "Failed"
+      ? "text-red-500"
+      : item.status === "Updated"
+      ? "text-yellow-400"
+      : "text-green-500"
+  }`}
+>
+  {item.status}
 </td>
 
 <td className="border p-2">
