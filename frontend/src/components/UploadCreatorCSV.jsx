@@ -427,7 +427,7 @@ uploadReport.map((item,index)=>(
 </td>
 
 <td className="border p-2">
-{item.mobileNumber}
+{item.phoneNumber}
 </td>
 
 <td className="border p-2">
