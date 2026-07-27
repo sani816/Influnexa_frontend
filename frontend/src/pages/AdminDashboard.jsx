@@ -74,10 +74,7 @@ function AdminDashboard() {
             {section === "bookings" && <BookingStatus />}
             
             { section === "blogs" && <AdminBlogs />}
-            {
-section==="csvCreators" &&
-<CsvCreatorSection/>
-}
+            {section==="csvCreators" &&<CsvCreatorSection/>}
             {section === "uploadCreators" && (
   <UploadCreatorsCSV />
 )}

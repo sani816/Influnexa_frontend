@@ -145,7 +145,7 @@ error.response?.data || error.message
       setSummary({
     totalRecords: response.data.totalRecords,
     successfulRecords: response.data.successfulRecords,
-    updatedRecords:response.data.report.updatedRecords,
+    updatedRecords:response.data.updatedRecords,
     failedRecords: response.data.failedRecords,
 });
 
