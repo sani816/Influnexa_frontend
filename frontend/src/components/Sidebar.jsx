@@ -139,14 +139,14 @@ function Sidebar({ setSection }) {
   onClick={() => handleClick("csvCreators")}
   className={menuClass}
 >
-  <FaFileCsv /> CSV Creators
+  <FaFileCsv /> CSV Creators Data
 </button>
 
           <button 
   onClick={() => handleClick("uploadCreators")} 
   className={menuClass}
 >
-  <FaFileCsv /> Upload Creators CSV
+  <FaFileCsv /> Upload CSV Creators 
 </button>
 
           {/* <button onClick={() => handleClick("settings")} className={menuClass}>

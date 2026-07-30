@@ -15,6 +15,9 @@ function CsvCreatorSection() {
   const [isFiltered,setIsFiltered] = useState(false);
   const [selectedCreator, setSelectedCreator] = useState(null);
 const [showEdit, setShowEdit] = useState(false);
+const [page, setPage] = useState(1);
+const [limit] = useState(100);
+const [totalPages, setTotalPages] = useState(1);
 
 const handleEdit = (creator) => {
   setSelectedCreator(creator);
@@ -33,11 +36,16 @@ const handleEdit = (creator) => {
   instagramUsername: "",
   instagramFollowersRange: "",
 
+  exactFollowers:"",
+
   // Category
   categories: "",
 
   // Personal
   gender: "",
+
+  dateOfBirth:"",
+  pincode:"",
 
   // Location
   city: "",
@@ -58,6 +66,7 @@ const handleEdit = (creator) => {
   languages: "",
 
   hoboUserId: "",
+  campaignType:""
 });
 
 
@@ -108,11 +117,16 @@ const updateCsvCreator = async () => {
     const res = await axios.get(
       `${Config.API_URL}/api/csv-creators`,
       {
-        params,
+        params: {
+      ...params,
+      page,
+      limit,
+    },
       }
     );
 
     setCreators(res.data.data || []);
+    setTotalPages(res.data.totalPages);
 
   } catch (error) {
     console.log("CSV FETCH ERROR", error);
@@ -121,10 +135,12 @@ const updateCsvCreator = async () => {
   }
 };
 
+useEffect(() => {
+  fetchCreators();
 
+}, [page]);
 
   useEffect(() => {
-  fetchCreators();
 
   const socket = io(Config.API_URL);
 
@@ -350,12 +366,47 @@ const handleFilterChange = (e) => {
   }
 
   const timeout = setTimeout(() => {
+    setPage(1);
     fetchCreators(updatedFilters);
   }, 500);
 
   setFilterTimeout(timeout);
 };
 
+// RESET FILTER
+const resetFilters = () => {
+  if (filterTimeout) {
+    clearTimeout(filterTimeout);
+  }
+
+  const emptyFilters = {
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    instagramUsername: "",
+    instagramFollowersRange: "",
+    exactFollowers: "",
+    categories: "",
+    gender: "",
+    dateOfBirth: "",
+    pincode: "",
+    city: "",
+    state: "",
+    country: "",
+    youtubeUsername: "",
+    youtubeSubscribersRange: "",
+    typeOfCeleb: "",
+    platform: "",
+    languages: "",
+    hoboUserId: "",
+    campaignType:"",
+  };
+
+  setFilters(emptyFilters);
+  setIsFiltered(false);
+setPage(1);
+  fetchCreators(emptyFilters);
+};
 
   return (
 
@@ -366,8 +417,27 @@ const handleFilterChange = (e) => {
 
 
 <h2 className="text-2xl font-bold">
-CSV Creators
+CSV Creators Data
 </h2>
+
+<div className="flex items-center gap-3">
+
+    <button
+      onClick={resetFilters}
+      className="
+      bg-red-600
+      hover:bg-red-700
+      text-white
+      px-4
+      py-2
+      rounded-lg
+      transition
+      "
+    >
+      Reset Filters
+    </button>
+    </div>
+
 {
 isFiltered && !loading && creators.length > 0 &&
 
@@ -476,7 +546,11 @@ options:[
 ]
 },
 
-
+{
+  name: "exactFollowers",
+  type: "number",
+  placeholder: "Exact Followers",
+},
 {
 name:"categories",
 type:"select",
@@ -505,6 +579,13 @@ options:[
 "Female",
 "Other"
 ]
+},
+
+
+{
+  name: "dateOfBirth",
+  type: "date",
+  placeholder: "Date of Birth",
 },
 
 
@@ -544,7 +625,11 @@ options:[
 "Australia"
 ]
 },
-
+{
+  name: "pincode",
+  type: "text",
+  placeholder: "Pincode",
+},
 
 {
 name:"youtubeUsername",
@@ -619,6 +704,19 @@ options:[
   placeholder: "Hobo User ID",
 },
 
+{
+  name: "campaignType",
+  type: "select",
+  placeholder: "Campaign Type",
+  options: [
+    "Barter",
+    "Paid Promotion",
+    "Affiliate",
+    "Event",
+    "Brand Collaboration"
+  ]
+},
+
 ].map((field)=>(
 
 
@@ -635,7 +733,7 @@ field.type==="select" ? (
     {field.placeholder}
   </option>
 
-  {field.options.map((option) => (
+  {field.options?.map((option) => (
     <option
       key={option}
       value={option}
@@ -653,7 +751,7 @@ field.type==="select" ? (
 
 key={field.name}
 name={field.name}
-
+type={field.type}
 placeholder={field.placeholder}
 
 className="
@@ -1033,7 +1131,7 @@ key={creator._id}
 
 
  <td className="border p-2 text-center font-semibold">
-    {index + 1}
+    {(page - 1) * limit + index + 1}
   </td>
 
 <td className="border p-2">
@@ -1043,9 +1141,19 @@ key={creator._id}
 <td className="border p-2">
   {creator.instagramUsername || "-"}
 </td>
-
 <td className="border p-2">
-  {creator.instagramProfileLink || "-"}
+  {creator.instagramProfileLink ? (
+    <a
+      href={creator.instagramProfileLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-600 hover:underline"
+    >
+     Instagram Profile Link
+    </a>
+  ) : (
+    "-"
+  )}
 </td>
 
 <td className="border p-2">
@@ -1133,7 +1241,18 @@ key={creator._id}
 </td>
 
 <td className="border p-2">
-  {creator.youtubeChannelLink || "-"}
+  {creator.youtubeChannelLink ? (
+    <a
+      href={creator.youtubeChannelLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-600 hover:underline"
+    >
+    YouTube Channel Link
+    </a>
+  ) : (
+    "-"
+  )}
 </td>
 
 <td className="border p-2">
@@ -1251,11 +1370,31 @@ key={creator._id}
 
 
 </div>
+)}
 
+<div className="flex justify-center items-center gap-5 mt-6">
 
-)
+  <button
+    disabled={page === 1}
+    onClick={() => setPage(page - 1)}
+    className="bg-blue-600 text-white px-4 py-2 rounded disabled:bg-gray-400"
+  >
+    Previous
+  </button>
 
-}
+  <span className="font-bold">
+    Page {page} of {totalPages}
+  </span>
+
+  <button
+    disabled={page === totalPages}
+    onClick={() => setPage(page + 1)}
+    className="bg-blue-600 text-white px-4 py-2 rounded disabled:bg-gray-400"
+  >
+    Next
+  </button>
+
+</div>
 
       {/* EDIT MODAL */}
    
@@ -1265,7 +1404,10 @@ key={creator._id}
           <h2 className="text-xl font-bold mb-4">
             Edit Creator
           </h2>
-
+             
+             <label className="block text-sm font-medium mb-1">
+            Full Name:
+          </label>
           <input
             className="border p-2 w-full rounded"
             value={selectedCreator?.fullName || ""}
@@ -1276,6 +1418,61 @@ key={creator._id}
               })
             }
           />
+
+         <div>
+          <label className="block text-sm font-medium mb-1">
+            Mobile Number:
+          </label>
+          <input
+            type="text"
+            className="border p-2 w-full rounded"
+            value={selectedCreator?.phoneNumber || ""}
+            onChange={(e) =>
+              setSelectedCreator({
+                ...selectedCreator,
+                phoneNumber: e.target.value,
+              })
+            }
+          />
+        </div>
+
+          {/* Email */}
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Email:
+          </label>
+          <input
+            type="email"
+            className="border p-2 w-full rounded"
+            value={selectedCreator?.email || ""}
+            onChange={(e) =>
+              setSelectedCreator({
+                ...selectedCreator,
+                email: e.target.value,
+              })
+            }
+          />
+        </div>
+
+
+        {/* Instagram Username */}
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Instagram Username:
+          </label>
+          <input
+            type="text"
+            className="border p-2 w-full rounded"
+            value={selectedCreator?.instagramUsername || ""}
+            onChange={(e) =>
+              setSelectedCreator({
+                ...selectedCreator,
+                instagramUsername: e.target.value,
+              })
+            }
+          />
+        </div>
+
 
           <div className="flex justify-end gap-3 mt-5">
             <button

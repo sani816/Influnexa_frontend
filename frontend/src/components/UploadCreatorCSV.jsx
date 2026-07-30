@@ -22,6 +22,9 @@ useEffect(()=>{
    fetchCSVCreators();
 },[]);
 
+const [currentPage, setCurrentPage] = useState(1);
+const recordsPerPage = 100; // Show 100 records per page
+
 //   Fetch latest report
 
 const fetchLatestReport = async()=>{
@@ -51,8 +54,10 @@ const fetchLatestReport = async()=>{
 
 
       setUploadReport(
-        response.data.report.report || []
-      );
+    Array.isArray(response.data.report.report)
+        ? response.data.report.report
+        : []
+);
 
 
     }
@@ -115,6 +120,7 @@ error.response?.data || error.message
 
 };
 
+// UPLOAD CSV FILE 
   const uploadCSV = async()=>{
 
     console.log("Button clicked");
@@ -139,7 +145,10 @@ error.response?.data || error.message
 
       const response = await axios.post(
          `${Config.API_URL}/api/csv-creators/upload`,
-        formData
+        formData,
+        {
+          timeout:0,
+        }
       );
      
       setSummary({
@@ -150,7 +159,10 @@ error.response?.data || error.message
 });
 
 setUploadReport(response.data.report);
-fetchLatestReport();
+setCurrentPage(1);
+setUploadReport([]);
+setCurrentPage(1);
+ fetchLatestReport();
 fetchCSVCreators();
 
       console.log(
@@ -279,11 +291,30 @@ error.response?.data || error.message
 alert(
 "Single creator delete failed"
 );
-
-
 }
+};
 
+// Pagination
+const totalPages = Math.ceil(uploadReport.length / recordsPerPage);
 
+const indexOfLastRecord = currentPage * recordsPerPage;
+const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+
+const currentRecords = uploadReport.slice(
+  indexOfFirstRecord,
+  indexOfLastRecord
+);
+
+const handleNext = () => {
+  if (currentPage < totalPages) {
+    setCurrentPage((prev) => prev + 1);
+  }
+};
+
+const handlePrevious = () => {
+  if (currentPage > 1) {
+    setCurrentPage((prev) => prev - 1);
+  }
 };
 
 return(
@@ -393,12 +424,12 @@ text-white
 
 <tr>
 
-<th className="border p-2">Row</th>
+<th className="border p-2">SL No.</th>
 <th className="border p-2">Name</th>
 <th className="border p-2">Email</th>
 <th className="border p-2">Mobile</th>
-<th className="border p-2">Instagram</th>
-<th className="border p-2">YouTube</th>
+<th className="border p-2">Instagram UserName</th>
+<th className="border p-2">YouTube UserName</th>
 <th className="border p-2">Status</th>
 <th className="border p-2">Reason</th>
 
@@ -410,12 +441,12 @@ text-white
 <tbody>
 
 {
-uploadReport.map((item,index)=>(
+currentRecords.map((item,index)=>(
 
 <tr key={index}>
 
 <td className="border p-2">
-{item.row}
+{indexOfFirstRecord + index + 1}
 </td>
 
 <td className="border p-2">
@@ -463,8 +494,40 @@ uploadReport.map((item,index)=>(
 
 </table>
 
-</div>
+{uploadReport.length > recordsPerPage && (
+  <div className="flex justify-center items-center gap-4 mt-6">
 
+    <button
+      onClick={handlePrevious}
+      disabled={currentPage === 1}
+      className={`px-4 py-2 rounded-lg text-white ${
+        currentPage === 1
+          ? "bg-gray-500 cursor-not-allowed"
+          : "bg-cyan-500 hover:bg-cyan-600"
+      }`}
+    >
+      Previous
+    </button>
+
+    <span className="text-white font-bold">
+      Page {currentPage} of {totalPages}
+    </span>
+
+    <button
+      onClick={handleNext}
+      disabled={currentPage === totalPages}
+      className={`px-4 py-2 rounded-lg text-white ${
+        currentPage === totalPages
+          ? "bg-gray-500 cursor-not-allowed"
+          : "bg-cyan-500 hover:bg-cyan-600"
+      }`}
+    >
+      Next
+    </button>
+
+  </div>
+)}
+</div>
 
 )
 
