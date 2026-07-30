@@ -22,6 +22,18 @@ function AdminDashboard() {
         return "Brand Management";
       case "creators":
         return "Influencer Management";
+
+        case "csvCreators":
+        return "Csv Creators";
+
+        case "blogs":
+        return "Blog Management";
+
+        case "bookings":
+        return "Booking Management";
+
+        case "uploadCreators":
+        return " Upload Csv Creators Management";
       default:
         return "Admin Dashboard";
     }
