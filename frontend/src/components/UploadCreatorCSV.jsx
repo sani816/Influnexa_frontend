@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
 import Config from "../config/Config";
+import Papa from "papaparse";
+import { saveAs } from "file-saver";
 
 function UploadCreatorsCSV(){
 
@@ -161,7 +163,7 @@ error.response?.data || error.message
 
 setUploadReport(response.data.report);
 
-fetchLatestReport();
+// fetchLatestReport();
 fetchCSVCreators();
 
       console.log(
@@ -316,6 +318,120 @@ const handlePrevious = () => {
   }
 };
 
+// DOWNLOAD FAILED CSV FILE
+
+const downloadFailedCSV = () => {
+  const failedRecords = uploadReport
+    .filter(item => item.status === "Failed")
+    .map(item => ({
+      "Timestamp": item.timestamp,
+      "Instagram Username": item.instagramUsername,
+      "Instagram Profile Link": item.instagramProfileLink,
+      "Instagram Followers Range": item.instagramFollowersRange,
+      "Exact Followers": item.exactFollowers,
+
+      "Categories": Array.isArray(item.categories)
+        ? item.categories.join(", ")
+        : item.categories,
+
+      "Phone Number": item.phoneNumber,
+      "Whatsapp Number": item.whatsappNumber,
+
+      "Full Name": item.fullName,
+      "Email": item.email,
+      "Gender": item.gender,
+      "Date of Birth": item.dateOfBirth,
+
+      "Campaign type": Array.isArray(item.campaignType)
+        ? item.campaignType.join(", ")
+        : item.campaignType,
+
+      "What kind of deal do you participate in":
+        item.whatKindOfDealDoYouParticipateIn,
+
+      "Languages": Array.isArray(item.languages)
+        ? item.languages.join(", ")
+        : item.languages,
+
+      "Speaking Video Link": item.speakingVideoLink,
+
+      "Full Address": item.fullAddress,
+      "Landmark": item.landmark,
+      "City": item.city,
+      "State": item.state,
+      "Country": item.country,
+      "Pincode": item.pincode,
+
+      "Photo Link": item.photoLink,
+
+      "YouTube Username": item.youtubeUsername,
+      "YouTube Channel Link": item.youtubeChannelLink,
+      "YouTube Subscribers Range": item.youtubeSubscribersRange,
+
+      "Commercials For 1 Instagram Reel":
+        item.commercialsFor1InstagramReel,
+
+      "Commercials For 1 Instagram Story":
+        item.commercialsFor1InstagramStory,
+
+      "Commercials For 1 Instagram Post":
+        item.commercialsFor1InstagramPost,
+
+      "Commercials For 1 Dedicated YouTube Video":
+        item.commercialsFor1DedicatedYouTubeVideo,
+
+      "Commercials For 1 Integrated YouTube Video":
+        item.commercialsFor1IntegratedYouTubeVideo,
+
+      "Commercials For 1 Dedicated YouTube Shorts Video":
+        item.commercialsFor1DedicatedYouTubeShortsVideo,
+
+      "Commercials For 1 Integrated YouTube Shorts Video":
+        item.commercialsFor1IntegratedYouTubeShortsVideo,
+
+      "Any message for us": item.anyMessageForUs,
+      "Bio": item.bio,
+
+      "Are you a TV/movies/OTT celebrity":
+        item.areYouATvMoviesOttCelebrity,
+
+      "Type of Celeb": item.typeOfCeleb,
+
+      "What all platforms are you avilable on": Array.isArray(
+        item.whatAllPlatformsAreYouAvailableOn
+      )
+        ? item.whatAllPlatformsAreYouAvailableOn.join(", ")
+        : item.whatAllPlatformsAreYouAvailableOn,
+
+      "How many Amazon reviews you do per month":
+        item.howManyAmazonReviewsYouDoPerMonth,
+
+      "Fetched from Brand Page": item.fetchedFromBrandPage,
+      "Fetched For Brand": item.fetchedForBrand,
+      "Platform": item.platform,
+      "Fetched Date": item.fetchedDate,
+
+      "hoboUserId": item.hoboUserId,
+
+      "Status": item.status,
+      "Reason": item.reason
+    }));
+
+  if (!failedRecords.length) {
+    alert("No failed records found.");
+    return;
+  }
+
+  const csv = Papa.unparse(failedRecords);
+
+  const blob = new Blob([csv], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  saveAs(blob, "Failed_Creators.csv");
+};
+
+
 return(
 <div className="
 bg-white/10 
@@ -413,6 +529,15 @@ text-white
 
   </div>
 )}
+
+ <div className="flex justify-end w-full mt-3">
+    <button
+      onClick={downloadFailedCSV}
+      className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
+    >
+      Download Failed CSV
+    </button>
+  </div>
 {uploadReport.length > 0 ? (
 
 <div className="mt-8 overflow-x-auto">
