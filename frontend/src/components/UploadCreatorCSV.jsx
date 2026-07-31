@@ -23,7 +23,7 @@ useEffect(()=>{
 },[]);
 
 const [currentPage, setCurrentPage] = useState(1);
-const recordsPerPage = 100; // Show 10 records per page
+const recordsPerPage = 100; // Show 100 records per page
 
 //   Fetch latest report
 
@@ -94,6 +94,7 @@ const fetchLatestReport = async()=>{
 
 };
 
+
 const fetchCSVCreators = async()=>{
 
 try{
@@ -160,7 +161,7 @@ error.response?.data || error.message
 
 setUploadReport(response.data.report);
 
-// fetchLatestReport();
+fetchLatestReport();
 fetchCSVCreators();
 
       console.log(
@@ -273,7 +274,7 @@ alert(response.data.message);
 
 // refresh report/data if needed
 
-fetchLatestReport();
+// fetchLatestReport();
 fetchCSVCreators();
 
 
