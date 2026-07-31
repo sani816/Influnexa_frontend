@@ -10,6 +10,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardHome from "./components/DashboardHome";
  import CreatorProfile from "./pages/creatorProfile";
+import ProtectedRouteUser from "./components/ProtectedRouteUser";
 
 function App() {
 
@@ -19,9 +20,9 @@ function App() {
         <Route
         path="/"
         element={
-          <ProtectedRoute>
+          <ProtectedRouteUser>
             <Home />
-          </ProtectedRoute>
+          </ProtectedRouteUser>
         }
       />
         <Route path="/about" element={<About />} />
