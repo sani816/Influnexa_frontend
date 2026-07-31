@@ -13,6 +13,7 @@ import DashboardHome from "./components/DashboardHome";
 import ProtectedRouteUser from "./components/ProtectedRouteUser";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Campaigns from "./pages/Campaigns";
 
 function App() {
 
@@ -33,6 +34,10 @@ function App() {
         <Route path="/featuredcreators" element={<FeaturedCreators />} />
         <Route path="/influencer" element={<Influencer />} />
         <Route path="/blog" element={<Blog />} />
+        <Route 
+  path="/campaigns" 
+  element={<Campaigns />}
+/>
         <Route path="/contact" element={<Contact />} />
         <Route
           path="/admin"

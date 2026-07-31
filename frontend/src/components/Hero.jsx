@@ -1,16 +1,48 @@
-import React, { useState } from "react";
+import React,{ useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Config from "../config/Config";
-
-
 function Hero() {
   const navigate = useNavigate();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isCreatorFormOpen, setIsCreatorFormOpen] = useState(false);
-
   const [creatorImage, setCreatorImage] = useState(null);
   const [errors, setErrors] = useState({});
+   useEffect(() => {
+
+    const openBrand = () => {
+      setIsFormOpen(true);
+    };
+
+    const openCreator = () => {
+      setIsCreatorFormOpen(true);
+    };
+
+
+    window.addEventListener(
+      "open-brand-form",
+      openBrand
+    );
+
+    window.addEventListener(
+      "open-creator-form",
+      openCreator
+    );
+
+
+    return () => {
+      window.removeEventListener(
+        "open-brand-form",
+        openBrand
+      );
+
+      window.removeEventListener(
+        "open-creator-form",
+        openCreator
+      );
+    };
+
+  }, []);
 
   const [formData, setFormdata] = useState({
     fullName: "",
@@ -515,23 +547,7 @@ try {
   We help brands connect with the right influencers and creators to drive awareness, engagement, and sales.
 </p>
 
-      {/* BUTTONS */}
-      <div className="mt-10 flex gap-5">
-
-        <button
-          onClick={() => setIsFormOpen(true)}
-          className="px-6 py-3 rounded-xl bg-cyan-600 hover:bg-fuchsia-600 hover:scale-105 transition-all"
-        >
-          Register as Brand
-        </button>
-<button
-  onClick={() => setIsCreatorFormOpen(true)}
-  className="px-6 py-3 rounded-xl bg-purple-600 hover:bg-pink-600 transition-all"
->
-  Register as Influencer
-</button>
-     
-</div>
+      
 
       {/* MODAL */}
       {isFormOpen && (

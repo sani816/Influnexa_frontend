@@ -1,48 +1,191 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaBars, FaTimes, FaCog } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
+  const { user, logout } = useAuth();
+const navigate = useNavigate();
+const handleLogout = () => {
 
+  logout();
+
+  navigate("/");
+
+};
   return (
     <nav className="bg-gray-900 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
 
         {/* Logo */}
-        <h1 className="text-2xl font-bold text-white">
-          InfluNexa
-        </h1>
+         <h1 className="text-2xl font-bold text-white">
+    InfluNexa
+  </h1>
 
         {/* Desktop Menu */}
-        <ul className="hidden lg:flex gap-6 text-white text-lg">
-          <li><Link to="/" className="hover:text-fuchsia-500">Home</Link></li>
+         <ul className="hidden lg:flex gap-8 text-white text-base absolute left-1/2 -translate-x-1/2">
+          <li><Link to="/home" className="hover:text-fuchsia-500">Home</Link></li>
           <li><Link to="/about" className="hover:text-fuchsia-500">About</Link></li>
           <li><Link to="/featuredcreators" className="hover:text-fuchsia-500">Creators</Link></li>
           <li><Link to="/blog" className="hover:text-fuchsia-500">Blog</Link></li>
+           <li>
+    <Link to="/campaigns" className="hover:text-fuchsia-500">
+      Campaigns
+    </Link>
+  </li>
           <li><Link to="/contact" className="hover:text-fuchsia-500">Contact</Link></li>
         </ul>
 
-        {/* Desktop Button */}
-        <Link
-          to="/contact#consultation-form"
-          className="hidden lg:block bg-cyan-600 hover:bg-cyan-800 px-4 py-2 rounded-lg text-white font-semibold"
-        >
-          Book Consultation
-        </Link>
+         {/* Right Buttons */}
+  <div className="flex items-center gap-2">
 
-        {/* Mobile Buttons */}
-        <div className="lg:hidden flex items-center gap-3 text-white">
 
-          
+    {/* Register Dropdown */}
+    <div className="relative">
 
-          {/* Menu toggle */}
-          <button onClick={() => setMenuOpen(true)} className="text-2xl">
-            <FaBars />
-          </button>
-        </div>
+      <button
+        onClick={() => setRegisterOpen(!registerOpen)}
+        className="
+        bg-purple-600
+        hover:bg-purple-700
+        px-3
+        py-2
+        rounded-lg
+        text-white
+        text-sm
+        font-semibold
+        "
+      >
+        Register ▾
+      </button>
 
-      </div>
+
+      {
+        registerOpen && (
+          <div
+          className="
+          absolute
+          right-0
+          mt-2
+          w-48
+          bg-white
+          rounded-lg
+          shadow-xl
+          overflow-hidden
+          z-50
+          "
+          >
+
+            <button
+  onClick={() => {
+    setRegisterOpen(false);
+
+    setTimeout(() => {
+      window.dispatchEvent(
+        new Event("open-brand-form")
+      );
+    }, 100);
+  }}
+  className="
+    w-full
+    text-left
+    px-4
+    py-3
+    text-gray-800
+    hover:bg-gray-100
+  "
+>
+  Register as Brand
+</button>
+
+
+<button
+  onClick={() => {
+    setRegisterOpen(false);
+
+    setTimeout(() => {
+      window.dispatchEvent(
+        new Event("open-creator-form")
+      );
+    }, 100);
+  }}
+  className="
+    w-full
+    text-left
+    px-4
+    py-3
+    text-gray-800
+    hover:bg-gray-100
+  "
+>
+  Register as Creator
+</button>
+
+
+          </div>
+        )
+      }
+
+
+    </div>
+
+
+
+    {/* Consultation */}
+    <Link
+  to="/contact#consultation-form"
+  className="
+  hidden lg:block
+  bg-cyan-600
+  hover:bg-cyan-700
+  px-3
+  py-2
+  rounded-lg
+  text-white
+  text-sm
+  font-semibold
+  "
+>
+  Book Consultation
+</Link>
+
+
+
+    {/* Logout */}
+    {
+ user && (
+  <button
+    onClick={handleLogout}
+    className="
+    hidden lg:block
+    bg-red-500
+    hover:bg-red-700
+    px-3
+    py-2
+    rounded-lg
+    text-white
+    text-sm
+    font-semibold
+    "
+  >
+    Logout
+  </button>
+ )
+}
+      {/* Mobile Menu */}
+    <button
+      onClick={() => setMenuOpen(true)}
+      className="lg:hidden text-white text-2xl"
+    >
+      <FaBars />
+    </button>
+
+
+  </div>
+
+</div>
 
       {/* Overlay */}
       {menuOpen && (
@@ -73,6 +216,12 @@ export default function Navbar() {
           <Link onClick={() => setMenuOpen(false)} to="/about">About</Link>
           <Link onClick={() => setMenuOpen(false)} to="/featuredcreators">Creators</Link>
           <Link onClick={() => setMenuOpen(false)} to="/blog">Blog</Link>
+          <Link 
+  onClick={() => setMenuOpen(false)} 
+  to="/campaigns"
+>
+  Campaigns
+</Link>
           <Link onClick={() => setMenuOpen(false)} to="/contact">Contact</Link>
 
           <Link
@@ -82,6 +231,27 @@ export default function Navbar() {
           >
             Book Consultation
           </Link>
+
+          {
+    user && (
+      <button
+        onClick={()=>{
+          setMenuOpen(false);
+          handleLogout();
+        }}
+        className="
+        bg-red-500
+        hover:bg-red-700
+        px-4
+        py-2
+        rounded-lg
+        text-center
+        "
+      >
+        Logout
+      </button>
+    )
+  }
         </div>
 
       </div>
