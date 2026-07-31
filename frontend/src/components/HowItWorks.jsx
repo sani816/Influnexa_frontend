@@ -37,7 +37,7 @@ function HowItWorks() {
       </div>
 
       {/* Custom Styles */}
-      <style jsx>{`
+      <style>{`
         .text-neon {
           color: #fff;
           text-shadow:

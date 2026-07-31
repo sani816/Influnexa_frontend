@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import FeaturedCreators from "./pages/FeaturedCreators";
@@ -15,15 +15,15 @@ function App() {
 
 
   return (
-
-    
-    <BrowserRouter>
-
-      {/* Background visible on all pages */}
-      
-
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
         <Route path="/about" element={<About />} />
         <Route path="/featuredcreators" element={<FeaturedCreators />} />
         <Route path="/influencer" element={<Influencer />} />
@@ -43,12 +43,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+
  <Route path="*" element={<Navigate to="/" />} />
  
 <Route path="/creator/:id"element={<CreatorProfile />}/>
-      </Routes>
+ </Routes>
 
-    </BrowserRouter>
+    
   );
 }
 
