@@ -11,14 +11,18 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardHome from "./components/DashboardHome";
  import CreatorProfile from "./pages/creatorProfile";
 import ProtectedRouteUser from "./components/ProtectedRouteUser";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
 
 
   return (
       <Routes>
+        <Route path="/" element={<Login />} />
+<Route path="/register" element={<Register />} />
         <Route
-        path="/"
+        path="/home"
         element={
           <ProtectedRouteUser>
             <Home />

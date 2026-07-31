@@ -69,7 +69,7 @@ export default function Navbar() {
         {/* Links */}
         <div className="flex flex-col p-4 gap-4 text-white">
 
-          <Link onClick={() => setMenuOpen(false)} to="/">Home</Link>
+          <Link onClick={() => setMenuOpen(false)} to="/home">Home</Link>
           <Link onClick={() => setMenuOpen(false)} to="/about">About</Link>
           <Link onClick={() => setMenuOpen(false)} to="/featuredcreators">Creators</Link>
           <Link onClick={() => setMenuOpen(false)} to="/blog">Blog</Link>

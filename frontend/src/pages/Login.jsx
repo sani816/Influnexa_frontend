@@ -43,7 +43,7 @@ const { login } = useAuth();
 
       alert("Login Successful");
 
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       alert(
         error.response?.data?.message || "Login Failed"

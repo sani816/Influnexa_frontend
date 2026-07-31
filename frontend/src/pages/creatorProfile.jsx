@@ -86,10 +86,11 @@ function CreatorProfile() {
               <div>
 
                 <img
-                  src={
-                    creator.image ||
-                    "https://via.placeholder.com/400"
-                  }
+  src={
+    creator.image && creator.image.trim() !== ""
+      ? creator.image
+      : "https://via.placeholder.com/400"
+  }
                   alt={creator.fullName}
                   className="w-72 h-72 rounded-full object-cover mx-auto border-4 border-cyan-400"
                 />
@@ -97,11 +98,6 @@ function CreatorProfile() {
                 <h1 className="text-4xl font-bold text-white text-center mt-6">
                   {creator.fullName}
                 </h1>
-
-                <p className="text-cyan-300 text-center mt-3">
-                  {creator.profession ||
-                    "Digital Creator"}
-                </p>
 
                 <div className="mt-8 space-y-4 text-gray-300">
 
@@ -199,13 +195,7 @@ function CreatorProfile() {
                     About Creator
                   </h2>
 
-                  <p className="text-gray-300 leading-8">
-                    {creator.bio ||
-                      creator.message ||
-                      `${creator.fullName} is a content creator and influencer specializing in ${creator.preferredCategory?.join(
-                        ", "
-                      )}.`}
-                  </p>
+                  
                 </div>
 
                 {/* INSTAGRAM */}
@@ -278,19 +268,9 @@ function CreatorProfile() {
 
                   <div className="grid md:grid-cols-2 gap-5 text-gray-300">
 
-                    <p>
-                      <span className="font-bold text-white">
-                        Profession:
-                      </span>{" "}
-                      {creator.profession}
-                    </p>
+                    
 
-                    <p>
-                      <span className="font-bold text-white">
-                        Experience:
-                      </span>{" "}
-                      {creator.experience}
-                    </p>
+                    
 
                     <p>
                       <span className="font-bold text-white">
