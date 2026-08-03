@@ -14,6 +14,7 @@ import ProtectedRouteUser from "./components/ProtectedRouteUser";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Campaigns from "./pages/Campaigns";
+import Subscription from "./pages/Subscription";
 
 function App() {
 
@@ -37,6 +38,10 @@ function App() {
         <Route 
   path="/campaigns" 
   element={<Campaigns />}
+/>
+<Route
+    path="/subscription"
+    element={<Subscription/>}
 />
         <Route path="/contact" element={<Contact />} />
         <Route

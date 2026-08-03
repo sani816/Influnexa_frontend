@@ -44,7 +44,9 @@ export default function Campaigns(){
 
 
 return (
+<>
 
+<Navbar />
 <div className="min-h-screen bg-gray-950 text-white px-6 py-10">
 
 
@@ -200,24 +202,15 @@ Apply Campaign
 
 </button>
 
-
-
 </div>
-
-
 ))
 }
 
-
 </div>
-)
-
-}
-
-
-
+)}
 </div>
-
+<Footer />
+</>
 )
 
 }

@@ -34,6 +34,13 @@ const handleLogout = () => {
     <Link to="/campaigns" className="hover:text-fuchsia-500">
       Campaigns
     </Link>
+
+    <Link
+        to="/subscription"
+        className="hover:text-fuchsia-500"
+    >
+        Subscription
+    </Link>
   </li>
           <li><Link to="/contact" className="hover:text-fuchsia-500">Contact</Link></li>
         </ul>
@@ -222,6 +229,13 @@ const handleLogout = () => {
 >
   Campaigns
 </Link>
+
+<Link
+        to="/subscription"
+        className="hover:text-fuchsia-500"
+    >
+        Subscription
+    </Link>
           <Link onClick={() => setMenuOpen(false)} to="/contact">Contact</Link>
 
           <Link

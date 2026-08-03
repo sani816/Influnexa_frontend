@@ -11,7 +11,7 @@ import BookingStatus from "../components/BookingStatus";
 import AdminBlogs from "../components/AdminBlog";
 import UploadCreatorsCSV from "../components/UploadCreatorCSV";
 import CsvCreatorSection from "../components/CsvCreatorSection";
-
+import AdminPayments from "../components/AdminPayments";
 
 function AdminDashboard() {
   const [section, setSection] = useState("dashboard");
@@ -31,6 +31,8 @@ function AdminDashboard() {
 
         case "bookings":
         return "Booking Management";
+        case "payments":
+  return "Payment Management";
 
         case "uploadCreators":
         return " Upload Csv Creators Management";
@@ -84,7 +86,7 @@ function AdminDashboard() {
             {/* {section === "analytics" && <AnalyticsSection />} */}
 
             {section === "bookings" && <BookingStatus />}
-            
+            {section === "payments" && <AdminPayments />}
             { section === "blogs" && <AdminBlogs />}
             {section==="csvCreators" &&<CsvCreatorSection/>}
             {section === "uploadCreators" && (

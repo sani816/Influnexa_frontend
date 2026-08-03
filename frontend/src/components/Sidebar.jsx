@@ -9,6 +9,7 @@ import {
   FaCalendarAlt,
   FaBlog,
   FaFileCsv,
+  FaMoneyCheckAlt,
 } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
@@ -95,7 +96,7 @@ function Sidebar({ setSection }) {
           <p className="text-gray-400 text-sm">Admin Panel</p>
         </div>
 
-        {/* ADMIN CARD */}
+        {/* ADMIN CARD
         <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-8">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-gradient-to-r from-cyan-500 to-pink-500 flex items-center justify-center text-white font-bold">
@@ -107,7 +108,7 @@ function Sidebar({ setSection }) {
               <p className="text-gray-400 text-sm">Super Admin</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* MENU */}
         <div className="space-y-2">
@@ -130,7 +131,12 @@ function Sidebar({ setSection }) {
           <button onClick={() => handleClick("bookings")} className={menuClass}>
             <FaCalendarAlt />Booking Status
           </button>
-          
+          <button
+  onClick={() => handleClick("payments")}
+  className={menuClass}
+>
+  <FaMoneyCheckAlt /> Payment Requests
+</button>
          
           <button onClick={() => handleClick("blogs")} className={menuClass}><FaBlog /> Blog Management</button>
 
