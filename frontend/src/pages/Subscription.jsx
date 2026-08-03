@@ -41,7 +41,7 @@ email:"",
 phone:"",
 paymentApp:"Google Pay",
 // transactionId:"",
-amount:999
+amount:1
 
 });
 
@@ -253,19 +253,24 @@ const checkPaymentStatus = async()=>{
 
 
 
-        if(
-            res.data.approved === true &&
-            res.data.downloaded === false
-        ){
+       if(
+res.data.approved &&
+!res.data.downloaded
+){
 
-            setDownloadAllowed(true);
+setDownloadAllowed(true);
+
+setPaymentStatus({
+...res.data,
+_id:res.data.paymentId
+});
 
 
-            alert(
-                "Payment Approved. Download unlocked."
-            );
+alert(
+"Payment Approved. Download unlocked."
+);
 
-        }
+}
 
         else if(
             res.data.downloaded === true
@@ -362,7 +367,7 @@ payment.paymentApp
 
 formData.append(
 "amount",
-999
+1
 );
 
 
@@ -401,6 +406,10 @@ alert(
 
 setShowPayment(false);
 
+setPaymentStatus(null);
+
+setDownloadAllowed(false);
+
 setPayment({
 
 name:"",
@@ -408,7 +417,7 @@ email:"",
 phone:"",
 paymentApp:"Google Pay",
 // transactionId:"",
-amount:999
+amount:1
 
 });
 
@@ -441,93 +450,72 @@ err.response?.data?.message ||
 
 const downloadCSV = async()=>{
 
-
 try{
 
 
 if(!downloadAllowed){
 
-
 alert(
 "Please complete payment approval first."
 );
 
-
 return;
-
 
 }
 
 
 
-
 const exportData = filtered.map((creator)=>({
-
-
 
 FullName:
 creator.fullName || "",
-
 
 
 Email:
 creator.email || "",
 
 
-
 Phone:
 creator.mobileNumber || "",
-
 
 
 Instagram:
 creator.instagramUsername || "",
 
 
-
 InstagramLink:
 creator.instagramLink || "",
-
 
 
 Followers:
 creator.followersRange || "",
 
 
-
 Category:
 creator.preferredCategory?.join(",") || "",
-
 
 
 Campaign:
 creator.campaignTypes?.join(",") || "",
 
 
-
 City:
 creator.city || "",
-
 
 
 State:
 creator.state || "",
 
 
-
 Youtube:
 creator.youtubeName || "",
-
 
 
 YoutubeSubscribers:
 creator.youtubeSubs || ""
 
 
-
 }));
-
-
 
 
 
@@ -554,10 +542,9 @@ blob,
 
 
 
+// LOCK DOWNLOAD IN DATABASE
 
-
-// LOCK DOWNLOAD AFTER DOWNLOAD
-
+if(paymentStatus?._id){
 
 await axios.put(
 
@@ -565,20 +552,23 @@ await axios.put(
 
 );
 
+}
 
+
+// lock frontend also
 
 setDownloadAllowed(false);
 
+setPaymentStatus(null);
 
 
 alert(
-"Download completed. Access locked."
+"Download completed. Please purchase again for next download."
 );
 
 
 
 }
-
 
 catch(err){
 
@@ -594,9 +584,7 @@ alert(
 }
 
 
-
 };
-
 return (
 
 <div className="min-h-screen bg-gray-950 p-8 text-white">
@@ -1105,7 +1093,7 @@ Complete Payment
 
 <h3 className="text-yellow-400 text-xl font-bold">
 
-Pay ₹999
+Scan QR & Pay ₹1
 
 </h3>
 
@@ -1320,7 +1308,7 @@ setScreenshot(e.target.files[0])
 
 
 
-<div className="flex gap-3">
+<div className="grid grid-cols-2 gap-3">
 
 
 
@@ -1352,6 +1340,8 @@ Submit Payment
 
 </button>
 
+</div>
+
 <button
 
 onClick={checkPaymentStatus}
@@ -1363,11 +1353,6 @@ className="w-full mt-4 bg-blue-600 py-3 rounded-lg"
 Check Payment Approval
 
 </button>
-
-
-</div>
-
-
 
 </div>
 
