@@ -7,7 +7,7 @@ function PaymentQR({ amount }) {
   useEffect(() => {
     // Replace this with YOUR actual UPI ID
     const upiUrl =
-      `upi://pay?pa=influnexa@upi&pn=Influnexa&am=${amount}&cu=INR`;
+      `upi://pay?pa=saniakhatun622@okicici&pn=Influnexa&am=${amount}&cu=INR`;
 
     QRCode.toDataURL(upiUrl)
       .then(setQr)

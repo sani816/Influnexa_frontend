@@ -41,7 +41,7 @@ email:"",
 phone:"",
 paymentApp:"Google Pay",
 transactionId:"",
-amount:1
+amount:99
 
 });
 
@@ -484,7 +484,14 @@ const res = await axios.post(
 `${Config.API_URL}/api/payment/download`,
 {
 email:payment.email,
-filterData:{}
+filterData:{
+  name: nameFilter,
+        email: emailFilter,
+        city: cityFilter,
+        category: categoryFilter,
+        followers: followersFilter,
+        instagram: instagramFilter
+}
 }
 );
 
@@ -506,34 +513,71 @@ const creators=res.data.creators;
 
 
 
-const exportData = creators.map((creator)=>({
+const exportData = creators.map((creator) => ({
 
-FullName:creator.fullName || "",
+  // Instagram
+  InstagramUsername: creator.instagramUsername || "",
+  InstagramLink: creator.instagramLink || "",
+  Followers: creator.followersRange || "",
 
-Email:creator.email || "",
+  // Personal
+  FullName: creator.fullName || "",
+  Email: creator.email || "",
+  MobileNumber: creator.mobileNumber || "",
+  WhatsAppNumber: creator.whatsappNumber || "",
 
-Phone:creator.mobileNumber || "",
+  // Basic
+  Gender: creator.gender || "",
+  DOB: creator.dob || "",
 
-Instagram:creator.instagramUsername || "",
+  // Categories
+  PreferredCategory:
+    creator.preferredCategory?.join(", ") || "",
 
-InstagramLink:creator.instagramLink || "",
+  CampaignTypes:
+    creator.campaignTypes?.join(", ") || "",
 
-Followers:creator.followersRange || "",
+  // Rates
+  ReelRate: creator.reelRate || "",
+  StoryRate: creator.storyRate || "",
+  PostRate: creator.postRate || "",
 
-Category:
-creator.preferredCategory?.join(",") || "",
+  // YouTube
+  HasYoutube: creator.hasYoutube || "",
 
-Campaign:
-creator.campaignTypes?.join(",") || "",
+  YoutubeName: creator.youtubeName || "",
+  YoutubeLink: creator.youtubeLink || "",
+  YoutubeSubscribers: creator.youtubeSubs || "",
 
-City:creator.city || "",
+  YoutubeVideoRate: creator.ytVideoRate || "",
+  YoutubeShortRate: creator.ytShortsRate || "",
 
-State:creator.state || "",
+  // Address
+  Address1: creator.address1 || "",
+  Address2: creator.address2 || "",
 
-Youtube:creator.youtubeName || "",
+  City: creator.city || "",
+  State: creator.state || "",
+  Pincode: creator.pincode || "",
 
-YoutubeSubscribers:
-creator.youtubeSubs || ""
+  AddressType: creator.addressType || "",
+  CanReceiveProducts: creator.canReceiveProducts || "",
+
+  // Brands
+  BrandNames: creator.brandNames || "",
+
+  // Image
+  Image: creator.image || "",
+
+  // Consents
+  Consent1: creator.consent1 ? "Yes" : "No",
+  Consent2: creator.consent2 ? "Yes" : "No",
+  Consent3: creator.consent3 ? "Yes" : "No",
+
+  // Registration
+  RegisteredOn: creator.createdAt
+    ? new Date(creator.createdAt).toLocaleString()
+    : ""
 
 }));
 
@@ -763,81 +807,133 @@ downloadAllowed
 <table className="w-max min-w-full text-sm">
 
 
-<thead className="bg-cyan-500 text-black">
-
+<thead className="bg-cyan-500 text-black sticky top-0 z-10">
 
 <tr>
 
-
-<th className="p-3">
-
-Sl No.
-
+<th className="px-4 py-3 text-left">
+#
 </th>
 
-
-<th className="p-3">
-
+<th className="px-4 py-3 whitespace-nowrap">
 Image
-
 </th>
 
-
-<th className="p-3">
-
-Name
-
+<th className="px-4 py-3 whitespace-nowrap">
+Full Name
 </th>
 
-
-<th className="p-3">
-
+<th className="px-4 py-3 whitespace-nowrap">
 Instagram
-
 </th>
 
-
-<th className="p-3">
-
+<th className="px-4 py-3 whitespace-nowrap">
 Followers
-
 </th>
 
-
-<th className="p-3">
-
+<th className="px-4 py-3 whitespace-nowrap">
 Email
-
 </th>
 
-
-<th className="p-3">
-
-Phone
-
+<th className="px-4 py-3 whitespace-nowrap">
+Mobile
 </th>
 
-
-<th className="p-3">
-
-Category
-
+<th className="px-4 py-3 whitespace-nowrap">
+WhatsApp
 </th>
 
+<th className="px-4 py-3">
+Gender
+</th>
 
-<th className="p-3">
+<th className="px-4 py-3">
+DOB
+</th>
 
+<th className="px-4 py-3">
+Preferred Category
+</th>
+
+<th className="px-4 py-3">
+Campaign Types
+</th>
+
+<th className="px-4 py-3">
+Reel ₹
+</th>
+
+<th className="px-4 py-3">
+Story ₹
+</th>
+
+<th className="px-4 py-3">
+Post ₹
+</th>
+
+<th className="px-4 py-3">
+YT Video ₹
+</th>
+
+<th className="px-4 py-3">
+YT Shorts ₹
+</th>
+
+<th className="px-4 py-3">
+Has YouTube
+</th>
+
+<th className="px-4 py-3">
+YouTube Name
+</th>
+
+<th className="px-4 py-3">
+YouTube Link
+</th>
+
+<th className="px-4 py-3">
+Subscribers
+</th>
+
+<th className="px-4 py-3">
+Address 1
+</th>
+
+<th className="px-4 py-3">
+Address 2
+</th>
+
+<th className="px-4 py-3">
 City
-
 </th>
 
+<th className="px-4 py-3">
+State
+</th>
+
+<th className="px-4 py-3">
+Pincode
+</th>
+
+<th className="px-4 py-3">
+Address Type
+</th>
+
+<th className="px-4 py-3">
+Receive Products
+</th>
+
+<th className="px-4 py-3">
+Worked Brands
+</th>
+
+<th className="px-4 py-3">
+Registered
+</th>
 
 </tr>
 
-
 </thead>
-
-
 
 
 <tbody>
@@ -853,7 +949,7 @@ loading ?
 
 <td
 
-colSpan="9"
+colSpan="30"
 
 className="text-center p-10"
 
@@ -877,7 +973,7 @@ filtered.length===0 ?
 
 <td
 
-colSpan="9"
+colSpan="30"
 
 className="text-center p-10 text-red-400"
 
@@ -895,146 +991,245 @@ No Creator Found
 
 
 
-filtered.map((creator,index)=>(
-
+filtered.map((creator, index) => (
 
 <tr
-
-key={creator._id}
-
-className="border-b border-gray-700 hover:bg-gray-900"
-
+  key={creator._id}
+  className="border-b border-gray-700 hover:bg-gray-900"
 >
 
-
-<td className="p-3">
-
-{index+1}
-
+<td className="px-4 py-3">
+{index + 1}
 </td>
 
+<td className="px-4 py-3">
 
+{creator.image ? (
 
-<td className="p-3">
-
-
-{
-
-creator.image ?
-
+<a
+href={creator.image}
+target="_blank"
+rel="noreferrer"
+>
 
 <img
-
 src={creator.image}
-
-className="w-14 h-14 rounded object-cover"
-
+alt={creator.fullName}
+className="w-14 h-14 rounded object-cover border"
 />
 
+</a>
 
-:
+) : (
 
 "N/A"
 
-}
-
-
-</td>
-
-
-
-
-<td className="p-3">
-
-{creator.fullName || "N/A"}
+)}
 
 </td>
 
+<td className="px-4 py-3 whitespace-nowrap">
 
+************
 
-<td className="p-3">
+</td>
 
+<td className="px-4 py-3 whitespace-nowrap">
 
-{
-
-creator.instagramLink ?
-
+{creator.instagramLink ? (
 
 <a
-
 href={creator.instagramLink}
-
 target="_blank"
-
+rel="noreferrer"
 className="text-cyan-400 underline"
-
 >
 
 {creator.instagramUsername}
 
 </a>
 
-
-:
+) : (
 
 "N/A"
 
-}
-
+)}
 
 </td>
 
-
-
-<td className="p-3">
+<td className="px-4 py-3">
 
 {creator.followersRange || "N/A"}
 
 </td>
 
+<td className="px-4 py-3">
 
-
-
-<td className="p-3">
-
-{creator.email || "N/A"}
+********@*****
 
 </td>
 
+<td className="px-4 py-3">
 
-
-<td className="p-3">
-
-{creator.mobileNumber || "N/A"}
+******7890
 
 </td>
 
+<td className="px-4 py-3">
 
+******7890
 
-<td className="p-3">
+</td>
 
+<td className="px-4 py-3">
 
-{
+{creator.gender || "N/A"}
 
-creator.preferredCategory?.join(", ")
+</td>
 
-|| 
+<td className="px-4 py-3">
+
+{creator.dob || "N/A"}
+
+</td>
+
+<td className="px-4 py-3">
+
+{creator.preferredCategory?.join(", ") || "N/A"}
+
+</td>
+
+<td className="px-4 py-3">
+
+{creator.campaignTypes?.join(", ") || "N/A"}
+
+</td>
+
+<td className="px-4 py-3">
+
+₹ {creator.reelRate || 0}
+
+</td>
+
+<td className="px-4 py-3">
+
+₹ {creator.storyRate || 0}
+
+</td>
+
+<td className="px-4 py-3">
+
+₹ {creator.postRate || 0}
+
+</td>
+<td className="px-4 py-3">
+
+₹ {creator.ytVideoRate || 0}
+
+</td>
+
+<td className="px-4 py-3">
+
+₹ {creator.ytShortsRate || 0}
+
+</td>
+
+<td className="px-4 py-3">
+
+{creator.hasYoutube || "No"}
+
+</td>
+
+<td className="px-4 py-3">
+
+{creator.youtubeName || "N/A"}
+
+</td>
+
+<td className="px-4 py-3">
+
+{creator.youtubeLink ? (
+
+<a
+href={creator.youtubeLink}
+target="_blank"
+rel="noopener noreferrer"
+className="text-cyan-400 underline"
+>
+
+Open Channel
+
+</a>
+
+) : (
 
 "N/A"
 
-}
-
+)}
 
 </td>
 
+<td className="px-4 py-3">
 
+{creator.youtubeSubs || "N/A"}
 
-<td className="p-3">
+</td>
+
+<td className="px-4 py-3">
+
+**************
+
+</td>
+
+<td className="px-4 py-3">
+
+**************
+
+</td>
+
+<td className="px-4 py-3">
 
 {creator.city || "N/A"}
 
 </td>
 
+<td className="px-4 py-3">
+
+{creator.state || "N/A"}
+
+</td>
+
+<td className="px-4 py-3">
+
+******
+
+</td>
+
+<td className="px-4 py-3">
+
+{creator.addressType || "N/A"}
+
+</td>
+
+<td className="px-4 py-3">
+
+{creator.canReceiveProducts || "No"}
+
+</td>
+
+<td className="px-4 py-3">
+
+{creator.brandNames || "N/A"}
+
+</td>
+
+<td className="px-4 py-3">
+
+{creator.createdAt
+? new Date(creator.createdAt).toLocaleDateString()
+: "N/A"}
+
+</td>
 
 
 </tr>
@@ -1080,7 +1275,7 @@ creator.preferredCategory?.join(", ")
 
           <div className="bg-black p-5 rounded mb-5">
             <h3 className="text-yellow-400 text-xl font-bold">
-              Scan QR & Pay ₹{payment.amount}
+              Scan QR & Pay ₹{payment.amount} for download data
             </h3>
 
             <p className="mt-3">
