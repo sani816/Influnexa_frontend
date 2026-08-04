@@ -341,7 +341,7 @@ const downloadFailedCSV = () => {
       "Email": item.email,
       "Gender": item.gender,
       "Date of Birth": item.dateOfBirth,
-
+       "influencerType":item.influencerType,
       "Campaign type": Array.isArray(item.campaignType)
         ? item.campaignType.join(", ")
         : item.campaignType,
@@ -388,8 +388,6 @@ const downloadFailedCSV = () => {
 
       "Commercials For 1 Integrated YouTube Shorts Video":
         item.commercialsFor1IntegratedYouTubeShortsVideo,
-
-      "Any message for us": item.anyMessageForUs,
       "Bio": item.bio,
 
       "Are you a TV/movies/OTT celebrity":
@@ -411,7 +409,7 @@ const downloadFailedCSV = () => {
       "Platform": item.platform,
       "Fetched Date": item.fetchedDate,
 
-      "hoboUserId": item.hoboUserId,
+      "InflunexaUserId": item.InflunexaUserId,
 
       "Status": item.status,
       "Reason": item.reason

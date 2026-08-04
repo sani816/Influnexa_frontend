@@ -65,12 +65,42 @@ const handleEdit = (creator) => {
   // Languages
   languages: "",
 
-  hoboUserId: "",
-  campaignType:""
+  InflunexaUserId: "",
+  campaignType:"",
+  influencerType: "",
+  contactStatus: "",
+});
+
+const [filterOptions, setFilterOptions] = useState({
+  gender: [],
+  state: [],
+  country: [],
+  categories: [],
+  languages: [],
+  campaignType: [],
+  typeOfCeleb: [],
+  platform: [],
+  youtubeSubscribersRange: [],
+  instagramFollowersRange: [],
 });
 
 
+const fetchFilterOptions = async () => {
+  try {
+    const res = await axios.get(
+      `${Config.API_URL}/api/csv-creators/filter-options`
+    );
 
+    setFilterOptions(res.data.options);
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+useEffect(() => {
+  fetchFilterOptions();
+}, []);
 const updateCsvCreator = async () => {
   try {
     const res = await axios.put(
@@ -308,8 +338,8 @@ creator.pincode
 "",
 
 
-hoboUserId:
-creator.hoboUserId
+InflunexaUserId:
+creator.InflunexaUserId
 ?
 "******"
 :
@@ -398,8 +428,10 @@ const resetFilters = () => {
     typeOfCeleb: "",
     platform: "",
     languages: "",
-    hoboUserId: "",
+    InflunexaUserId: "",
     campaignType:"",
+    influencerType: "",
+    contactStatus: "",
   };
 
   setFilters(emptyFilters);
@@ -534,16 +566,7 @@ placeholder:"Instagram Username"
 name:"instagramFollowersRange",
 type:"select",
 placeholder:"Followers Range",
-options:[
-"Under 2K",
-"2K - 10K",
-"10K - 50K",
-"50K - 100K",
-"100K - 500K",
-"500K - 1M",
-"1M - 5M",
-"5M+"
-]
+options:filterOptions.instagramFollowersRange
 },
 
 {
@@ -555,18 +578,7 @@ options:[
 name:"categories",
 type:"select",
 placeholder:"Category",
-options:[
-"Fashion",
-"Beauty",
-"Food",
-"Travel",
-"Fitness",
-"Technology",
-"Gaming",
-"Lifestyle",
-"Entertainment",
-"Education"
-]
+options:filterOptions.categories
 },
 
 
@@ -574,11 +586,7 @@ options:[
 name:"gender",
 type:"select",
 placeholder:"Gender",
-options:[
-"Male",
-"Female",
-"Other"
-]
+options:filterOptions.gender,
 },
 
 
@@ -600,16 +608,7 @@ placeholder:"City"
 name:"state",
 type:"select",
 placeholder:"State",
-options:[
-"West Bengal",
-"Maharashtra",
-"Delhi",
-"Karnataka",
-"Tamil Nadu",
-"Gujarat",
-"Rajasthan",
-"Punjab"
-]
+options:filterOptions.state
 },
 
 
@@ -617,13 +616,7 @@ options:[
 name:"country",
 type:"select",
 placeholder:"Country",
-options:[
-"India",
-"USA",
-"UK",
-"Canada",
-"Australia"
-]
+options:filterOptions.country
 },
 {
   name: "pincode",
@@ -642,13 +635,7 @@ placeholder:"Youtube Username"
 name:"youtubeSubscribersRange",
 type:"select",
 placeholder:"Youtube Subscribers",
-options:[
-"Under 1K",
-"1K - 10K",
-"10K - 100K",
-"100K - 1M",
-"1M+"
-]
+options:filterOptions.youtubeSubscribersRange
 },
 
 
@@ -656,14 +643,7 @@ options:[
 name:"platform",
 type:"select",
 placeholder:"Platform",
-options:[
-"Instagram",
-"YouTube",
-"Facebook",
-"Twitter",
-"LinkedIn",
-"Multiple"
-]
+options:filterOptions.platform
 },
 
 
@@ -671,14 +651,8 @@ options:[
 name:"typeOfCeleb",
 type:"select",
 placeholder:"Celebrity Type",
-options:[
-"Influencer",
-"Actor",
-"Model",
-"Creator",
-"Celebrity",
-"Artist"
-]
+options:filterOptions.typeOfCeleb
+
 },
 
 
@@ -686,34 +660,42 @@ options:[
 name:"languages",
 type:"select",
 placeholder:"Language",
-options:[
-"Hindi",
-"English",
-"Bengali",
-"Tamil",
-"Telugu",
-"Marathi",
-"Gujarati"
-]
+options:filterOptions.languages
 },
 
 
 {
-  name: "hoboUserId",
+  name: "InflunexaUserId",
   type: "text",
-  placeholder: "Hobo User ID",
+  placeholder: "Influnexa User ID",
 },
 
 {
   name: "campaignType",
   type: "select",
   placeholder: "Campaign Type",
+  options: filterOptions.campaignType
+},
+{
+  name: "influencerType",
+  type: "select",
+  placeholder: "Influencer Type",
   options: [
-    "Barter",
-    "Paid Promotion",
-    "Affiliate",
-    "Event",
-    "Brand Collaboration"
+    "Nano Influencer",
+    "Micro Influencer",
+    "Macro Influencer",
+    "Mega Influencer",
+  ],
+},
+
+{
+  name: "contactStatus",
+  type: "select",
+  placeholder: "Contact Status",
+  options: [
+    "Mobile Only",
+    "Email Only",
+    "Both Email & Mobile",
   ]
 },
 
@@ -847,9 +829,7 @@ text-sm
       S.No.
     </th>
 
-<th className="p-3 border">
-Timestamp
-</th>
+
 
 
 <th className="p-3 border">
@@ -905,7 +885,9 @@ Gender
 <th className="p-3 border">
 DOB
 </th>
-
+<th className="p-3 border">
+Influencer Type
+</th>
 
 <th className="p-3 border">
 Campaign Type
@@ -1011,12 +993,6 @@ Dedicated Shorts
 Integrated Shorts
 </th>
 
-
-<th className="p-3 border">
-Message
-</th>
-
-
 <th className="p-3 border">
 Bio
 </th>
@@ -1060,10 +1036,12 @@ Platform
 <th className="p-3 border">
 Fetched Date
 </th>
-
+<th className="p-3 border">
+Timestamp
+</th>
 
 <th className="p-3 border">
-hoboUserId
+InflunexaUserId
 </th>
 
  <th className="border p-3 text-center w-32">
@@ -1135,10 +1113,6 @@ key={creator._id}
   </td>
 
 <td className="border p-2">
-  {creator.timestamp || "-"}
-</td>
-
-<td className="border p-2">
   {creator.instagramUsername || "-"}
 </td>
 <td className="border p-2">
@@ -1193,6 +1167,24 @@ key={creator._id}
 </td>
 
 <td className="border p-2">
+{
+creator.exactFollowers >= 1000000
+? "Mega Influencer"
+
+: creator.exactFollowers >= 100000
+? "Macro Influencer"
+
+: creator.exactFollowers >= 10000
+? "Micro Influencer"
+
+: creator.exactFollowers >= 1000
+? "Nano Influencer"
+
+: "-"
+}
+</td>
+
+<td className="border p-2">
   {creator.campaignType?.join(", ") || "-"}
 </td>
 
@@ -1205,7 +1197,18 @@ key={creator._id}
 </td>
 
 <td className="border p-2">
-  {creator.speakingVideoLink || "-"}
+  {creator.speakingVideoLink ? (
+    <a
+      href={creator.speakingVideoLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-600 hover:underline"
+    >
+    Speaking Video link
+    </a>
+  ) : (
+    "-"
+  )}
 </td>
 
 <td className="border p-2">
@@ -1287,9 +1290,6 @@ key={creator._id}
   {creator.commercialsFor1IntegratedYouTubeShortsVideo || "-"}
 </td>
 
-<td className="border p-2">
-  {creator.anyMessageForUs || "-"}
-</td>
 
 <td className="border p-2">
   {creator.bio || "-"}
@@ -1326,9 +1326,11 @@ key={creator._id}
 <td className="border p-2">
   {creator.fetchedDate || "-"}
 </td>
-
 <td className="border p-2">
-  {creator.hoboUserId || "-"}
+  {creator.timestamp || "-"}
+</td>
+<td className="border p-2">
+  {creator.InflunexaUserId || "-"}
 </td>
 
 
@@ -1343,13 +1345,7 @@ key={creator._id}
       <FaEdit />
     </button>
 
-    <button
-      onClick={() => deleteCreator(creator._id)}
-      className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-md transition"
-      title="Delete"
-    >
-      <FaTrash />
-    </button>
+    
   </div>
 </td>
 

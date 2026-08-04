@@ -4,7 +4,8 @@ import Config from "../config/Config";
 import Papa from "papaparse";
 import {saveAs} from "file-saver";
 import PaymentQR from "../components/PaymentQR";
-
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 function Subscription(){
 
 const [creators,setCreators]=useState([]);
@@ -391,7 +392,17 @@ formData.append(
 screenshot
 );
 
-
+formData.append(
+  "filterData",
+  JSON.stringify({
+    name: nameFilter,
+    email: emailFilter,
+    city: cityFilter,
+    category: categoryFilter,
+    followers: followersFilter,
+    instagram: instagramFilter,
+  })
+);
 
 await axios.post(
 
@@ -635,6 +646,8 @@ err.response?.data?.message ||
 
 };
 return (
+<>
+<Navbar/>
 
 <div className="min-h-screen bg-gray-950 p-8 text-white">
 
@@ -707,15 +720,12 @@ className="p-3 rounded bg-gray-900 border border-cyan-500"
 
 
 <input
-
-placeholder="Search Followers"
-
-value={followersFilter}
-
-onChange={(e)=>setFollowersFilter(e.target.value)}
-
-className="p-3 rounded bg-gray-900 border border-cyan-500"
-
+  type="number"
+  placeholder="Search Followers"
+  value={followersFilter}
+  onChange={(e) => setFollowersFilter(e.target.value)}
+  className="p-3 rounded bg-gray-900 border border-cyan-500"
+  min="0"
 />
 
 
@@ -1391,7 +1401,8 @@ Open Channel
 }
 
 </div>
-
+<Footer/>
+</>
 
 );
 

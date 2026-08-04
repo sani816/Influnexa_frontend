@@ -73,17 +73,17 @@ const [hasYoutubeFilter, setHasYoutubeFilter] = useState("");
     return () => socket.disconnect();
   }, []);
   // DELETE
- const deleteCreator = async (id) => {
-    if (!window.confirm("Delete this creator?")) return;
+//  const deleteCreator = async (id) => {
+//     if (!window.confirm("Delete this creator?")) return;
 
-    try {
-      await axios.delete(`${Config.API_URL}/api/creator/${id}`);
-      fetchCreators();
-    } catch (err) {
-      console.log(err);
-      alert("Delete Failed");
-    }
-  };
+//     try {
+//       await axios.delete(`${Config.API_URL}/api/creator/${id}`);
+//       fetchCreators();
+//     } catch (err) {
+//       console.log(err);
+//       alert("Delete Failed");
+//     }
+//   };
   // UPDATE
    const updateCreator = async () => {
     try {
@@ -849,14 +849,6 @@ className="bg-white/10 border border-cyan-500 rounded-lg px-4 py-2 text-white"
                 >
                   Edit
                 </button>
-
-                <button
-                  onClick={() => deleteCreator(creator._id)}
-                  className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white"
-                >
-                  Delete
-                </button>
-
               </div>
 
             </td>
