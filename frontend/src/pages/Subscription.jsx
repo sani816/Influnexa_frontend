@@ -3,7 +3,7 @@ import axios from "axios";
 import Config from "../config/Config";
 import Papa from "papaparse";
 import {saveAs} from "file-saver";
-
+import PaymentQR from "../components/PaymentQR";
 
 function Subscription(){
 
@@ -40,7 +40,7 @@ name:"",
 email:"",
 phone:"",
 paymentApp:"Google Pay",
-// transactionId:"",
+transactionId:"",
 amount:1
 
 });
@@ -231,89 +231,104 @@ instagramFilter
 
 const checkPaymentStatus = async()=>{
 
-    try{
+try{
 
-        if(!payment.email){
+if(!payment.email){
 
-            alert("Please enter your email first");
-            return;
-
-        }
-
-
-        const res = await axios.get(
-            `${Config.API_URL}/api/payment/status/${payment.email}`
-        );
-
-
-        console.log("Payment Status:",res.data);
-
-
-        setPaymentStatus(res.data);
-
-
-
-       if(
-res.data.approved &&
-!res.data.downloaded
-){
-
-setDownloadAllowed(true);
-
-setPaymentStatus({
-...res.data,
-_id:res.data.paymentId
-});
-
-
-alert(
-"Payment Approved. Download unlocked."
-);
+alert("Please enter your payment email first");
+return;
 
 }
 
-        else if(
-            res.data.downloaded === true
-        ){
 
-            setDownloadAllowed(false);
-
-
-            alert(
-                "Download already used."
-            );
-
-        }
-
-        else{
+const res = await axios.get(
+`${Config.API_URL}/api/payment/status/${payment.email}`
+);
 
 
-            setDownloadAllowed(false);
+console.log(res.data);
 
 
-            alert(
-                "Payment is still pending."
-            );
+// no payment found
+if(!res.data.success){
+
+setDownloadAllowed(false);
+
+alert("No payment found.");
+
+return;
+
+}
 
 
-        }
+// already downloaded
+if(res.data.downloaded === true){
+
+setDownloadAllowed(false);
+
+setPaymentStatus(null);
+
+alert(
+"Download already used. Please make a new payment."
+);
+
+return;
+
+}
 
 
-    }
+// approved and not downloaded
 
-    catch(err){
+if(
+res.data.approved === true &&
+res.data.downloaded === false
+){
 
-        console.log(err);
+setPaymentStatus({
+
+...res.data,
+
+_id:res.data.paymentId
+
+});
 
 
-        alert(
-            err.response?.data?.message ||
-            "Unable to check payment status"
-        );
+setDownloadAllowed(true);
 
 
-    }
+alert(
+"Payment approved. Download unlocked for one time only."
+);
 
+
+return;
+
+}
+
+
+// pending
+
+setDownloadAllowed(false);
+
+
+alert(
+"Payment is pending approval."
+);
+
+
+
+}
+catch(err){
+
+console.log(err);
+
+alert(
+err.response?.data?.message ||
+"Unable to check payment status"
+);
+
+
+}
 
 };
 const submitPayment = async()=>{
@@ -359,10 +374,10 @@ payment.paymentApp
 );
 
 
-// formData.append(
-// "transactionId",
-// payment.transactionId
-// );
+formData.append(
+"transactionId",
+payment.transactionId
+);
 
 
 formData.append(
@@ -416,7 +431,7 @@ name:"",
 email:"",
 phone:"",
 paymentApp:"Google Pay",
-// transactionId:"",
+transactionId:"",
 amount:1
 
 });
@@ -447,7 +462,6 @@ err.response?.data?.message ||
 // DOWNLOAD CSV
 // ================================
 
-
 const downloadCSV = async()=>{
 
 try{
@@ -464,73 +478,77 @@ return;
 }
 
 
+// FIRST CHECK BACKEND
 
-const exportData = filtered.map((creator)=>({
-
-FullName:
-creator.fullName || "",
-
-
-Email:
-creator.email || "",
-
-
-Phone:
-creator.mobileNumber || "",
+const res = await axios.post(
+`${Config.API_URL}/api/payment/download`,
+{
+email:payment.email,
+filterData:{}
+}
+);
 
 
-Instagram:
-creator.instagramUsername || "",
+
+if(!res.data.success){
+
+alert(
+"Payment expired. Please purchase again."
+);
+
+return;
+
+}
 
 
-InstagramLink:
-creator.instagramLink || "",
+
+const creators=res.data.creators;
 
 
-Followers:
-creator.followersRange || "",
 
+const exportData = creators.map((creator)=>({
+
+FullName:creator.fullName || "",
+
+Email:creator.email || "",
+
+Phone:creator.mobileNumber || "",
+
+Instagram:creator.instagramUsername || "",
+
+InstagramLink:creator.instagramLink || "",
+
+Followers:creator.followersRange || "",
 
 Category:
 creator.preferredCategory?.join(",") || "",
 
-
 Campaign:
 creator.campaignTypes?.join(",") || "",
 
+City:creator.city || "",
 
-City:
-creator.city || "",
+State:creator.state || "",
 
-
-State:
-creator.state || "",
-
-
-Youtube:
-creator.youtubeName || "",
-
+Youtube:creator.youtubeName || "",
 
 YoutubeSubscribers:
 creator.youtubeSubs || ""
-
 
 }));
 
 
 
-const csv = Papa.unparse(exportData);
+
+const csv=Papa.unparse(exportData);
 
 
 
-const blob = new Blob(
-
+const blob=new Blob(
 [csv],
-
 {
 type:"text/csv;charset=utf-8;"
 }
-
 );
 
 
@@ -542,41 +560,28 @@ blob,
 
 
 
-// LOCK DOWNLOAD IN DATABASE
-
-if(paymentStatus?._id){
-
-await axios.put(
-
-`${Config.API_URL}/api/payment/lock-download/${paymentStatus._id}`
-
-);
-
-}
-
-
-// lock frontend also
+// lock frontend
 
 setDownloadAllowed(false);
 
 setPaymentStatus(null);
 
 
+
 alert(
-"Download completed. Please purchase again for next download."
+"Download completed. Please make new payment for next download."
 );
 
 
 
 }
-
 catch(err){
-
 
 console.log(err);
 
 
 alert(
+err.response?.data?.message ||
 "Download failed"
 );
 
@@ -1058,311 +1063,137 @@ creator.preferredCategory?.join(", ")
 {/* ================= PAYMENT MODAL ================= */}
 
 
-
 {
+  showPayment && (
+    <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50 p-4">
+      <div className="bg-gray-900 rounded-xl w-full max-w-xl max-h-[90vh] flex flex-col">
 
-showPayment &&
+        {/* Header */}
+        <div className="p-6 border-b border-gray-700">
+          <h2 className="text-2xl font-bold text-cyan-400">
+            Complete Payment
+          </h2>
+        </div>
 
+        {/* Scrollable Content */}
+        <div className="overflow-y-auto p-6">
 
-<div
+          <div className="bg-black p-5 rounded mb-5">
+            <h3 className="text-yellow-400 text-xl font-bold">
+              Scan QR & Pay ₹{payment.amount}
+            </h3>
 
-className="fixed inset-0 bg-black/80 flex justify-center items-center z-50"
+            <p className="mt-3">
+              UPI ID :
+              <span className="text-cyan-400 ml-2">
+                influnexa@upi
+              </span>
+            </p>
 
->
+            <PaymentQR amount={payment.amount} />
+          </div>
 
+          <input
+            className="w-full p-3 mb-3 rounded bg-gray-800 border border-cyan-500"
+            placeholder="Full Name"
+            value={payment.name}
+            onChange={(e) =>
+              setPayment({
+                ...payment,
+                name: e.target.value,
+              })
+            }
+          />
 
-<div
+          <input
+            type="email"
+            className="w-full p-3 mb-3 rounded bg-gray-800 border border-cyan-500"
+            placeholder="Email"
+            value={payment.email}
+            onChange={(e) =>
+              setPayment({
+                ...payment,
+                email: e.target.value,
+              })
+            }
+          />
 
-className="bg-gray-900 p-8 rounded-xl w-full max-w-xl"
+          <input
+            className="w-full p-3 mb-3 rounded bg-gray-800 border border-cyan-500"
+            placeholder="Phone Number"
+            value={payment.phone}
+            onChange={(e) =>
+              setPayment({
+                ...payment,
+                phone: e.target.value,
+              })
+            }
+          />
 
->
+          <select
+            className="w-full p-3 mb-3 rounded bg-gray-800 border border-cyan-500"
+            value={payment.paymentApp}
+            onChange={(e) =>
+              setPayment({
+                ...payment,
+                paymentApp: e.target.value,
+              })
+            }
+          >
+            <option>Google Pay</option>
+            <option>PhonePe</option>
+            <option>Paytm</option>
+            <option>UPI</option>
+            <option>Bank Transfer</option>
+          </select>
 
+          <input
+            className="w-full p-3 mb-3 rounded bg-gray-800 border border-cyan-500"
+            placeholder="Transaction ID"
+            value={payment.transactionId}
+            onChange={(e) =>
+              setPayment({
+                ...payment,
+                transactionId: e.target.value,
+              })
+            }
+          />
 
+          <input
+            type="file"
+            accept="image/*"
+            className="w-full mb-5"
+            onChange={(e) => setScreenshot(e.target.files[0])}
+          />
 
-<h2 className="text-2xl font-bold text-cyan-400 mb-5">
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowPayment(false)}
+              className="flex-1 bg-red-600 py-3 rounded-lg hover:bg-red-700"
+            >
+              Cancel
+            </button>
 
-Complete Payment
+            <button
+              onClick={submitPayment}
+              className="flex-1 bg-green-600 py-3 rounded-lg font-bold hover:bg-green-700"
+            >
+              Submit Payment
+            </button>
+          </div>
 
-</h2>
+          <button
+            onClick={checkPaymentStatus}
+            className="w-full mt-4 bg-blue-600 py-3 rounded-lg hover:bg-blue-700"
+          >
+            Check Payment Approval
+          </button>
 
-
-
-
-<div className="bg-black p-5 rounded mb-5">
-
-
-<h3 className="text-yellow-400 text-xl font-bold">
-
-Scan QR & Pay ₹1
-
-</h3>
-
-
-<p className="mt-3">
-
-UPI ID :
-
-<span className="text-cyan-400">
-
-influnexa@upi
-
-</span>
-
-</p>
-
-
-
-<img
-  src="https://res.cloudinary.com/bfddbfaz/image/upload/v1723456789/WhatsApp_Image_2026-08-03_at_12.11.25_PM_wkxtjh.jpg"
-  alt="Payment QR"
-  className="w-30 h-30 rounded-lg border-4 border-cyan-500 object-contain"
-/>
-</div>
-
-
-{/* PAYMENT FORM */}
-
-
-<input
-
-className="w-full p-3 mb-3 rounded bg-gray-800 border border-cyan-500"
-
-placeholder="Full Name"
-
-value={payment.name}
-
-onChange={(e)=>
-
-setPayment({
-
-...payment,
-
-name:e.target.value
-
-})
-
+        </div>
+      </div>
+    </div>
+  )
 }
-
-/>
-
-
-
-<input
-
-className="w-full p-3 mb-3 rounded bg-gray-800 border border-cyan-500"
-
-placeholder="Email"
-
-type="email"
-
-value={payment.email}
-
-onChange={(e)=>
-
-setPayment({
-
-...payment,
-
-email:e.target.value
-
-})
-
-}
-
-/>
-
-
-
-
-<input
-
-className="w-full p-3 mb-3 rounded bg-gray-800 border border-cyan-500"
-
-placeholder="Phone Number"
-
-value={payment.phone}
-
-onChange={(e)=>
-
-setPayment({
-
-...payment,
-
-phone:e.target.value
-
-})
-
-}
-
-/>
-
-
-
-
-
-<select
-
-className="w-full p-3 mb-3 rounded bg-gray-800 border border-cyan-500"
-
-value={payment.paymentApp}
-
-onChange={(e)=>
-
-setPayment({
-
-...payment,
-
-paymentApp:e.target.value
-
-})
-
-}
-
->
-
-
-<option>
-
-Google Pay
-
-</option>
-
-
-<option>
-
-PhonePe
-
-</option>
-
-
-<option>
-
-Paytm
-
-</option>
-
-
-<option>
-
-UPI
-
-</option>
-
-
-<option>
-
-Bank Transfer
-
-</option>
-
-
-</select>
-
-
-
-
-
-{/* <input
-
-className="w-full p-3 mb-3 rounded bg-gray-800 border border-cyan-500"
-
-placeholder="Transaction ID"
-
-value={payment.transactionId}
-
-onChange={(e)=>
-
-setPayment({
-
-...payment,
-
-transactionId:e.target.value
-
-})
-
-}
-
-/> */}
-
-
-
-
-<input
-
-type="file"
-
-accept="image/*"
-
-className="w-full mb-5"
-
-onChange={(e)=>
-
-setScreenshot(e.target.files[0])
-
-}
-
-/>
-
-
-
-
-
-
-<div className="grid grid-cols-2 gap-3">
-
-
-
-<button
-
-onClick={()=>setShowPayment(false)}
-
-className="w-1/2 bg-red-600 py-3 rounded-lg"
-
->
-
-Cancel
-
-</button>
-
-
-
-
-
-<button
-
-onClick={submitPayment}
-
-className="w-1/2 bg-green-600 py-3 rounded-lg font-bold"
-
->
-
-Submit Payment
-
-</button>
-
-</div>
-
-<button
-
-onClick={checkPaymentStatus}
-
-className="w-full mt-4 bg-blue-600 py-3 rounded-lg"
-
->
-
-Check Payment Approval
-
-</button>
-
-</div>
-
-
-</div>
-
-
-}
-
-
 
 </div>
 

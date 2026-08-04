@@ -165,31 +165,31 @@ const rejectPayment = async (id) => {
 };
 
 
-// ==========================================
-// RESET DOWNLOAD
-// ==========================================
+// // ==========================================
+// // RESET DOWNLOAD
+// // ==========================================
 
-const resetDownload = async (id) => {
+// const resetDownload = async (id) => {
 
-  try {
+//   try {
 
-    await axios.put(
-      `${Config.API_URL}/api/payment/reset-download/${id}`
-    );
+//     await axios.put(
+//       `${Config.API_URL}/api/payment/reset-download/${id}`
+//     );
 
-    alert("Download Unlocked");
+//     alert("Download Unlocked");
 
-    fetchPayments();
+//     fetchPayments();
 
-  } catch (err) {
+//   } catch (err) {
 
-    console.log(err);
+//     console.log(err);
 
-    alert(err.response?.data?.message || "Reset Failed");
+//     alert(err.response?.data?.message || "Reset Failed");
 
-  }
+//   }
 
-};
+// };
 
 
 
@@ -481,16 +481,15 @@ Actions
                   <td>
 
                     <button
-
-                      onClick={()=>setPreviewImage(payment.screenshot)}
-
-                      className="bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded"
-
-                    >
-
-                      View
-
-                    </button>
+  onClick={() => 
+    
+setPreviewImage(payment.screenshot)
+   
+  }
+  className="bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded"
+>
+  View
+</button>
 
                   </td>
 
@@ -609,7 +608,7 @@ Actions
   </button>
 
 
-  {
+  {/* {
 
     payment.downloaded && (
 
@@ -627,7 +626,7 @@ Actions
 
     )
 
-  }
+  } */}
 
 </div>
 
@@ -762,35 +761,36 @@ Next
 }
 
 {
-
 previewImage && (
 
 <div
-
-className="fixed inset-0 bg-black/80 flex justify-center items-center z-50"
-
-onClick={()=>setPreviewImage(null)}
-
+  className="fixed inset-0 bg-black/80 flex justify-center items-center z-50"
+  onClick={()=>setPreviewImage(null)}
 >
 
-<div className="bg-white p-4 rounded-xl">
+  <div 
+    className="bg-white p-4 rounded-xl"
+    onClick={(e)=>e.stopPropagation()}
+  >
 
-<img
+    <img
+      src={previewImage}
+      alt="Payment Screenshot"
+      className="max-w-[700px] max-h-[80vh] rounded-lg object-contain"
+    />
 
-src={`${Config.API_URL}/uploads/payments/${previewImage}`}
+    <button
+      onClick={()=>setPreviewImage(null)}
+      className="mt-3 bg-red-500 text-white px-4 py-2 rounded"
+    >
+      Close
+    </button>
 
-alt="Payment Screenshot"
-
-className="max-w-[700px] max-h-[80vh] rounded-lg"
-
-/>
-
-</div>
+  </div>
 
 </div>
 
 )
-
 }
     </div>
 
